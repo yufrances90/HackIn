@@ -1,3 +1,3 @@
-const firebaseApp = require('./utils/firebase');
+const { firebaseDB } = require('./utils');
 
-console.log(firebaseApp);
+console.log(firebaseDB.database.ref());
