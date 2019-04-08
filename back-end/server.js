@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({
 
 const utils = require("./utils");
 
-const port = "8000";
+const port = process.env.PORT || 8000;
 
 app.get('/', (req, res) => res.send("Hello World!"));
 
