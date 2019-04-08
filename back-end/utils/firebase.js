@@ -1,11 +1,13 @@
-const { firebaseDB } = require('../config');
+const { firebaseConfig } = require('../config');
+
+const USER_COLLECTION_NAME = "users";
 
 const testFirebaseDB = () => {
 
-    firebaseDB.database.collection("users").get().then(snapshot => {
+    firebaseConfig.database.collection(USER_COLLECTION_NAME).get().then(snapshot => {
         snapshot.forEach(doc => {
-            console.log(doc.data())
-        })
+            console.log(doc.data());
+        });
     });
 }
 
