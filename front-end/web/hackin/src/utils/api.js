@@ -1,11 +1,6 @@
 import axios from 'axios';
 import raven from 'raven-js';
 
-import config from '../config/config.json';
-
-const { host, port } = config.server;
-const baseURL = `http://${host}:${port}`;
-
 const getClient = (baseURL = null) => {
 
     const options = {
@@ -39,8 +34,8 @@ const getClient = (baseURL = null) => {
 
 export default class ApiClient {
 
-    constructor() {
-        this.client = getClient(baseURL);
+    constructor(baseUrl = null) {
+        this.client = getClient(baseUrl);
     }
 
     get(url, conf = {}) {
