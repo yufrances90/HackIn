@@ -5,11 +5,33 @@ import {
     View 
 } from 'react-native';
 
+import * as utils from './src/utils';
+
 export default class App extends React.Component {
+
+    state = {
+        msg: ''
+    }
+
+    async componentDidMount() {
+
+        const apiClient = utils.getClient();
+        
+        const response = await apiClient.get("/");
+
+        this.setState({
+            msg: response.data
+        });
+    }
     render() {
+
+        const { msg } = this.state;
+
         return (
             <View style={styles.container}>
-                <Text>Open up App.js to start working on your app!</Text>
+                <Text>
+                    { msg}
+                </Text>
             </View>
         );
     }
