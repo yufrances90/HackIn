@@ -1,7 +1,14 @@
 const { firebaseConfig } = require('../config');
 
 const userCollectionName = "users";
-const userCollection = firebaseConfig.database.collection(userCollectionName);
+const hackathonCollectionName = "hackathons";
+
+const getCollection = (collectionName) => {
+    return firebaseConfig.database.collection(collectionName);
+}
+
+const userCollection = getCollection(userCollectionName);
+const hackathonCollection = getCollection(hackathonCollectionName);
 
 const testFirebaseDB = () => {
 
@@ -10,6 +17,12 @@ const testFirebaseDB = () => {
             console.log(doc.data());
         });
     });
+
+    hackathonCollection.get().then(snapshot => {
+        snapshot.forEach(doc => {
+            console.log(doc.data());
+        })
+    })
 }
 
 module.exports = {
