@@ -1,7 +1,19 @@
 const {
-    testFirebaseDB
+    testFirebaseDB,
+    getAllUsers,
+    getAllHackathons,
+    getUserById,
+    getHackathonById,
+    getUsers,
+    getHackathons
 } = require('./firebase');
 
 module.exports = {
-    testFirebaseDB
+    testFirebaseDB,
+    getAllUsers,
+    getAllHackathons,
+    getUserById,
+    getHackathonById,
+    getUsers,
+    getHackathons
 };

@@ -16,11 +16,11 @@ const port = process.env.PORT || 8000;
 
 app.get('/', (req, res) => res.send("Hello World!"));
 
-app.get('/testingDb', (req, res) => {
+app.get('/testingDb', async (req, res) => {
 
-    utils.testFirebaseDB();
+    const users = await utils.getHackathons("name", "==", "AthenaHacks");
 
-    res.send("Testing Firebase DB...");
+    res.send(JSON.stringify(users));
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));
