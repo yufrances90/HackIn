@@ -1,3 +1,8 @@
 .h-appbar {
     background-color: black !important;
 }
+
+.h-main {
+    /* border: 1px solid red; */
+    margin: 3vh 2vw;
+}
