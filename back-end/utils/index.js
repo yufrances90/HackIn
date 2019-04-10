@@ -7,7 +7,9 @@ const {
     getUsers,
     getHackathons,
     addUser,
-    addHackathon
+    addHackathon,
+    deleteHackathon,
+    deleteUser
 } = require('./firebase');
 
 module.exports = {
@@ -19,5 +21,7 @@ module.exports = {
     getUsers,
     getHackathons,
     addUser,
-    addHackathon
+    addHackathon,
+    deleteHackathon,
+    deleteUser
 };

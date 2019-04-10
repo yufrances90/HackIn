@@ -3,8 +3,10 @@ const { firebaseConfig } = require('../config');
 const userCollectionName = "users";
 const hackathonCollectionName = "hackathons";
 
+const db = firebaseConfig.database;
+
 const getCollection = (collectionName) => {
-    return firebaseConfig.database.collection(collectionName);
+    return db.collection(collectionName);
 }
 
 const userCollection = getCollection(userCollectionName);
@@ -41,6 +43,10 @@ const addUser = async (newUser) => {
     return await add(userCollection, newUser);
 }
 
+const deleteUser = async (userId) => {
+    return await deleteById(userCollection, userId);
+}
+
 const getAllHackathons = async () => {
     return await get(hackathonCollection);
 }
@@ -57,13 +63,21 @@ const addHackathon = async (newHackathon) => {
     return await add(hackathonCollection, newHackathon);
 }
 
+const deleteHackathon = async (hackathonId) => {
+    return await deleteById(hackathonCollection, hackathonId);
+}
+
 /*
     Private methods
 */
 
-const add = async (collection, newUser) => {
+const deleteById = async (collection, id) => {
+    return await collection.doc(id).delete();
+}
 
-    const ref = await collection.add(newUser);
+const add = async (collection, newRecord) => {
+
+    const ref = await collection.add(newRecord);
 
     return ref.id;
 }
@@ -104,5 +118,7 @@ module.exports = {
     getUsers,
     getHackathons,
     addUser,
-    addHackathon
+    addHackathon,
+    deleteHackathon,
+    deleteUser
 }
