@@ -6,13 +6,29 @@
 
 <script>
 
+    import {
+        getClient
+    } from "./utils";
+
     import CNavbar from './components/CNavbar.vue';
+
+    const testConnection = async () => {
+
+        const apiClient = getClient();
+
+        const response = await apiClient.get("/");
+
+        console.log(response);
+    }
 
     export default {
         name: 'app',
         components: {
             CNavbar
-        }
+        },
+        mounted() {
+            testConnection();
+        },
     }
 </script>
 
