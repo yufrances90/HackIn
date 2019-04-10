@@ -37,6 +37,10 @@ const getUsers = async (attr, op, value) => {
     return await get(userCollection, attr, op, value);
 }
 
+const addUser = async (newUser) => {
+    return await add(userCollection, newUser);
+}
+
 const getAllHackathons = async () => {
     return await get(hackathonCollection);
 }
@@ -49,9 +53,20 @@ const getHackathons = async (attr, op, value) => {
     return await get(hackathonCollection, attr, op, value);
 }
 
+const addHackathon = async (newHackathon) => {
+    return await add(hackathonCollection, newHackathon);
+}
+
 /*
     Private methods
 */
+
+const add = async (collection, newUser) => {
+
+    const ref = await collection.add(newUser);
+
+    return ref.id;
+}
 
 const get = async (collection, attr=null, op=null, value=null) => {
 
@@ -87,5 +102,7 @@ module.exports = {
     getUserById,
     getHackathonById,
     getUsers,
-    getHackathons
+    getHackathons,
+    addUser,
+    addHackathon
 }
