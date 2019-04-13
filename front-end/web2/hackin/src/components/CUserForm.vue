@@ -24,7 +24,25 @@
                         <label for="email">Email Address</label>
                         <MdInput name="email" id="email" />
                     </MdField>
-
+                    <MdField>
+                        <label for="dietary-restrictions">
+                            Do you have any dietary restrictions/concerns or allergies?
+                        </label>
+                        <MdInput name="dietary-restriction" id="dietary-restriction" />
+                        <span class="md-helper-text">
+                            ex. Vegetarian, Vegan, etc
+                        </span>
+                    </MdField>
+                    <MdField>
+                        <label for="tShirtSize"> 
+                            T-Shirt Size
+                        </label>
+                        <MdSelect v-model="tShirtSize" name="tShirtSize" id="tShirtSize">
+                            <MdOption :value="item" v-for="item in tshirtSizeList" :key="item">
+                                {{ item }}
+                            </MdOption>
+                        </MdSelect>
+                    </MdField>
                     <MdRadio v-model="userType" value="hacker">
                         Hacker
                     </MdRadio>
@@ -35,25 +53,30 @@
                         Mentor
                     </MdRadio>
                     <hr>
-                        <CHackerSection 
-                            v-show="userType === 'hacker'" 
-                        />
-                        <CMentorSection 
-                            v-show="userType === 'mentor'" 
-                        />
-                        <CVolunteerSection 
-                             v-show="userType === 'volunteer'" 
-                        />
-                    <hr
-                        v-show="userType" 
-                    >
+                    <CHackerSection 
+                        v-show="userType === 'hacker'" 
+                    />
+                    <CMentorSection 
+                        v-show="userType === 'mentor'" 
+                    />
+                    <CVolunteerSection 
+                            v-show="userType === 'volunteer'" 
+                    />
+                    
 
-                    <MdButton 
-                        class="submit-btn"
-                        v-show="userType" 
-                    >
-                        Submit
-                    </MdButton>
+                    <div v-show="userType">
+                         <MdCheckbox v-model="confirm_read_mlh_conduct">
+                            I have read and agree to the ​MLH Code of Conduct
+                        </MdCheckbox>
+                        <hr>
+                        <MdButton 
+                            class="submit-btn"
+                        >
+                            Submit
+                        </MdButton>
+                    </div>
+
+                    
             </div>
                 
             </MdCardContent>
@@ -71,7 +94,9 @@
         MdDialog,
         MdButton,
         MdCheckbox,
-        MdRadio
+        MdRadio,
+        MdMenu,
+        MdList
     } from 'vue-material/dist/components'
     import 'vue-material/dist/vue-material.min.css';
 
@@ -86,12 +111,22 @@
     Vue.use(MdButton);
     Vue.use(MdCheckbox);
     Vue.use(MdRadio);
+    Vue.use(MdMenu);
+    Vue.use(MdList);
 
     export default {
         name: "CUserForm",
         data() {
             return {
-                userType: null
+                userType: null,
+                tshirtSizeList: [
+                    "XS",
+                    "S",
+                    "M",
+                    "L",
+                    "XL"
+                ],
+                confirm_read_mlh_conduct: null
             }
         },
         components: {
