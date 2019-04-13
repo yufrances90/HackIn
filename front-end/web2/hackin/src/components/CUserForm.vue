@@ -21,7 +21,7 @@
                         <MdInput name="phone-number" id="phone-number" />
                     </MdField>
                     <MdField>
-                        <label for="email">Email</label>
+                        <label for="email">Email Address</label>
                         <MdInput name="email" id="email" />
                     </MdField>
 
@@ -34,10 +34,24 @@
                     <MdRadio v-model="userType" value="mentor">
                         Mentor
                     </MdRadio>
-
                     <hr>
+                        <CHackerSection 
+                            v-show="userType === 'hacker'" 
+                        />
+                        <CMentorSection 
+                            v-show="userType === 'mentor'" 
+                        />
+                        <CVolunteerSection 
+                             v-show="userType === 'volunteer'" 
+                        />
+                    <hr
+                        v-show="userType" 
+                    >
 
-                    <MdButton class="submit-btn">
+                    <MdButton 
+                        class="submit-btn"
+                        v-show="userType" 
+                    >
                         Submit
                     </MdButton>
             </div>
@@ -61,6 +75,10 @@
     } from 'vue-material/dist/components'
     import 'vue-material/dist/vue-material.min.css';
 
+    import CMentorSection from './CMentorSection.vue';
+    import CHackerSection from './CHackerSection.vue';
+    import CVolunteerSection from './CVolunteerSection.vue';
+
     Vue.use(MdCard);
     Vue.use(MdField);
     Vue.use(MdDatepicker);
@@ -76,8 +94,16 @@
                 userType: null
             }
         },
+        components: {
+            CMentorSection,
+            CHackerSection,
+            CVolunteerSection
+        }
     }
 </script>
 
 <style scoped>
+    .form-section {
+        margin: 1vh 0 4vh;
+    }
 </style>
