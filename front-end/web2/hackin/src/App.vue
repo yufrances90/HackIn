@@ -1,6 +1,7 @@
 <template>
     <div id="app">
-        <c-navbar></c-navbar>
+        <CNavbar />
+        <PCreate />
     </div>
 </template>
 
@@ -11,6 +12,7 @@
     } from "./utils";
 
     import CNavbar from './components/CNavbar.vue';
+    import PCreate from './pages/PCreate.vue';
 
     const testConnection = async () => {
 
@@ -24,7 +26,8 @@
     export default {
         name: 'app',
         components: {
-            CNavbar
+            CNavbar,
+            PCreate
         },
         mounted() {
             testConnection();
