@@ -3,7 +3,7 @@
         <div class="md-layout-item md-size-25">
         </div>
         <div class="md-layout-item">
-            <CHackathonForm />
+            <CUserForm />
         </div>
         <div class="md-layout-item md-size-25">
         </div>
@@ -15,11 +15,13 @@
     import 'vue-material/dist/vue-material.min.css';
 
     import CHackathonForm from '../components/CHackathonForm.vue';
+    import CUserForm from '../components/CUserForm.vue';
 
     export default {
         name: "PCreate",
         components: {
-            CHackathonForm
+            CHackathonForm,
+            CUserForm
         }
     }
 </script>

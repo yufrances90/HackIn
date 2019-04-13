@@ -47,4 +47,10 @@
 
     @import "~vue-material/dist/theme/all"; // Apply the theme
 
+    .submit-btn {
+        color: blue !important;
+        float: right;
+        margin-bottom: 3vh;
+    }
+
 </style>

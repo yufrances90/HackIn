@@ -4,11 +4,8 @@
             <MdCardHeader>
                 <div class="md-title">Add a New Hackathon</div>
             </MdCardHeader>
-
             <MdCardContent>
-
                 <div>
-           
                     <MdField>
                         <label for="hackathon-name">Name</label>
                         <MdInput name="hackathon-name" id="hackathon-name" />
@@ -49,7 +46,7 @@ Vue.use(MdCard);
 Vue.use(MdField);
 Vue.use(MdDatepicker);
 Vue.use(MdDialog);
-Vue.use(MdButton)
+Vue.use(MdButton);
 
 export default {
     name: "CHackathonForm",
@@ -62,11 +59,7 @@ export default {
 }
 </script>
 
-<style>
-    .submit-btn {
-        color: blue !important;
-        float: right;
-        margin-bottom: 3vh;
-    }
+<style scoped>
 </style>
+
 
