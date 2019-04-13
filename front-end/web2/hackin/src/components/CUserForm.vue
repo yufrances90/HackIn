@@ -65,9 +65,11 @@
                     
 
                     <div v-show="userType">
-                         <MdCheckbox v-model="confirm_read_mlh_conduct">
-                            I have read and agree to the ​MLH Code of Conduct
-                        </MdCheckbox>
+                        <div>
+                            <MdCheckbox v-model="confirm_read_mlh_conduct">
+                                I have read and agree to the ​MLH Code of Conduct
+                            </MdCheckbox>
+                        </div>
                         <hr>
                         <MdButton 
                             class="submit-btn"
@@ -139,6 +141,6 @@
 
 <style scoped>
     .form-section {
-        margin: 1vh 0 4vh;
+        margin: 2vh 0 4vh;
     }
 </style>
