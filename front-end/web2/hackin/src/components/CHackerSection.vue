@@ -61,6 +61,12 @@
             <MdInput name="github" id="github" />
         </MdField>
         <MdField>
+            <label for="linkedin">
+                LinkedIn
+            </label>
+            <MdInput name="linkedin" id="linkedin" />
+        </MdField>
+        <MdField>
             <label for="personal-website">
                 Personal Website
             </label>
