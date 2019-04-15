@@ -1,9 +1,22 @@
 <template>
     <div class="page-container">
         <MdToolbar class="md-primary md-medium">
-            <h3 class="md-title" style="flex: 1">
-                {{ title }}
-            </h3>
+            <router-link 
+                    :to="{ name: 'PHome' }"
+                    class="nav-link"
+                > 
+                <h3 class="md-title" style="flex: 1">
+                    {{ title }}
+                </h3>
+            </router-link>
+            <MdButton >
+                <router-link 
+                    :to="{ name: 'PCreate' }"
+                    class="nav-link"
+                > 
+                    Create / Apply
+                </router-link>
+            </MdButton>
         </MdToolbar>
     </div>
 </template>
@@ -42,6 +55,14 @@ export default {
     .md-drawer {
         width: 230px;
         max-width: calc(100vw - 125px);
+    }
+
+    .nav-link {
+        color: inherit !important;
+    }
+
+    .nav-link:hover {
+        text-decoration: none;
     }
 </style>
 

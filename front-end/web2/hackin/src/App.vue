@@ -2,7 +2,6 @@
     <div id="app">
         <CNavbar />
         <router-view/>
-        <!-- <PCreate /> -->
     </div>
 </template>
 
@@ -13,7 +12,6 @@
     } from "./utils";
 
     import CNavbar from './components/CNavbar.vue';
-    import PCreate from './pages/PCreate.vue';
 
     const testConnection = async () => {
 
@@ -27,17 +25,11 @@
     export default {
         name: 'app',
         components: {
-            CNavbar,
-            PCreate
+            CNavbar
         },
         mounted() {
             testConnection();
-        },
-        data() {
-            return {
-                currentView: PCreate
-            }
-        },
+        }
     }
 </script>
 
