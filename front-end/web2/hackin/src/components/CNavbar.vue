@@ -1,21 +1,34 @@
 <template>
     <div class="page-container">
         <MdToolbar class="md-primary md-medium">
-            <router-link 
+            <MdButton 
+                class="md-icon-button"
+                :disabled="!isLoggedIn"
+            >
+                <md-icon>
+                        menu
+                </md-icon> 
+            </MdButton>
+            <h3 class="md-title" style="flex: 1">
+                <router-link 
                     :to="{ name: 'PHome' }"
                     class="nav-link"
                 > 
-                <h3 class="md-title" style="flex: 1">
                     {{ title }}
-                </h3>
-            </router-link>
-            <MdButton >
-                <router-link 
-                    :to="{ name: 'PCreate' }"
-                    class="nav-link"
-                > 
-                    Create / Apply
                 </router-link>
+            </h3>
+            <MdButton
+                v-show="!isLoggedIn"
+            >
+                LOGIN
+            </MdButton>
+            <MdButton 
+                class="md-icon-button"
+                v-show="isLoggedIn"
+            >
+                <md-icon>
+                        person
+                </md-icon> 
             </MdButton>
         </MdToolbar>
     </div>
@@ -36,7 +49,8 @@ Vue.use(MdButton);
 export default {
     name: 'CNavbar',
     data: () => ({
-        title: "HackMMunity"
+        title: "HackMMunity",
+        isLoggedIn: true
     })
 }
 </script>
