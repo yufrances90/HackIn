@@ -1,7 +1,8 @@
 <template>
     <div id="app">
         <CNavbar />
-        <PCreate />
+        <router-view/>
+        <!-- <PCreate /> -->
     </div>
 </template>
 
@@ -31,6 +32,11 @@
         },
         mounted() {
             testConnection();
+        },
+        data() {
+            return {
+                currentView: PCreate
+            }
         },
     }
 </script>
