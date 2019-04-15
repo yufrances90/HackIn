@@ -3,7 +3,8 @@
         <div class="md-layout-item md-size-25">
         </div>
         <div class="md-layout-item">
-            <CUserForm />
+            <CUserForm v-if="!isNewHackathonCreation" />
+            <CHackathonForm v-else />
         </div>
         <div class="md-layout-item md-size-25">
         </div>
@@ -19,6 +20,11 @@
 
     export default {
         name: "PCreate",
+        data() {
+            return {
+                isNewHackathonCreation: (Object.keys(this.$route.params).length > 0)? this.$route.params.isNewHackathonCreation : false
+            }
+        },
         components: {
             CHackathonForm,
             CUserForm

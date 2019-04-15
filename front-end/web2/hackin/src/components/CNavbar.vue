@@ -4,14 +4,15 @@
             <MdButton 
                 class="md-icon-button"
                 :disabled="!isLoggedIn"
+                @click="showNavigation = true"
             >
                 <md-icon>
-                        menu
+                        menu 
                 </md-icon> 
             </MdButton>
             <h3 class="md-title" style="flex: 1">
                 <router-link 
-                    :to="{ name: 'PHome' }"
+                    to="/"
                     class="nav-link"
                 > 
                     {{ title }}
@@ -31,28 +32,75 @@
                 </md-icon> 
             </MdButton>
         </MdToolbar>
+        <MdDrawer
+            :md-active.sync="showNavigation"
+        >
+            <MdToolbar
+                class="md-transparent" 
+                md-elevation="0"
+            >   
+                <span class="md-title">
+                   {{ title }}
+                </span>
+            </MdToolbar>
+
+            <MdList>
+                <MdListItem>
+                    <router-link 
+                        :to="{
+                            name: 'PCreate',
+                            params: {
+                                isNewHackathonCreation: true
+                            }
+                        }"
+                        class="nav-link"
+                    > 
+                        Create New Hackathon
+                    </router-link>
+                </MdListItem>
+                <MdListItem>
+                    <router-link 
+                        :to="{
+                            name: 'PCreate',
+                            params: {
+                                isNewHackathonCreation: false
+                            }
+                        }"
+                        class="nav-link"
+                    > 
+                        Apply To Hackathon
+                    </router-link>
+                </MdListItem>
+            </MdList>
+        </MdDrawer>
     </div>
 </template>
 
 <script>
 
-import Vue from 'vue'
+import Vue from 'vue';
 import { 
     MdToolbar,
-    MdButton 
-} from 'vue-material/dist/components'
-import 'vue-material/dist/vue-material.min.css'
+    MdButton,
+    MdDrawer,
+    MdList 
+} from 'vue-material/dist/components';
+import 'vue-material/dist/vue-material.min.css';
 
 Vue.use(MdToolbar);
 Vue.use(MdButton);
+Vue.use(MdDrawer);
+Vue.use(MdList);
 
 export default {
     name: 'CNavbar',
     data: () => ({
         title: "HackMMunity",
-        isLoggedIn: true
+        isLoggedIn: true,
+        showNavigation: false
     })
 }
+
 </script>
 
 <style lang="scss" scoped>
