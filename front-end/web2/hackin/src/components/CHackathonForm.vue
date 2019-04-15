@@ -20,11 +20,13 @@
                     <MdDatepicker v-model="selectedEndDate">
                         <label>Select end date</label>
                     </MdDatepicker>
+                    <hr>
+                        <CAvailabilitySection />
+                    <hr>
                     <MdButton class="submit-btn">
                         Submit
                     </MdButton>
             </div>
-                
             </MdCardContent>
         </MdCard>
     </form>
@@ -42,6 +44,8 @@ import {
 } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css';
 
+import CAvailabilitySection from './CAvailabilitySection.vue';
+
 Vue.use(MdCard);
 Vue.use(MdField);
 Vue.use(MdDatepicker);
@@ -55,6 +59,9 @@ export default {
             selectedStartDate: null,
             selectedEndDate: null
         }
+    },
+    components: {
+        CAvailabilitySection
     }
 }
 </script>
