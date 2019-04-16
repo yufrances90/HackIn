@@ -7,7 +7,6 @@
             <CHackathonForm v-else />
         </div>
         <div class="md-layout-item md-size-25">
-            {{ msg }}
         </div>
     </div>
 </template>
@@ -28,7 +27,7 @@
                 isNewHackathonCreation: 
                     (Object.keys(this.$route.params).length > 0)? 
                     this.$route.params.isNewHackathonCreation : false,
-                msg: ""
+                newHackathon: null
             }
         },
         components: {
@@ -42,8 +41,20 @@
         },
         mounted() {
             utils.EventBus.$on('addNewHackathon', data => {
-                this.msg = JSON.stringify(data);
+                this.newHackathon = data;
             });
+        },
+        watch: {
+            newHackathon() {
+
+                utils.Client.post("/hackathons", this.newHackathon)
+                    .then(response => {
+
+                        if (response.status === 204) {
+                            alert("Successfully created new hackathon!");
+                        }
+                    })
+            }
         },
     }
 </script>
