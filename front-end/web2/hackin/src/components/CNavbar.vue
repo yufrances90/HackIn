@@ -18,11 +18,36 @@
                     {{ title }}
                 </router-link>
             </h3>
-            <MdButton
-                v-show="!isLoggedIn"
-            >
-                LOGIN
-            </MdButton>
+            <span v-show="!isLoggedIn">
+                <MdButton
+                >
+                    <router-link 
+                        :to="{
+                            name: 'PLogin',
+                            params: {
+                                isSignUpOpt: true
+                            }
+                        }"
+                        class="nav-link"
+                    > 
+                        Sign up
+                    </router-link>
+                </MdButton>
+                <MdButton
+                >
+                    <router-link 
+                        :to="{
+                            name: 'PLogin',
+                            params: {
+                                isSignUpOpt: false
+                            }
+                        }"
+                        class="nav-link"
+                    > 
+                        Login
+                    </router-link>
+                </MdButton>
+            </span>
             <MdButton 
                 class="md-icon-button"
                 v-show="isLoggedIn"
@@ -96,7 +121,7 @@ export default {
     name: 'CNavbar',
     data: () => ({
         title: "HackMMunity",
-        isLoggedIn: true,
+        isLoggedIn: false,
         showNavigation: false
     })
 }
