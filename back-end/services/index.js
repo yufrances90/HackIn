@@ -1,5 +1,7 @@
 const accountService = require("./accountService");
+const hackathonService = require("./hackathonService");
 
 module.exports = {
-    AccountService: accountService
+    AccountService: accountService,
+    HackathonService: hackathonService
 }

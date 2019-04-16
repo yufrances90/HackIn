@@ -28,9 +28,14 @@ app.post('/accounts', async (req, res) => {
 
     const newAccount = req.body;
 
-    const response = await controllers.AccountController.saveNewAccount(newAccount);
+    try {
+        
+        const response = await controllers.AccountController.saveNewAccount(newAccount);
 
-    res.status(204).send(JSON.stringify(response));
+        res.status(204).send(JSON.stringify(response));
+    } catch(error) {
+        res.status(500).send(JSON.stringify(error));
+    }
 });
 
 app.get('/accountByUsrname', async (req, res) => {
@@ -42,14 +47,31 @@ app.get('/accountByUsrname', async (req, res) => {
         return;
     }
 
-    const response = await controllers.AccountController.getAccountByUsrname(usrname);
+    try {
 
-    if (response === null) {
-        res.status(500).send("Internal Server Error!");
-    } else if (response.length === 0) {
-        res.status(404).send("No record is found!");
-    } else {
-        res.status(200).send(JSON.stringify(response[0]));
+        const response = await controllers.AccountController.getAccountByUsrname(usrname);
+
+        if (response.length === 0) {
+            res.status(404).send("No record is found!");
+        } else {
+            res.status(200).send(JSON.stringify(response[0]));
+        }
+    } catch(error) {
+        res.status(500).send(JSON.stringify(error));
+    }
+});
+
+app.post('/hackathons', async (req, res) => {
+
+    const newHackathon = req.body;
+
+    try {
+
+        const response = await controllers.HackathonController.saveNewHackathon(newHackathon);
+
+        res.status(204).send(JSON.stringify(response));
+    } catch(error) {
+        res.status(500).send(JSON.stringify(error));
     }
 });
 

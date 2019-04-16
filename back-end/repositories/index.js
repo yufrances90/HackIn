@@ -1,5 +1,7 @@
 const accountRepo = require("./accountRepo");
+const hackathonRepo = require("./hackathonRepo");
 
 module.exports = {
-    AccountRepo: accountRepo
+    AccountRepo: accountRepo,
+    HackathonRepo: hackathonRepo
 }
