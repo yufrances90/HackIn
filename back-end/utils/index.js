@@ -9,7 +9,12 @@ const {
     addUser,
     addHackathon,
     deleteHackathon,
-    deleteUser
+    deleteUser,
+    getAllAccounts,
+    getAccounts,
+    getAccountById,
+    addAccount,
+    deleteAccount
 } = require('./firebase');
 
 module.exports = {
@@ -23,5 +28,10 @@ module.exports = {
     addUser,
     addHackathon,
     deleteHackathon,
-    deleteUser
+    deleteUser,
+    getAllAccounts,
+    getAccounts,
+    getAccountById,
+    addAccount,
+    deleteAccount
 };

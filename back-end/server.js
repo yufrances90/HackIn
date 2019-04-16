@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({
 })); // support encoded bodies
 
 const utils = require("./utils");
+const controllers = require("./controllers");
 
 const port = process.env.PORT || 8000;
 
@@ -25,9 +26,15 @@ app.get('/testingDb', async (req, res) => {
 
 app.post('/accounts', async (req, res) => {
 
-    console.log(req.body);
+    const newAccount = req.body;
 
-    res.send(JSON.stringify(req.body));
+    console.log(newAccount);
+
+    res.send("Hello World");
+
+    // const response = await controllers.AccountController.saveNewAccount(newAccount);
+
+    // res.send(JSON.stringify(response));
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));

@@ -2,6 +2,7 @@ const { firebaseConfig } = require('../config');
 
 const userCollectionName = "users";
 const hackathonCollectionName = "hackathons";
+const accountCollectionName = "accounts";
 
 const db = firebaseConfig.database;
 
@@ -11,6 +12,7 @@ const getCollection = (collectionName) => {
 
 const userCollection = getCollection(userCollectionName);
 const hackathonCollection = getCollection(hackathonCollectionName);
+const accountCollection = getCollection(accountCollectionName);
 
 const testFirebaseDB = () => {
 
@@ -67,6 +69,26 @@ const deleteHackathon = async (hackathonId) => {
     return await deleteById(hackathonCollection, hackathonId);
 }
 
+const getAllAccounts = async () => {
+    return await get(accountCollection);
+}
+
+const getAccountById = async (id) => {
+    return await getById(id);
+}
+
+const getAccounts = async (attr, op, value) => {
+    return await get(accountCollection, attr, op, value);
+}
+
+const addAccount = async (newAccount) => {
+    return await add(accountCollection, newAccount);
+}
+
+const deleteAccount = async (accountId) => {
+    return await deleteById(accountCollection, accountId);
+}
+
 /*
     Private methods
 */
@@ -120,5 +142,10 @@ module.exports = {
     addUser,
     addHackathon,
     deleteHackathon,
-    deleteUser
+    deleteUser,
+    getAllAccounts,
+    getAccountById,
+    getAccounts,
+    addAccount,
+    deleteAccount
 }
