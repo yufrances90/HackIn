@@ -28,13 +28,9 @@ app.post('/accounts', async (req, res) => {
 
     const newAccount = req.body;
 
-    console.log(newAccount);
+    const response = await controllers.AccountController.saveNewAccount(newAccount);
 
-    res.send("Hello World");
-
-    // const response = await controllers.AccountController.saveNewAccount(newAccount);
-
-    // res.send(JSON.stringify(response));
+    res.status(204).send(JSON.stringify(response));
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));

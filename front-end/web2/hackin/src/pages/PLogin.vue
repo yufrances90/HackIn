@@ -50,7 +50,8 @@ export default {
                 position: 'center',
                 duration: 4000,
                 isInfinity: false
-            }
+            },
+            newAccount: null
         }
     },
     components: {
@@ -67,17 +68,22 @@ export default {
     },
     methods: {
         saveNewAccount() {
+            utils.EventBus.$on('addNewAccount', data => {
+                this.newAccount = data;
+            });
+        }
+    },
+    watch: {
+        newAccount() {
 
-            utils.EventBus.$on('addNewAccount', async data => {
+            utils.Client.post("/accounts", this.newAccount).then(response => {
 
-                const response = await utils.Client.post("/accounts", data);
-
-                if (response.status === 200) {
-                    this.msg = JSON.stringify(response.data);
+                if (response.status === 204) {
+                    this.msg = "Successfully created new account!";
                 }
 
                 this.snackbar.showSnackbar = true;
-            });
+            });            
         }
     },
 }
