@@ -7,24 +7,12 @@
 
 <script>
 
-    import utils from "./utils";
-
     import CNavbar from './components/CNavbar.vue';
-
-    const testConnection = async () => {
-
-        const response = await utils.Client.get("/");
-
-        console.log(response);
-    }
 
     export default {
         name: 'app',
         components: {
             CNavbar
-        },
-        mounted() {
-            testConnection();
         }
     }
 </script>
