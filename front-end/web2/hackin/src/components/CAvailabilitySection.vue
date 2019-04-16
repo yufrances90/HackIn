@@ -17,13 +17,20 @@
             <MdListItem
                 v-for="shift in shifts"
                 :key="shift.name"
+                class="flex-item"
             >
-                {{ shift.name }} | {{ shift.startTime }} - {{ shift.endTime }}
-                <MdButton class="md-icon-button md-accent">
-                    <MdIcon>
+                <div class="md-list-item-text">
+                    <span> {{ shift.name }}</span>
+                    <p> 
+                        {{ formatTime(shift.startDatetime )}} - {{ formatTime(shift.endDatetime )}}
+                    </p>
+                </div>
+
+                <md-button class="md-icon-button md-list-action">
+                    <md-icon class="md-accent">
                         delete
-                    </MdIcon>
-                </MdButton>
+                    </md-icon>
+                </md-button>
             </MdListItem>
         </MdList>
 
@@ -35,14 +42,14 @@
 
             <div class="shift-container">
 
-                <ElTimePicker
-                    is-range
+                <ElDatePicker
+                    type="datetimerange"
                     v-model="shiftTimeRange"
                     range-separator="-"
                     start-placeholder="Start time"
                     end-placeholder="End time"
                 >
-                </ElTimePicker>
+                </ElDatePicker>
 
                 <MdField>
                     <label for="shift-name">
@@ -53,6 +60,9 @@
                         id="shift-name" 
                         v-model="shiftName"
                     />
+                    <span class="md-helper-text">
+                        Maximum characters allowed: {{ maxCharsAllowed }} ({{ remainNumChars }} characters left)
+                    </span>
                 </MdField>
 
             </div>
@@ -67,6 +77,7 @@
                 <MdButton
                     class="md-accent"
                     @click="addNewShift"
+                    :disabled="disbaleSaveBtn"
                 >
                     Save
                 </MdButton>
@@ -97,7 +108,31 @@ export default {
         return {
             showDialog: false,
             shiftName: "",
-            shiftTimeRange: [new Date(), new Date()]
+            shiftTimeRange: [new Date(), new Date()],
+            startDatetime: new Date(),
+            endDatetime: new Date(),
+            disbaleSaveBtn: true,
+            maxCharsAllowed: 40
+        }
+    },
+    computed: {
+        remainNumChars() {
+            return this.maxCharsAllowed - this.shiftName.length;
+        }
+    },
+    watch: {
+        shiftTimeRange() {
+
+            this.startDatetime = this.shiftTimeRange[0];
+            this.endDatetime = this.shiftTimeRange[1];
+        },
+        shiftName() {
+
+            if (this.shiftName <= 0 || this.shiftName.length > this.maxCharsAllowed) {
+                this.disbaleSaveBtn = true;
+            } else {
+                this.disbaleSaveBtn = false;
+            }
         }
     },
     props: [
@@ -106,21 +141,18 @@ export default {
     methods: {
         addNewShift() {
 
-            const startDate = this.shiftTimeRange[0];
-            const endDate = this.shiftTimeRange[1];
-
-            const startTime = startDate.getHours() + ":" + startDate.getMinutes();
-            const endTime = endDate.getHours() + ":" + endDate.getMinutes();
-
             const newShift = {
                 name: this.shiftName,
-                startTime,
-                endTime
+                startDatetime: this.startDatetime,
+                endDatetime: this.endDatetime
             }
 
             utils.EventBus.$emit('addNewShift', newShift);
 
             this.showDialog = false;
+        },
+        formatTime(datetime) {
+            return datetime.toLocaleTimeString();
         }
     },
 }
@@ -133,6 +165,11 @@ export default {
 
     .shift-container {
         margin: 0 1vw;
+    }
+
+    .flex-item {
+        display: flex;
+        flex-direction: column;
     }
 </style>
 
