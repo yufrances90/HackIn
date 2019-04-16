@@ -6,6 +6,7 @@
             <CLoginForm 
                 v-if="!isSignUpOpt"
             />
+            <CSignupForm v-else />
         </div>
          <div class="md-layout-item md-size-25">
         </div>
@@ -15,6 +16,7 @@
 <script>
 
 import CLoginForm from "../components/CLoginForm.vue";
+import CSignupForm from "../components/CSignupForm.vue";
 
 export default {
     name: "PLogin",
@@ -24,7 +26,8 @@ export default {
         }
     },
     components: {
-        CLoginForm
+        CLoginForm,
+        CSignupForm
     },
     mounted() {
 
