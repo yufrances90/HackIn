@@ -35,6 +35,11 @@
             CHackathonForm,
             CUserForm
         },
+        beforeCreate() {
+            if (!this.$store.getters.isLoggedIn) {
+                this.$router.push("/login");
+            }
+        },
         mounted() {
             utils.EventBus.$on('addNewHackathon', data => {
                 this.msg = JSON.stringify(data);
