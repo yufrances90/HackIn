@@ -23,6 +23,7 @@
         </MdField>
         <MdButton
             @click="validateAndLogin"
+            class="login-btn"
         >
             Login
         </MdButton>
@@ -40,6 +41,10 @@ export default {
     },
     methods: {
         validateAndLogin() {
+
+            // fetch record from backend 
+            
+
             console.log(this.password);
         }
     },
@@ -47,5 +52,9 @@ export default {
 </script>
 
 <style scoped>
+
+    .login-btn {
+        float: right;
+    }
 </style>
 
