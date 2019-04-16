@@ -79,10 +79,15 @@ export default {
             utils.Client.post("/accounts", this.newAccount).then(response => {
 
                 if (response.status === 204) {
-                    this.msg = "Successfully created new account!";
-                }
 
-                this.snackbar.showSnackbar = true;
+                    this.msg = "Successfully created new account!";
+
+                    this.snackbar.showSnackbar = true;
+
+                    utils.EventBus.$emit("login");
+
+                    this.$router.push("/");
+                }
             });            
         }
     },

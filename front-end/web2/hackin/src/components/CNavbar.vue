@@ -113,6 +113,8 @@ import {
 } from 'vue-material/dist/components';
 import 'vue-material/dist/vue-material.min.css';
 
+import utils from "../utils";
+
 Vue.use(MdToolbar);
 Vue.use(MdButton);
 Vue.use(MdDrawer);
@@ -125,7 +127,13 @@ export default {
         title: "HackMMunity",
         isLoggedIn: false,
         showNavigation: false
-    })
+    }),
+    mounted() {
+        
+        utils.EventBus.$on("login", () => {
+            this.isLoggedIn = true;
+        });
+    },
 }
 
 </script>
