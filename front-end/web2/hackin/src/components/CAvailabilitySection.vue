@@ -14,8 +14,16 @@
         </MdButton>
 
         <MdList>
-            <MdListItem>
-                Hello from CAvailabilitySection
+            <MdListItem
+                v-for="shift in shifts"
+                :key="shift.name"
+            >
+                {{ shift.name }} | {{ shift.startTime }} - {{ shift.endTime }}
+                <MdButton class="md-icon-button md-accent">
+                    <MdIcon>
+                        delete
+                    </MdIcon>
+                </MdButton>
             </MdListItem>
         </MdList>
 
@@ -29,11 +37,10 @@
 
                 <ElTimePicker
                     is-range
-                    v-model="value4"
+                    v-model="shiftTimeRange"
                     range-separator="-"
                     start-placeholder="Start time"
                     end-placeholder="End time"
-                    step="00:30"
                 >
                 </ElTimePicker>
 
@@ -44,6 +51,7 @@
                     <MdInput
                         name="shift-name"
                         id="shift-name" 
+                        v-model="shiftName"
                     />
                 </MdField>
 
@@ -58,7 +66,7 @@
                 </MdButton>
                 <MdButton
                     class="md-accent"
-                    @click="showDialog = false"
+                    @click="addNewShift"
                 >
                     Save
                 </MdButton>
@@ -77,6 +85,8 @@ import {
 } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css';
 
+import utils from '../utils';
+
 Vue.use(MdList);
 Vue.use(MdButton);
 Vue.use(MdTooltip);
@@ -86,7 +96,31 @@ export default {
     data() {
         return {
             showDialog: false,
-            value4: [new Date(1900, 9, 10, 8, 40), new Date(1900, 9, 10, 9, 40)]
+            shiftName: "",
+            shiftTimeRange: [new Date(), new Date()]
+        }
+    },
+    props: [
+        "shifts"
+    ],
+    methods: {
+        addNewShift() {
+
+            const startDate = this.shiftTimeRange[0];
+            const endDate = this.shiftTimeRange[1];
+
+            const startTime = startDate.getHours() + ":" + startDate.getMinutes();
+            const endTime = endDate.getHours() + ":" + endDate.getMinutes();
+
+            const newShift = {
+                name: this.shiftName,
+                startTime,
+                endTime
+            }
+
+            utils.EventBus.$emit('addNewShift', newShift);
+
+            this.showDialog = false;
         }
     },
 }

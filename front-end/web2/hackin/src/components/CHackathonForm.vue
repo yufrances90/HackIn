@@ -29,7 +29,9 @@
                         <label>Select end date</label>
                     </MdDatepicker>
                     <hr>
-                        <CAvailabilitySection />
+                        <CAvailabilitySection 
+                            :shifts="hackathonShifts"
+                        />
                     <hr>
                     <MdButton 
                         class="submit-btn"
@@ -72,11 +74,17 @@ export default {
             hackathonName: "",
             hackathonAddress: "",
             hackathonStartDate: null,
-            hackathonEndDate: null
+            hackathonEndDate: null,
+            hackathonShifts: []
         }
     },
     components: {
         CAvailabilitySection
+    },
+    mounted() {
+        utils.EventBus.$on('addNewShift', data => {
+            this.hackathonShifts.push(data);
+        });
     },
     methods: {
         addNewHackathon() {
@@ -85,7 +93,8 @@ export default {
                 name: this.hackathonName,
                 address: this.hackathonAddress,
                 startDate: this.hackathonStartDate,
-                endDate: this.hackathonEndDate
+                endDate: this.hackathonEndDate,
+                shifts: this.hackathonShifts
             }
 
             utils.EventBus.$emit('addNewHackathon', newHackathon);
