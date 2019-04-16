@@ -1,16 +1,34 @@
 <template>
-    <div class="form md-layout">
-        <div class="md-layout-item md-size-25">
+    <div>
+        <div class="form md-layout">
+            <div class="md-layout-item md-size-25">
+            </div>
+            <div class="md-layout-item">
+                <CLoginForm 
+                    v-if="!isSignUpOpt"
+                />
+                <CSignupForm v-else />
+            </div>
+            <div class="md-layout-item md-size-25">
+            </div>
         </div>
-        <div class="md-layout-item">
-            <CLoginForm 
-                v-if="!isSignUpOpt"
-            />
-            <CSignupForm v-else />
-        </div>
-         <div class="md-layout-item md-size-25">
-             {{ msg }}
-        </div>
+        
+        <MdSnackbar
+            :md-position="snackbar.position" 
+            :md-duration="snackbar.isInfinity ? Infinity : snackbar.duration" 
+            :md-active.sync="snackbar.showSnackbar" 
+            md-persistent
+        >
+            <span>
+                {{ msg }}
+            </span>
+            <MdButton 
+                class="md-primary" 
+                @click="snackbar.showSnackbar = false"
+            >
+                Close
+            </MdButton>
+        </MdSnackbar>
     </div>
 </template>
 
@@ -26,7 +44,13 @@ export default {
     data() {
         return {
             isSignUpOpt: false,
-            msg: ""
+            msg: "",
+            snackbar: {
+                showSnackbar: false,
+                position: 'center',
+                duration: 4000,
+                isInfinity: false
+            }
         }
     },
     components: {
@@ -44,8 +68,15 @@ export default {
     methods: {
         saveNewAccount() {
 
-            utils.EventBus.$on('addNewAccount', data => {
-                this.msg = JSON.stringify(data);
+            utils.EventBus.$on('addNewAccount', async data => {
+
+                const response = await utils.Client.post("/accounts", data);
+
+                if (response.status === 200) {
+                    this.msg = JSON.stringify(response.data);
+                }
+
+                this.snackbar.showSnackbar = true;
             });
         }
     },

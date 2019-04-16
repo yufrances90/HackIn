@@ -24,7 +24,10 @@ app.get('/testingDb', async (req, res) => {
 });
 
 app.post('/accounts', async (req, res) => {
-    res.send(JSON.stringify(req));
+
+    console.log(req.body);
+
+    res.send(JSON.stringify(req.body));
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));
