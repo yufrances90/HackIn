@@ -7,7 +7,7 @@
             <MdInput 
                 name="username"
                 id="username" 
-                v-model="username"
+                v-model="usrname"
             />
         </MdField>
         <MdField>
@@ -22,7 +22,7 @@
             />
         </MdField>
         <MdButton
-            @click="validateAndLogin"
+            @click="loginBtnClick"
             class="login-btn"
         >
             Login
@@ -31,21 +31,26 @@
 </template>
 
 <script>
+
+import utils from '../utils';
+
 export default {
     name: "CLoginForm",
     data() {
         return {
-            username: "",
+            usrname: "",
             password: ""
         }
     },
     methods: {
-        validateAndLogin() {
+        loginBtnClick() {
 
-            // fetch record from backend 
-            
+            const account = {
+                usrname: this.usrname,
+                password: this.password
+            }
 
-            console.log(this.password);
+            utils.EventBus.$emit("userLogin", account);
         }
     },
 }

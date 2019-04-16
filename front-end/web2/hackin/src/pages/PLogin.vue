@@ -51,7 +51,8 @@ export default {
                 duration: 4000,
                 isInfinity: false
             },
-            newAccount: null
+            newAccount: null,
+            account: null
         }
     },
     components: {
@@ -64,12 +65,21 @@ export default {
 
         this.isSignUpOpt = (Object.keys(params).length > 0)? params.isSignUpOpt : this.isSignUpOpt;
 
-        this.saveNewAccount();
+        if (this.isSignUpOpt) {
+            this.saveNewAccount();
+        } else {
+            this.userLogin();
+        }
     },
     methods: {
         saveNewAccount() {
-            utils.EventBus.$on('addNewAccount', data => {
+            utils.EventBus.$on("addNewAccount", data => {
                 this.newAccount = data;
+            });
+        },
+        userLogin() {
+            utils.EventBus.$on("userLogin", data => {
+                this.account = data;
             });
         }
     },
@@ -80,15 +90,60 @@ export default {
 
                 if (response.status === 204) {
 
+                    setTimeout(() => {
+
+                        utils.EventBus.$emit("login");
+
+                        this.$router.push("/");
+                    }, 2500);
+
                     this.msg = "Successfully created new account!";
 
                     this.snackbar.showSnackbar = true;
-
-                    utils.EventBus.$emit("login");
-
-                    this.$router.push("/");
                 }
             });            
+        },
+        async account() {
+
+            try {
+
+                const response = 
+                    await utils.Client.get(`/accountByUsrname?usrname=${this.account.usrname}`);
+
+                if (response.status === 200) {
+
+                    const usrAccount = response.data;
+
+                    if (usrAccount.password === this.account.password) {
+
+                        setTimeout(() => {
+
+                            utils.EventBus.$emit("login");
+
+                            this.$router.push("/");
+                        }, 2500);
+
+                        this.msg = "Login Successfully!";
+
+                        this.snackbar.showSnackbar = true;
+                    } else {
+
+                        this.msg = "Error: password is incorrect!";
+
+                        this.snackbar.showSnackbar = true;
+                    }
+                } else {
+
+                    this.msg = response.data;
+
+                    this.snackbar.showSnackbar = true;
+                }
+            } catch (error) {
+
+                this.msg = error;
+
+                this.snackbar.showSnackbar = true;
+            }
         }
     },
 }
