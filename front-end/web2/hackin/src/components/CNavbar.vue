@@ -51,6 +51,7 @@
             <MdButton 
                 class="md-icon-button"
                 v-show="isLoggedIn"
+                @click="logout"
             >
                 <md-icon>
                         person
@@ -129,10 +130,18 @@ export default {
         showNavigation: false
     }),
     mounted() {
-        
+
         utils.EventBus.$on("login", () => {
             this.isLoggedIn = true;
         });
+    },
+    methods: {
+        logout() {
+
+            this.isLoggedIn = false;
+
+            window.location = "/login";
+        }
     },
 }
 
