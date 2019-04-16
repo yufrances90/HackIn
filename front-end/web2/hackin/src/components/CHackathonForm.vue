@@ -8,22 +8,33 @@
                 <div>
                     <MdField>
                         <label for="hackathon-name">Name</label>
-                        <MdInput name="hackathon-name" id="hackathon-name" />
+                        <MdInput 
+                            name="hackathon-name" 
+                            id="hackathon-name"
+                            v-model="hackathonName" 
+                        />
                     </MdField>
                     <MdField>
                         <label for="hackathon-address">Address</label>
-                        <MdInput name="hackathon-address" id="hackathon-address" />
+                        <MdInput 
+                            name="hackathon-address" 
+                            id="hackathon-address"
+                            v-model="hackathonAddress" 
+                        />
                     </MdField>
-                    <MdDatepicker v-model="selectedStartDate">
+                    <MdDatepicker v-model="hackathonStartDate">
                         <label>Select start date</label>
                     </MdDatepicker>
-                    <MdDatepicker v-model="selectedEndDate">
+                    <MdDatepicker v-model="hackathonEndDate">
                         <label>Select end date</label>
                     </MdDatepicker>
                     <hr>
                         <CAvailabilitySection />
                     <hr>
-                    <MdButton class="submit-btn">
+                    <MdButton 
+                        class="submit-btn"
+                        @click="addNewHackathon"
+                    >
                         Submit
                     </MdButton>
             </div>
@@ -46,6 +57,8 @@ import 'vue-material/dist/vue-material.min.css';
 
 import CAvailabilitySection from './CAvailabilitySection.vue';
 
+import utils from '../utils';
+
 Vue.use(MdCard);
 Vue.use(MdField);
 Vue.use(MdDatepicker);
@@ -56,13 +69,28 @@ export default {
     name: "CHackathonForm",
     data() {
         return {
-            selectedStartDate: null,
-            selectedEndDate: null
+            hackathonName: "",
+            hackathonAddress: "",
+            hackathonStartDate: null,
+            hackathonEndDate: null
         }
     },
     components: {
         CAvailabilitySection
-    }
+    },
+    methods: {
+        addNewHackathon() {
+
+            const newHackathon = {
+                name: this.hackathonName,
+                address: this.hackathonAddress,
+                startDate: this.hackathonStartDate,
+                endDate: this.hackathonEndDate
+            }
+
+            utils.EventBus.$emit('addNewHackathon', newHackathon);
+        }
+    },
 }
 </script>
 

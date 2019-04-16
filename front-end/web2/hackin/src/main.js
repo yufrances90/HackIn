@@ -10,6 +10,10 @@ Vue.config.productionTip = false
 
 Vue.use(ElementUI, { locale });
 
+Vue.config.errorHandler = err => {
+  console.log('Exception: ', err)
+}
+
 new Vue({
   router,
   render: h => h(App),

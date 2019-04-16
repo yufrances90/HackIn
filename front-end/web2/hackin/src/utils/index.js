@@ -1,12 +1,17 @@
 import ApiClient from './api';
+import { EventBus } from './eventBus';
 
 import config from '../config/config.json';
 
-const { host, port } = config.server;
-const baseURL = `http://${host}:${port}`;
+const getClient = () => {
 
-const apiClient = new ApiClient(baseURL);
+    const { host, port } = config.server;
+    const baseURL = `http://${host}:${port}`;
 
-export const getClient = () => {
-    return apiClient;
+    return new ApiClient(baseURL);
+}
+
+export default {
+    Client: getClient(),
+    EventBus
 }

@@ -7,17 +7,13 @@
 
 <script>
 
-    import {
-        getClient
-    } from "./utils";
+    import utils from "./utils";
 
     import CNavbar from './components/CNavbar.vue';
 
     const testConnection = async () => {
 
-        const apiClient = getClient();
-
-        const response = await apiClient.get("/");
+        const response = await utils.Client.get("/");
 
         console.log(response);
     }
