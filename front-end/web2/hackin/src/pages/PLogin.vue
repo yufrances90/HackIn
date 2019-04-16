@@ -9,6 +9,7 @@
             <CSignupForm v-else />
         </div>
          <div class="md-layout-item md-size-25">
+             {{ msg }}
         </div>
     </div>
 </template>
@@ -18,11 +19,14 @@
 import CLoginForm from "../components/CLoginForm.vue";
 import CSignupForm from "../components/CSignupForm.vue";
 
+import utils from '../utils';
+
 export default {
     name: "PLogin",
     data() {
         return {
-            isSignUpOpt: false
+            isSignUpOpt: false,
+            msg: ""
         }
     },
     components: {
@@ -33,7 +37,17 @@ export default {
 
         const { params } = this.$route;
 
-        this.isSignUpOpt = (Object.keys(params).length > 0)? params.isSignUpOpt : this.isSignUpOpt
+        this.isSignUpOpt = (Object.keys(params).length > 0)? params.isSignUpOpt : this.isSignUpOpt;
+
+        this.saveNewAccount();
+    },
+    methods: {
+        saveNewAccount() {
+
+            utils.EventBus.$on('addNewAccount', data => {
+                this.msg = JSON.stringify(data);
+            });
+        }
     },
 }
 </script>

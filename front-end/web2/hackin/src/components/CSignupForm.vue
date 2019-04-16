@@ -55,6 +55,9 @@
 </template>
 
 <script>
+
+import utils from '../utils';
+
 export default {
     name: "CSignupForm",
     data() {
@@ -87,14 +90,15 @@ export default {
 
             if (!isPwdMatched) {
                 this.snackbar.showSnackbar = true;
-            }
+                return;
+            } 
 
-            const userInfo = {
+            const newAccount = {
                 usrname: this.usrname,
                 password: this.password
             }
 
-            console.log(userInfo);
+            utils.EventBus.$emit('addNewAccount', newAccount);
         }
     },
 }
