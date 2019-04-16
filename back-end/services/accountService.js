@@ -8,6 +8,13 @@ class AccountService {
 
         return res;
     }
+
+    async getAccountByUsrname(usrname) {
+
+        const res = await repos.AccountRepo.getAccountByUsrname(usrname);
+
+        return res;
+    }
 }
 
 const accountService = new AccountService();

@@ -31,6 +31,26 @@ app.post('/accounts', async (req, res) => {
     const response = await controllers.AccountController.saveNewAccount(newAccount);
 
     res.status(204).send(JSON.stringify(response));
-})
+});
+
+app.get('/accountByUsrname', async (req, res) => {
+
+    const { usrname } = req.query;
+
+    if (!usrname || usrname.length === 0) {
+        res.status(400).send("No usrname is provided");
+        return;
+    }
+
+    const response = await controllers.AccountController.getAccountByUsrname(usrname);
+
+    if (response === null) {
+        res.status(500).send("Internal Server Error!");
+    } else if (response.length === 0) {
+        res.status(404).send("No record is found!");
+    } else {
+        res.status(200).send(JSON.stringify(response[0]));
+    }
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));

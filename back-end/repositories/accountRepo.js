@@ -8,6 +8,13 @@ class AccountRepo {
 
         return res;
     }
+
+    async getAccountByUsrname(usrname) {
+
+        const res = await utils.getAccounts("usrname", "==", usrname);
+
+        return res;
+    }
 }
 
 const accountRepo = new AccountRepo();

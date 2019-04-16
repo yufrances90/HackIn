@@ -8,6 +8,13 @@ class AccountController {
 
         return res;
     }
+
+    async getAccountByUsrname(usrname) {
+
+        const res = await services.AccountService.getAccountByUsrname(usrname);
+
+        return res;
+    }
 }
 
 const accountController = new AccountController();
