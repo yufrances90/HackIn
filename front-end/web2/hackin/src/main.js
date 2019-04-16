@@ -5,6 +5,7 @@ import locale from 'element-ui/lib/locale/lang/en';
 
 import App from './App.vue';
 import router from './routes';
+import utils from './utils';
 
 Vue.config.productionTip = false
 
@@ -16,5 +17,6 @@ Vue.config.errorHandler = err => {
 
 new Vue({
   router,
+  store: utils.store,
   render: h => h(App),
 }).$mount('#app');

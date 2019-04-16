@@ -126,19 +126,23 @@ export default {
     name: 'CNavbar',
     data: () => ({
         title: "HackMMunity",
-        isLoggedIn: false,
         showNavigation: false
     }),
+    computed: {
+        isLoggedIn() {
+            return this.$store.getters.isLoggedIn;
+        }
+    },
     mounted() {
 
         utils.EventBus.$on("login", () => {
-            this.isLoggedIn = true;
+            this.$store.commit("loggedIn");
         });
     },
     methods: {
         logout() {
-
-            this.isLoggedIn = false;
+            
+            this.$store.commit("loggedOut");
 
             window.location = "/login";
         }
