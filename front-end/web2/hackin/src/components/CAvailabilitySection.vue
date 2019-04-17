@@ -1,23 +1,33 @@
 <template>
     <div>
 
-        <MdButton 
-            class="md-icon-button md-primary"
-            @click="showDialog = true"
-        >
-            <MdIcon>
-                add
-            </MdIcon>
-            <MdTooltip md-direction="top">
-                Add New Shift
-            </MdTooltip>
-        </MdButton>
-
         <MdList>
+
+            <MdListItem>
+
+                <div class="md-list-item-text">
+                    <h5> 
+                        Available shifts
+                    </h5>
+                </div>
+
+                <MdButton 
+                    class="md-icon-button md-primary"
+                    @click="showDialog = true"
+                >
+                    <MdIcon>
+                        add
+                    </MdIcon>
+                    <MdTooltip md-direction="top">
+                        Add New Shift
+                    </MdTooltip>
+                </MdButton>
+
+            </MdListItem>
+
             <MdListItem
                 v-for="shift in shifts"
                 :key="shift.name"
-                class="flex-item"
             >
                 <div class="md-list-item-text">
                     <span> {{ shift.name }}</span>
@@ -26,10 +36,23 @@
                     </p>
                 </div>
 
+
+                <md-button class="md-icon-button md-list-action">
+                    <md-icon class="md-primary">
+                        edit
+                    </md-icon>
+                    <MdTooltip md-direction="top">
+                        Edit Shift
+                    </MdTooltip>
+                </md-button>
+
                 <md-button class="md-icon-button md-list-action">
                     <md-icon class="md-accent">
                         delete
                     </md-icon>
+                    <MdTooltip md-direction="top">
+                        Delete Shift
+                    </MdTooltip>
                 </md-button>
             </MdListItem>
         </MdList>
@@ -51,20 +74,62 @@
                 >
                 </ElDatePicker>
 
-                <MdField>
-                    <label for="shift-name">
-                        Task
-                    </label>
-                    <MdInput
-                        name="shift-name"
-                        id="shift-name" 
-                        v-model="shiftName"
-                    />
-                    <span class="md-helper-text">
-                        Maximum characters allowed: {{ maxCharsAllowed }} ({{ remainNumChars }} characters left)
-                    </span>
-                </MdField>
+                <MdDivider />
 
+                
+                <MdSwitch 
+                    v-model="isVolunteerShift"
+                    :disabled="isMentorShift"
+                >
+                    Volunteer Shift?
+                </MdSwitch>
+                <MdSwitch 
+                    v-model="isMentorShift"
+                    :disabled="isVolunteerShift"
+                >
+                    Mentor Shift?
+                </MdSwitch>
+
+                <div v-if="isVolunteerShift">
+                    <MdField>
+                        <label for="shift-name">
+                            Task
+                        </label>
+                        <MdInput
+                            name="shift-name"
+                            id="shift-name" 
+                            v-model="shiftName"
+                        />
+                        <span class="md-helper-text">
+                            Maximum characters allowed: {{ maxCharsAllowed }} ({{ remainNumChars }} characters left)
+                        </span>
+                    </MdField>
+                    <MdField>
+                        <label for="shift-num-volunteers-required">
+                            Number of Volunteers Required
+                        </label>
+                        <MdInput
+                            name="shift-num-volunteers-required"
+                            id="shift-num-volunteers-required" 
+                            v-model="shiftNumVolunteersRequired"
+                            type="number"
+                        />
+                    </MdField>
+                </div>
+
+                <div v-if="isMentorShift">
+                    <MdField>
+                        <label for="shift-num-mentor-required">
+                            Number of Mentors Required
+                        </label>
+                        <MdInput
+                            name="shift-num-mentor-required"
+                            id="shift-num-mentor-required" 
+                            v-model="shiftNumMentorsRequired"
+                            type="number"
+                        />
+                    </MdField>
+                </div>
             </div>
 
             <MdDialogActions>
@@ -92,7 +157,9 @@ import Vue from 'vue'
 import { 
     MdList,
     MdButton,
-    MdTooltip
+    MdTooltip,
+    MdSwitch,
+    MdDivider
 } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css';
 
@@ -101,50 +168,56 @@ import utils from '../utils';
 Vue.use(MdList);
 Vue.use(MdButton);
 Vue.use(MdTooltip);
+Vue.use(MdSwitch);
+Vue.use(MdDivider);
 
 export default {
     name: "CAvailabilitySection",
+    props: [
+        "shifts",
+        "startDate"
+    ],
     data() {
         return {
             showDialog: false,
             shiftName: "",
-            shiftTimeRange: [new Date(), new Date()],
-            startDatetime: new Date(),
-            endDatetime: new Date(),
-            disbaleSaveBtn: true,
-            maxCharsAllowed: 40
+            shiftTimeRange: [this.startDate, this.startDate],
+            startDatetime: this.startDate,
+            endDatetime: this.startDate,
+            maxCharsAllowed: 40,
+            shiftNumVolunteersRequired: 0,
+            isVolunteerShift: false,
+            isMentorShift: false,
+            shiftNumMentorsRequired: 0
         }
     },
     computed: {
         remainNumChars() {
             return this.maxCharsAllowed - this.shiftName.length;
+        },
+        disbaleSaveBtn() {
+            return !this.isVolunteerShift && !this.isMentorShift;
         }
     },
     watch: {
         shiftTimeRange() {
-
             this.startDatetime = this.shiftTimeRange[0];
             this.endDatetime = this.shiftTimeRange[1];
         },
-        shiftName() {
-
-            if (this.shiftName <= 0 || this.shiftName.length > this.maxCharsAllowed) {
-                this.disbaleSaveBtn = true;
-            } else {
-                this.disbaleSaveBtn = false;
-            }
+        startDate() {
+            this.shiftTimeRange = [this.startDate, this.startDate];
         }
     },
-    props: [
-        "shifts"
-    ],
     methods: {
         addNewShift() {
 
             const newShift = {
                 name: this.shiftName,
                 startDatetime: this.startDatetime,
-                endDatetime: this.endDatetime
+                endDatetime: this.endDatetime,
+                type: (this.isVolunteerShift)? 1 : 2,
+                numMentorRequired: this.shiftNumMentorsRequired,
+                numVolunteersRequired: this.shiftNumVolunteersRequired,
             }
 
             utils.EventBus.$emit('addNewShift', newShift);
@@ -152,9 +225,9 @@ export default {
             this.showDialog = false;
         },
         formatTime(datetime) {
-            return datetime.toLocaleTimeString();
+            return datetime.toLocaleString();
         }
-    },
+    }
 }
 </script>
 
@@ -165,11 +238,6 @@ export default {
 
     .shift-container {
         margin: 0 1vw;
-    }
-
-    .flex-item {
-        display: flex;
-        flex-direction: column;
     }
 </style>
 
