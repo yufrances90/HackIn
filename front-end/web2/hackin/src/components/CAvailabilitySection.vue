@@ -6,9 +6,9 @@
             <MdListItem>
 
                 <div class="md-list-item-text">
-                    <h5> 
+                    <MdSubheader>
                         Available shifts
-                    </h5>
+                    </MdSubheader>
                 </div>
 
                 <MdButton 
@@ -30,7 +30,17 @@
                 :key="shift.name"
             >
                 <div class="md-list-item-text">
-                    <span> {{ shift.name }}</span>
+                    <div v-if="shift.type === 1"> 
+                        <span>
+                            {{ shift.name }} 
+                        </span>
+                        <h6>
+                            Number of Volunteers Required: {{ shift.numVolunteersRequired}}
+                        </h6>
+                    </div>
+                    <span v-else>
+                        Number of Mentors Required: {{ shift.numMentorRequired }}
+                    </span>
                     <p> 
                         {{ formatTime(shift.startDatetime )}} - {{ formatTime(shift.endDatetime )}}
                     </p>
@@ -159,7 +169,8 @@ import {
     MdButton,
     MdTooltip,
     MdSwitch,
-    MdDivider
+    MdDivider,
+    MdSubheader
 } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css';
 
@@ -170,6 +181,7 @@ Vue.use(MdButton);
 Vue.use(MdTooltip);
 Vue.use(MdSwitch);
 Vue.use(MdDivider);
+Vue.use(MdSubheader);
 
 export default {
     name: "CAvailabilitySection",

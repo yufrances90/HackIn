@@ -39,12 +39,12 @@
                         <MdDatepicker v-model="hackathonEndDate">
                             <label>Select end date</label>
                         </MdDatepicker>
-                        <hr>
-                            <CAvailabilitySection 
-                                :shifts="hackathonShifts"
-                                :startDate="hackathonStartDate"
-                            />
-                        <hr>
+                        <MdDivider> </MdDivider>
+                        <CAvailabilitySection 
+                            :shifts="hackathonShifts"
+                            :startDate="hackathonStartDate"
+                        />
+                        <MdDivider> </MdDivider>
                         <MdButton 
                             class="submit-btn"
                             @click="addNewHackathon"
