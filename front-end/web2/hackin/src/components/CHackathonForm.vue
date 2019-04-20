@@ -122,9 +122,7 @@ export default {
                 logoUrl: this.hackathonLogoUrl
             }
 
-            console.log(newHackathon);
-
-            // utils.EventBus.$emit('addNewHackathon', newHackathon);
+            utils.EventBus.$emit('addNewHackathon', newHackathon);
         },
         compareDates() {
             if (this.hackathonStartDate > this.hackathonEndDate) {
