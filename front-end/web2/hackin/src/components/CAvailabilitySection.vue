@@ -47,7 +47,10 @@
                 </div>
 
 
-                <md-button class="md-icon-button md-list-action">
+                <md-button 
+                    class="md-icon-button md-list-action"
+                    :disabled="true"
+                >
                     <md-icon class="md-primary">
                         edit
                     </md-icon>
@@ -56,7 +59,10 @@
                     </MdTooltip>
                 </md-button>
 
-                <md-button class="md-icon-button md-list-action">
+                <md-button 
+                    class="md-icon-button md-list-action"
+                    :disabled="true"
+                >
                     <md-icon class="md-accent">
                         delete
                     </md-icon>
@@ -151,13 +157,21 @@
                 </MdButton>
                 <MdButton
                     class="md-accent"
-                    @click="addNewShift"
+                    @click="active = true"
                     :disabled="disbaleSaveBtn"
                 >
                     Save
                 </MdButton>
             </MdDialogActions>
         </MdDialog>
+
+        <MdDialogConfirm
+            :md-active.sync="active"
+            md-title="Add new shift?"
+            md-content="This shift cannot be editted or deleted after submitting!"
+            md-confirm-text="Save"
+            @md-confirm="addNewShift" 
+        />
     </div>
 </template>
 
@@ -170,7 +184,8 @@ import {
     MdTooltip,
     MdSwitch,
     MdDivider,
-    MdSubheader
+    MdSubheader,
+    MdDialogConfirm
 } from 'vue-material/dist/components'
 import 'vue-material/dist/vue-material.min.css';
 
@@ -182,6 +197,7 @@ Vue.use(MdTooltip);
 Vue.use(MdSwitch);
 Vue.use(MdDivider);
 Vue.use(MdSubheader);
+Vue.use(MdDialogConfirm);
 
 export default {
     name: "CAvailabilitySection",
@@ -200,7 +216,8 @@ export default {
             shiftNumVolunteersRequired: 0,
             isVolunteerShift: false,
             isMentorShift: false,
-            shiftNumMentorsRequired: 0
+            shiftNumMentorsRequired: 0,
+            active: false
         }
     },
     computed: {
