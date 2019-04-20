@@ -33,6 +33,15 @@
                                 type="url" 
                             />
                         </MdField>
+                        <MdField>
+                            <label for="hackathon-bgImage-url">Background Image Url</label>
+                            <MdInput 
+                                name="hackathon-bgImage-url" 
+                                id="hackathon-bgImage-url"
+                                v-model="hackathonBgImageUrl"
+                                type="url" 
+                            />
+                        </MdField>
                         <MdDatepicker v-model="hackathonStartDate">
                             <label>Select start date</label>
                         </MdDatepicker>
@@ -99,7 +108,8 @@ export default {
             hackathonEndDate: new Date(),
             hackathonShifts: [],
             hackathonLogoUrl: "",
-            showAlert: false
+            showAlert: false,
+            hackathonBgImageUrl: ""
         }
     },
     components: {
@@ -119,7 +129,8 @@ export default {
                 startDate: this.hackathonStartDate,
                 endDate: this.hackathonEndDate,
                 shifts: this.hackathonShifts,
-                logoUrl: this.hackathonLogoUrl
+                logoUrl: this.hackathonLogoUrl,
+                bgImgUrl: this.hackathonBgImageUrl
             }
 
             utils.EventBus.$emit('addNewHackathon', newHackathon);
