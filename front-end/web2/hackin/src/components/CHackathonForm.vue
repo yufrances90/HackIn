@@ -30,7 +30,7 @@
                             />
                         </MdField>
                         <MdField>
-                            <label for="hackathon-logo-url">Logo Url</label>
+                            <label for="hackathon-logo-url">Link to Logo</label>
                             <MdInput 
                                 name="hackathon-logo-url" 
                                 id="hackathon-logo-url"
@@ -39,7 +39,7 @@
                             />
                         </MdField>
                         <MdField>
-                            <label for="hackathon-bgImage-url">Background Image Url</label>
+                            <label for="hackathon-bgImage-url">Link to Web Banner</label>
                             <MdInput 
                                 name="hackathon-bgImage-url" 
                                 id="hackathon-bgImage-url"
