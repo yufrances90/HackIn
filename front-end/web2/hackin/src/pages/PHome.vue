@@ -5,22 +5,18 @@
 </template>
 
 <script>
-export default {
-    name: "PHome",
-    beforeCreate() {
-        if (!this.$store.getters.isLoggedIn) {
-            this.$router.push("/login");
-        }
-    },
-    mounted() {
-        this.$store.dispatch("setHackathons");
-    },
-    computed: {
-        hackathons() {
-            return this.$store.getters.hackathons;
-        }
-    },
-}
+
+    import { mapGetters } from 'vuex';
+
+    export default {
+        name: "PHome",
+        mounted() {
+            this.$store.dispatch("setHackathons");
+        },
+        computed: {
+            ...mapGetters(["hackathons"])
+        },
+    }
 </script>
 
 <style scoped>
