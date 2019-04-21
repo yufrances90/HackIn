@@ -7,6 +7,11 @@
 <script>
 export default {
     name: "PHome",
+    beforeCreate() {
+        if (!this.$store.getters.isLoggedIn) {
+            this.$router.push("/login");
+        }
+    },
     mounted() {
         this.$store.dispatch("setHackathons");
     },
