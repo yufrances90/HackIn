@@ -17,6 +17,11 @@
                             />
                         </MdField>
                         <MdField>
+                            <label>Description</label>
+                            <MdTextarea v-model="hackathonDescription"></MdTextarea>
+                            <MdIcon>description</MdIcon>
+                        </MdField>
+                        <MdField>
                             <label for="hackathon-address">Address</label>
                             <MdInput 
                                 name="hackathon-address" 
@@ -109,7 +114,8 @@ export default {
             hackathonShifts: [],
             hackathonLogoUrl: "",
             showAlert: false,
-            hackathonBgImageUrl: ""
+            hackathonBgImageUrl: "",
+            hackathonDescription: ""
         }
     },
     components: {
@@ -130,7 +136,8 @@ export default {
                 endDate: this.hackathonEndDate,
                 shifts: this.hackathonShifts,
                 logoUrl: this.hackathonLogoUrl,
-                bgImgUrl: this.hackathonBgImageUrl
+                bgImgUrl: this.hackathonBgImageUrl,
+                description: this.hackathonDescription
             }
 
             utils.EventBus.$emit('addNewHackathon', newHackathon);
