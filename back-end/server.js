@@ -75,4 +75,16 @@ app.post('/hackathons', async (req, res) => {
     }
 });
 
+app.get('/hackathons', async (req, res) => {
+
+    try {
+
+        const response = await controllers.HackathonController.getAllHackathons();
+
+        res.status(200).send(JSON.stringify(response));
+    } catch(error) {
+        res.status(500).send(JSON.stringify(error));
+    }
+})
+
 app.listen(port, () => console.log(`Listening on port ${port}!`));

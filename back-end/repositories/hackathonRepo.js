@@ -8,6 +8,13 @@ class HackathonRepo {
 
         return res;
     }
+
+    async getAllHackathons() {
+
+        const res = await utils.getAllHackathons();
+
+        return res;
+    }
 }
 
 const hackathonRepo = new HackathonRepo();

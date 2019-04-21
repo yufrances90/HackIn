@@ -8,6 +8,13 @@ class HackathonController {
 
         return res;
     }
+
+    async getAllHackathons() {
+
+        const res = await services.HackathonService.getAllHackathons();
+
+        return res;
+    }
 }
 
 const hackathonController = new HackathonController();
