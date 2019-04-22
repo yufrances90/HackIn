@@ -62,7 +62,10 @@ export default {
             }
         },
         showHackathon(event) {
-            console.log(event.currentTarget.id);
+
+            const hackathonId = event.currentTarget.id;
+            
+            this.$router.push(`/hackathon/${hackathonId}`);
         }
     }
 }
