@@ -1,5 +1,6 @@
 <template>
-   <MdCard>
+   <MdCard
+   >
         <MdCardHeader>
             <MdAvatar>
                 <img 
@@ -28,7 +29,11 @@
         </MdCardContent>
 
         <MdCardActions>
-            <MdButton class="md-icon-button">
+            <MdButton 
+                class="md-icon-button"
+                :id="hackathon._id"
+                @click="showHackathon"
+            >
                 <md-icon>
                     more_vert
                 </md-icon>
@@ -55,6 +60,9 @@ export default {
 
                 return `${startDate1.toLocaleDateString()} - ${endDate1.toLocaleDateString()}`
             }
+        },
+        showHackathon(event) {
+            console.log(event.currentTarget.id);
         }
     }
 }
