@@ -110,7 +110,8 @@ import {
     MdButton,
     MdDrawer,
     MdList,
-    MdSnackbar 
+    MdSnackbar,
+    MdAvatar 
 } from 'vue-material/dist/components';
 import 'vue-material/dist/vue-material.min.css';
 
@@ -121,6 +122,7 @@ Vue.use(MdButton);
 Vue.use(MdDrawer);
 Vue.use(MdList);
 Vue.use(MdSnackbar);
+Vue.use(MdAvatar);
 
 export default {
     name: 'CNavbar',

@@ -116,7 +116,10 @@ const get = async (collection, attr=null, op=null, value=null) => {
 
     snapshot.forEach(doc => {
 
-        const element = doc.data();
+        const element = {
+            ...doc.data(),
+            _id: doc.id
+        };
 
         elements.push(element);
     });
