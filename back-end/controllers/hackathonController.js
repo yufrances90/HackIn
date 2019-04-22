@@ -15,6 +15,13 @@ class HackathonController {
 
         return res;
     }
+
+    async getHackathonById(id) {
+
+        const res = await services.HackathonService.getHackathonById(id);
+
+        return res;
+    }
 }
 
 const hackathonController = new HackathonController();

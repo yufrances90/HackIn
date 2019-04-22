@@ -85,6 +85,20 @@ app.get('/hackathons', async (req, res) => {
     } catch(error) {
         res.status(500).send(JSON.stringify(error));
     }
-})
+});
+
+app.get("/hackathonById/:hackathonId", async (req, res) => {
+
+    const hackathonId = req.params.hackathonId;
+
+    try {
+
+        const response = await controllers.HackathonController.getHackathonById(hackathonId);
+
+        res.status(200).send(JSON.stringify(response));
+    } catch(error) {
+        res.status(500).send(JSON.stringify(error));
+    }
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));

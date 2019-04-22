@@ -15,6 +15,13 @@ class HackathonRepo {
 
         return res;
     }
+
+    async getHackathonById(id) {
+
+        const res = await utils.getHackathonById(id);
+
+        return res;
+    }
 }
 
 const hackathonRepo = new HackathonRepo();
