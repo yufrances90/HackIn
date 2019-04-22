@@ -17,6 +17,10 @@ const {
     deleteAccount
 } = require('./firebase');
 
+const {
+    getApiKey
+} = require('./googleMap');
+
 module.exports = {
     testFirebaseDB,
     getAllUsers,
@@ -33,5 +37,6 @@ module.exports = {
     getAccounts,
     getAccountById,
     addAccount,
-    deleteAccount
+    deleteAccount,
+    getApiKey
 };

@@ -10,19 +10,11 @@ app.use(bodyParser.urlencoded({
     extended: true 
 })); // support encoded bodies
 
-const utils = require("./utils");
 const controllers = require("./controllers");
 
 const port = process.env.PORT || 8000;
 
 app.get('/', (req, res) => res.send("Hello World!"));
-
-app.get('/testingDb', async (req, res) => {
-
-    const users = await utils.getHackathons("name", "==", "AthenaHacks");
-
-    res.send(JSON.stringify(users));
-});
 
 app.post('/accounts', async (req, res) => {
 
@@ -100,5 +92,19 @@ app.get("/hackathonById/:hackathonId", async (req, res) => {
         res.status(500).send(JSON.stringify(error));
     }
 });
+
+app.get("/coordinatesByAddress", async (req, res) => {
+
+    const address = req.body;
+
+    try {
+
+        const response = await controllers.UtilController.getCoordinatesByAddress(address);
+
+        res.status(200).send(JSON.stringify(response));
+    } catch(error) {
+        res.status(500).send(JSON.stringify(error));
+    }
+})
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));
