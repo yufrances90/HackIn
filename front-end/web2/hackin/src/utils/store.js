@@ -51,13 +51,34 @@ const store = new Vuex.Store({
         },
         async getCoordiantesByAddress(context, address) {
 
+            if (!address || address.length === 0) {
+                return;
+            }
+
             try {
 
                 let { data } = await utils.Client.get(`/coordinatesByAddress?address=${address}`);
 
-                console.log(data);
+                if (data) {
 
-                // context.commit("setCoordiantes", data);
+                    const { results } = data;
+
+                    if (results.length > 0) {
+
+                        const res = results[0];
+
+                        const { lat, lng } = res.geometry.location;
+
+                        const coords = {
+                            lat,
+                            lng
+                        }
+
+                        context.commit("setCoordiantes", coords);
+                    }
+                }
+
+                
             } catch(err) {
                 console.error(err)
             }
