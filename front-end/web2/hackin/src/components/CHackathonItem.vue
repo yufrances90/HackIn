@@ -2,7 +2,7 @@
    <MdCard
    >
         <MdCardHeader>
-            <MdAvatar>
+            <MdAvatar v-show="hackathon.logoUrl">
                 <img 
                     :src="hackathon.logoUrl" 
                     :alt="hackathon.name"
@@ -17,7 +17,7 @@
             </div>
         </MdCardHeader>
 
-        <MdCardMedia>
+        <MdCardMedia v-show="hackathon.bgImgUrl">
             <img 
                 :src="hackathon.bgImgUrl" 
                 :alt="hackathon.name"

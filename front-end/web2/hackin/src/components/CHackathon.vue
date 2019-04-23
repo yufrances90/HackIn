@@ -3,7 +3,10 @@
         <MdCard class="card">
 
             <MdCardHeader>
-                <MdAvatar class="md-large">
+                <MdAvatar 
+                    class="md-large"
+                    v-show="hackathonLogoUrl"
+                >
                     <img 
                         :src="hackathonLogoUrl" 
                         :alt="hackathonName"
@@ -18,7 +21,7 @@
 
             <MdDivider></MdDivider>
 
-            <MdCardMedia>
+            <MdCardMedia v-show="hackathonBgImgUrl">
                 <img 
                     :src="hackathonBgImgUrl" 
                 />
