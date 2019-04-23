@@ -3,6 +3,7 @@ import { EventBus } from './eventBus';
 import store from './store';
 
 import config from '../config/config.json';
+import googleConfig from '../config/google.json';
 
 const getClient = () => {
 
@@ -12,8 +13,13 @@ const getClient = () => {
     return new ApiClient(baseURL);
 }
 
+const getGoogleApiKey = () => {
+    return googleConfig.apiKey;
+}
+
 export default {
     Client: getClient(),
     EventBus,
-    store
+    store,
+    GoogleApiKey: getGoogleApiKey()
 }

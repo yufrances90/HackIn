@@ -64,8 +64,11 @@
                     </h4>
                     <p>
                         {{ hackathonAddress }}
-                        {{ coordinates }}
                     </p>
+                    <CGoogleMap 
+                        :coordinates="coordinates"
+                        v-if="coordinates"
+                    />
                 </div>
 
             </MdCardContent>
@@ -77,11 +80,16 @@
 
 <script>
 
+    import CGoogleMap from "./CGoogleMap.vue";
+
     import utils from "../utils";
 
     export default {
         name: "CHackathon",
-        props: ["hackathon", "coordinates"],
+        props: [
+            "hackathon", 
+            "coordinates"
+        ],
         computed: {
             hackathonName() {
                 return (!this.hackathon)?  "N/A" : this.hackathon.name;
@@ -118,6 +126,9 @@
             hackathonDescription() {
                 return (!this.hackathon)?  "N/A" : this.hackathon.description;
             }
+        },
+        components: {
+            CGoogleMap
         }
     }
 </script>
