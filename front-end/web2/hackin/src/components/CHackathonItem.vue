@@ -24,10 +24,6 @@
             >
         </MdCardMedia>
 
-        <MdCardContent>
-            {{ hackathon.description }}
-        </MdCardContent>
-
         <MdCardActions>
             <MdButton 
                 class="md-icon-button"
