@@ -51,8 +51,8 @@ const store = new Vuex.Store({
         },
         async getCoordiantesByAddress(context, address) {
 
-            if (!address || address.length === 0) {
-                return;
+            if (!address || address.length === 0 || address === "Online") {
+                return null;
             }
 
             try {
@@ -72,7 +72,7 @@ const store = new Vuex.Store({
                         const coords = {
                             lat,
                             lng
-                        }
+                        };
 
                         context.commit("setCoordiantes", coords);
                     }

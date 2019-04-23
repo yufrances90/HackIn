@@ -62,8 +62,8 @@
                         Venue
                     </h4>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, 
-                        sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
+                        {{ hackathonAddress }}
+                        {{ coordinates }}
                     </p>
                 </div>
 
@@ -75,21 +75,38 @@
 </template>
 
 <script>
-export default {
-    name: "CHackathon",
-    props: ["hackathon"],
-    computed: {
-        hackathonName() {
-            return (!this.hackathon)?  "N/A" : this.hackathon.name;
+
+    import utils from "../utils";
+
+    export default {
+        name: "CHackathon",
+        props: ["hackathon", "coordinates"],
+        computed: {
+            hackathonName() {
+                return (!this.hackathon)?  "N/A" : this.hackathon.name;
+            },
+            hackathonBgImgUrl() {
+                return (!this.hackathon)? "" : this.hackathon.bgImgUrl;
+            },
+            hackathonLogoUrl() {
+                return (!this.hackathon)? "" : this.hackathon.logoUrl;
+            },
+            hackathonAddress() {
+
+                const address = (!this.hackathon)? "" : this.hackathon.address;
+
+                utils.EventBus.$emit("getCoordinatesByAddress", address);
+
+                return address;
+            }
         },
-        hackathonBgImgUrl() {
-            return (!this.hackathon)? "" : this.hackathon.bgImgUrl;
+        created() {
+            if (!this.hackathon) {
+                return;
+            }
+            this.$store.dispatch("getCoordiantesByAddress", this.hackathon.address);
         },
-        hackathonLogoUrl() {
-            return (!this.hackathon)? "" : this.hackathon.logoUrl;
-        }
-    },
-}
+    }
 </script>
 
 <style scoped>
