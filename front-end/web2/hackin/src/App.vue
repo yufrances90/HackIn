@@ -13,7 +13,13 @@
         name: 'app',
         components: {
             CNavbar
-        }
+        },
+        mounted() {
+
+            const address = "4400 Buchanan Street, Burnaby BC, Canada";
+            
+            this.$store.dispatch("getCoordiantesByAddress", address);
+        },
     }
 </script>
 

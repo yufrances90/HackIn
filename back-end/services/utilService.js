@@ -1,3 +1,5 @@
+const axios = require("axios");
+
 const utils = require("../utils");
 
 class UtilService {
@@ -21,7 +23,7 @@ class UtilService {
     
             return response.data;
         } catch(err) {
-            throw err
+            throw err;
         }
     }
 }

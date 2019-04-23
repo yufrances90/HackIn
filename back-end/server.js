@@ -25,7 +25,13 @@ app.post('/accounts', async (req, res) => {
         const response = await controllers.AccountController.saveNewAccount(newAccount);
 
         res.status(204).send(JSON.stringify(response));
-    } catch(error) {
+    } catch(err) {
+        
+        const error = {
+            message: err.message,
+            name: err.name
+        };
+
         res.status(500).send(JSON.stringify(error));
     }
 });
@@ -48,7 +54,13 @@ app.get('/accountByUsrname', async (req, res) => {
         } else {
             res.status(200).send(JSON.stringify(response[0]));
         }
-    } catch(error) {
+    } catch(err) {
+        
+        const error = {
+            message: err.message,
+            name: err.name
+        };
+
         res.status(500).send(JSON.stringify(error));
     }
 });
@@ -62,7 +74,13 @@ app.post('/hackathons', async (req, res) => {
         const response = await controllers.HackathonController.saveNewHackathon(newHackathon);
 
         res.status(204).send(JSON.stringify(response));
-    } catch(error) {
+    } catch(err) {
+        
+        const error = {
+            message: err.message,
+            name: err.name
+        };
+
         res.status(500).send(JSON.stringify(error));
     }
 });
@@ -74,35 +92,53 @@ app.get('/hackathons', async (req, res) => {
         const response = await controllers.HackathonController.getAllHackathons();
 
         res.status(200).send(JSON.stringify(response));
-    } catch(error) {
+    } catch(err) {
+        
+        const error = {
+            message: err.message,
+            name: err.name
+        };
+
         res.status(500).send(JSON.stringify(error));
     }
 });
 
 app.get("/hackathonById/:hackathonId", async (req, res) => {
 
-    const hackathonId = req.params.hackathonId;
+    const { hackathonId } = req.params;
 
     try {
 
         const response = await controllers.HackathonController.getHackathonById(hackathonId);
 
         res.status(200).send(JSON.stringify(response));
-    } catch(error) {
+    } catch(err) {
+        
+        const error = {
+            message: err.message,
+            name: err.name
+        };
+
         res.status(500).send(JSON.stringify(error));
     }
 });
 
 app.get("/coordinatesByAddress", async (req, res) => {
 
-    const address = req.body;
+    const { address } = req.query;
 
     try {
 
         const response = await controllers.UtilController.getCoordinatesByAddress(address);
 
         res.status(200).send(JSON.stringify(response));
-    } catch(error) {
+    } catch(err) {
+
+        const error = {
+            message: err.message,
+            name: err.name
+        };
+
         res.status(500).send(JSON.stringify(error));
     }
 })
