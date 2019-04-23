@@ -29,19 +29,25 @@
 
             this.$store.dispatch("getHackathonById", hackathonId);
 
-            utils.EventBus.$on("getCoordinatesByAddress", data => {
-
-                const address = data;
-            
-                this.$store.dispatch("getCoordiantesByAddress", address);
-            })
+            this.onGetCoordinates();
         },
         computed: {
             ...mapGetters(["hackathon", "coordinates"])
         },
         components: {
             CHackathon
-        }
+        },
+        methods: {
+            onGetCoordinates() {
+                
+                utils.EventBus.$on("getCoordinatesByAddress", data => {
+
+                    const address = data;
+                
+                    this.$store.dispatch("getCoordiantesByAddress", address);
+                });
+            }
+        },
     }
 </script>
 

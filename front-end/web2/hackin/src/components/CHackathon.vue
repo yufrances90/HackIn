@@ -99,13 +99,7 @@
 
                 return address;
             }
-        },
-        created() {
-            if (!this.hackathon) {
-                return;
-            }
-            this.$store.dispatch("getCoordiantesByAddress", this.hackathon.address);
-        },
+        }
     }
 </script>
 
