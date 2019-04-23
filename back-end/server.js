@@ -141,6 +141,10 @@ app.get("/coordinatesByAddress", async (req, res) => {
 
         res.status(500).send(JSON.stringify(error));
     }
-})
+});
+
+app.get("/googleApiKey", (req, res) => {
+    res.status(200).send(controllers.UtilController.getGoogleMapApiKey());
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));
