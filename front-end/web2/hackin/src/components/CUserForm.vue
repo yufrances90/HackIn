@@ -10,25 +10,45 @@
                 <div>
                     <MdField>
                         <label for="first-name">First Name</label>
-                        <MdInput name="first-name" id="first-name" />
+                        <MdInput 
+                            name="first-name" 
+                            id="first-name"
+                            v-model="firstName" 
+                        />
                     </MdField>
                     <MdField>
                         <label for="last-name">Last Name</label>
-                        <MdInput name="last-name" id="last-name" />
+                        <MdInput 
+                            name="last-name" 
+                            id="last-name"
+                            v-model="lastName" 
+                        />
                     </MdField>
                     <MdField>
                         <label for="phone-number">Phone Number</label>
-                        <MdInput name="phone-number" id="phone-number" />
+                        <MdInput 
+                            name="phone-number" 
+                            id="phone-number"
+                            v-model="phoneNumber" 
+                        />
                     </MdField>
                     <MdField>
                         <label for="email">Email Address</label>
-                        <MdInput name="email" id="email" />
+                        <MdInput 
+                            name="email" 
+                            id="email"
+                            v-model="email" 
+                        />
                     </MdField>
                     <MdField>
                         <label for="dietary-restrictions">
                             Do you have any dietary restrictions/concerns or allergies?
                         </label>
-                        <MdInput name="dietary-restriction" id="dietary-restriction" />
+                        <MdInput 
+                            name="dietary-restriction" 
+                            id="dietary-restriction"
+                            v-model="dietaryRestriction"
+                        />
                         <span class="md-helper-text">
                             ex. Vegetarian, Vegan, etc
                         </span>
@@ -60,19 +80,20 @@
                         v-show="userType === 'mentor'" 
                     />
                     <CVolunteerSection 
-                            v-show="userType === 'volunteer'" 
+                        v-show="userType === 'volunteer'" 
                     />
                     
 
                     <div v-show="userType">
                         <div>
-                            <MdCheckbox v-model="confirm_read_mlh_conduct">
+                            <MdCheckbox v-model="confirmReadMlhConduct">
                                 I have read and agree to the ​MLH Code of Conduct
                             </MdCheckbox>
                         </div>
                         <hr>
                         <MdButton 
                             class="submit-btn"
+                            @click="addUser"
                         >
                             Submit
                         </MdButton>
@@ -106,6 +127,8 @@
     import CHackerSection from './CHackerSection.vue';
     import CVolunteerSection from './CVolunteerSection.vue';
 
+    import utils from "../utils";
+
     Vue.use(MdCard);
     Vue.use(MdField);
     Vue.use(MdDatepicker);
@@ -120,7 +143,6 @@
         name: "CUserForm",
         data() {
             return {
-                userType: null,
                 tshirtSizeList: [
                     "XS",
                     "S",
@@ -128,14 +150,34 @@
                     "L",
                     "XL"
                 ],
-                confirm_read_mlh_conduct: null
+                userType: null,
+                firstName: "",
+                lastName: "",
+                phoneNumber: "",
+                email: "",
+                dietaryRestriction: "",
+                tShirtSize: null,
+                confirmReadMlhConduct: false
             }
         },
         components: {
             CMentorSection,
             CHackerSection,
             CVolunteerSection
-        }
+        },
+        created() {
+
+            const vm = this;
+
+            utils.EventBus.$on("updateValueByKey", (key, value) => {
+                vm.$data[key] = value;
+            });
+        },
+        methods: {
+            addUser() {
+                console.log(this.$data);
+            }
+        },
     }
 </script>
 
