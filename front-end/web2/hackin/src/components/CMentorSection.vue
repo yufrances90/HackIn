@@ -4,19 +4,31 @@
             <label for="organization">
                 School and/or Organization Affiliation
             </label>
-            <MdInput name="organization" id="organization" />
+            <MdInput 
+                name="organization" 
+                id="organization"
+                v-model="organization" 
+            />
         </MdField>
         <MdField>
             <label for="github">
                 GitHub
             </label>
-            <MdInput name="github" id="github" />
+            <MdInput 
+                name="github" 
+                id="github"
+                v-model="github" 
+            />
         </MdField>
         <MdField>
             <label for="linkedin">
                 LinkedIn
             </label>
-            <MdInput name="linkedin" id="linkedin" />
+            <MdInput 
+                name="linkedin" 
+                id="linkedin"
+                v-model="linkedin" 
+            />
         </MdField>
         <div class="flex-display">
             <label for="areas"> 
@@ -27,11 +39,11 @@
                 v-model="areas" 
                 name="areas" 
                 id="areas"
-                :value="item" 
+                :value="item.key" 
                 v-for="item in areaList" 
-                :key="item"
+                :key="item.key"
             >
-                {{ item }}
+                {{ item.value }}
             </MdCheckbox>
         </div>
 
@@ -57,6 +69,8 @@
     } from 'vue-material/dist/components'
     import 'vue-material/dist/vue-material.min.css';
 
+    import { userForm } from "./mixins/userForm";
+
     Vue.use(MdCard);
     Vue.use(MdField);
     Vue.use(MdDatepicker);
@@ -69,22 +83,59 @@
 
     export default {
         name: "CMentorSection",
+        mixins: [userForm],
         data() {
             return {
                 areaList: [
-                    "Business & Strategy",
-                    "Project Ideation",
-                    "Design",
-                    "Front End Development",
-                    "Back End Development",
-                    "iOS",
-                    "Android",
-                    "Machine Learning",
-                    "VR / AR",
-                    "Blockchain",
-                    "Data Science"
+                    {
+                        key: "bs",
+                        value: "Business & Strategy"
+                    },
+                    {
+                        key: "pi",
+                        value: "Project Ideation"
+                    },
+                    {
+                        key: "d",
+                        value: "Design"
+                    },
+                    {
+                        key: "fed",
+                        value: "Front End Development"
+                    },
+                    {
+                        key: "bed",
+                        value: "Back End Development"
+                    },
+                    {
+                        key: "i",
+                        value: "iOS"
+                    },
+                    {
+                        key: "a",
+                        value: "Android"
+                    },
+                    {
+                        key: "ml",
+                        value: "Machine Learning"
+                    },
+                    {
+                        key: "va",
+                        value: "VR / AR"
+                    },
+                    {
+                        key: "b",
+                        value: "Blockchain"
+                    },
+                    {
+                        key: "ds",
+                        value: "Data Science"
+                    }
                 ],
-                areas: []
+                areas: [],
+                organization: null,
+                github: null,
+                linkedin: null,
             }
         }
     }
