@@ -3,7 +3,10 @@
         <div class="md-layout-item md-size-25">
         </div>
         <div class="md-layout-item">
-            <CUserForm v-if="!isNewHackathonCreation" />
+            <CUserForm 
+                v-if="!isNewHackathonCreation"
+                :hackathonId="hackathonId" 
+            />
             <CHackathonForm v-else />
         </div>
         <div class="md-layout-item md-size-25">
@@ -27,7 +30,8 @@
                 isNewHackathonCreation: 
                     (Object.keys(this.$route.params).length > 0)? 
                     this.$route.params.isNewHackathonCreation : false,
-                newHackathon: null
+                newHackathon: null,
+                hackathonId: null
             }
         },
         components: {
@@ -35,9 +39,10 @@
             CUserForm
         },
         beforeCreate() {
-            if (!this.$store.getters.isLoggedIn) {
 
-                const { isNewHackathonCreation, hackathonId } = this.$route.query;
+            const { isNewHackathonCreation, hackathonId } = this.$route.query;
+
+            if (!this.$store.getters.isLoggedIn) {
                 this.$router.push({
                     path: "/login",
                     query: {
@@ -51,6 +56,8 @@
             utils.EventBus.$on('addNewHackathon', data => {
                 this.newHackathon = data;
             });
+
+            this.setHackathonId();
         },
         watch: {
             newHackathon() {
@@ -62,6 +69,14 @@
                             alert("Successfully created new hackathon!");
                         }
                     })
+            }
+        },
+        methods: {
+            setHackathonId() {
+
+                const { hackathonId } = this.$route.query;
+
+                this.hackathonId = hackathonId;
             }
         },
     }
