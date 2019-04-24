@@ -177,87 +177,67 @@
 
 <script>
 
-import Vue from 'vue'
-import { 
-    MdList,
-    MdButton,
-    MdTooltip,
-    MdSwitch,
-    MdDivider,
-    MdSubheader,
-    MdDialogConfirm
-} from 'vue-material/dist/components'
-import 'vue-material/dist/vue-material.min.css';
+    import utils from '../utils';
 
-import utils from '../utils';
-
-Vue.use(MdList);
-Vue.use(MdButton);
-Vue.use(MdTooltip);
-Vue.use(MdSwitch);
-Vue.use(MdDivider);
-Vue.use(MdSubheader);
-Vue.use(MdDialogConfirm);
-
-export default {
-    name: "CAvailabilitySection",
-    props: [
-        "shifts",
-        "startDate"
-    ],
-    data() {
-        return {
-            showDialog: false,
-            shiftName: "",
-            shiftTimeRange: [this.startDate, this.startDate],
-            startDatetime: this.startDate,
-            endDatetime: this.startDate,
-            maxCharsAllowed: 40,
-            shiftNumVolunteersRequired: 0,
-            isVolunteerShift: false,
-            isMentorShift: false,
-            shiftNumMentorsRequired: 0,
-            active: false
-        }
-    },
-    computed: {
-        remainNumChars() {
-            return this.maxCharsAllowed - this.shiftName.length;
-        },
-        disbaleSaveBtn() {
-            return !this.isVolunteerShift && !this.isMentorShift;
-        }
-    },
-    watch: {
-        shiftTimeRange() {
-            this.startDatetime = this.shiftTimeRange[0];
-            this.endDatetime = this.shiftTimeRange[1];
-        },
-        startDate() {
-            this.shiftTimeRange = [this.startDate, this.startDate];
-        }
-    },
-    methods: {
-        addNewShift() {
-
-            const newShift = {
-                name: this.shiftName,
-                startDatetime: this.startDatetime,
-                endDatetime: this.endDatetime,
-                type: (this.isVolunteerShift)? 1 : 2,
-                numMentorRequired: this.shiftNumMentorsRequired,
-                numVolunteersRequired: this.shiftNumVolunteersRequired,
+    export default {
+        name: "CAvailabilitySection",
+        props: [
+            "shifts",
+            "startDate"
+        ],
+        data() {
+            return {
+                showDialog: false,
+                shiftName: "",
+                shiftTimeRange: [this.startDate, this.startDate],
+                startDatetime: this.startDate,
+                endDatetime: this.startDate,
+                maxCharsAllowed: 40,
+                shiftNumVolunteersRequired: 0,
+                isVolunteerShift: false,
+                isMentorShift: false,
+                shiftNumMentorsRequired: 0,
+                active: false
             }
-
-            utils.EventBus.$emit('addNewShift', newShift);
-
-            this.showDialog = false;
         },
-        formatTime(datetime) {
-            return datetime.toLocaleString();
+        computed: {
+            remainNumChars() {
+                return this.maxCharsAllowed - this.shiftName.length;
+            },
+            disbaleSaveBtn() {
+                return !this.isVolunteerShift && !this.isMentorShift;
+            }
+        },
+        watch: {
+            shiftTimeRange() {
+                this.startDatetime = this.shiftTimeRange[0];
+                this.endDatetime = this.shiftTimeRange[1];
+            },
+            startDate() {
+                this.shiftTimeRange = [this.startDate, this.startDate];
+            }
+        },
+        methods: {
+            addNewShift() {
+
+                const newShift = {
+                    name: this.shiftName,
+                    startDatetime: this.startDatetime,
+                    endDatetime: this.endDatetime,
+                    type: (this.isVolunteerShift)? 1 : 2,
+                    numMentorRequired: this.shiftNumMentorsRequired,
+                    numVolunteersRequired: this.shiftNumVolunteersRequired,
+                }
+
+                utils.EventBus.$emit('addNewShift', newShift);
+
+                this.showDialog = false;
+            },
+            formatTime(datetime) {
+                return datetime.toLocaleString();
+            }
         }
     }
-}
 </script>
 
 <style scoped>

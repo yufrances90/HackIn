@@ -39,32 +39,32 @@
 </template>
 
 <script>
-export default {
-    name: "CHackathonItem",
-    props: ["hackathon"],
-    methods: {
-        formatDateRange(hackathon) {
-            
-            const { startDate, endDate } = hackathon;
+    export default {
+        name: "CHackathonItem",
+        props: ["hackathon"],
+        methods: {
+            formatDateRange(hackathon) {
+                
+                const { startDate, endDate } = hackathon;
 
-            if (!startDate || !endDate) {
-                return "-";
-            } else {
+                if (!startDate || !endDate) {
+                    return "-";
+                } else {
 
-                const startDate1 = new Date(startDate);
-                const endDate1 = new Date(endDate);
+                    const startDate1 = new Date(startDate);
+                    const endDate1 = new Date(endDate);
 
-                return `${startDate1.toLocaleDateString()} - ${endDate1.toLocaleDateString()}`
+                    return `${startDate1.toLocaleDateString()} - ${endDate1.toLocaleDateString()}`
+                }
+            },
+            showHackathon(event) {
+
+                const hackathonId = event.currentTarget.id;
+                
+                this.$router.push(`/hackathon/${hackathonId}`);
             }
-        },
-        showHackathon(event) {
-
-            const hackathonId = event.currentTarget.id;
-            
-            this.$router.push(`/hackathon/${hackathonId}`);
         }
     }
-}
 </script>
 
 <style scoped>

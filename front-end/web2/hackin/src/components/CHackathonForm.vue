@@ -81,27 +81,9 @@
 
 <script>
 
-import Vue from 'vue'
-import { 
-    MdCard,
-    MdField,
-    MdDatepicker,
-    MdDialog,
-    MdButton,
-    MdDialogAlert
-} from 'vue-material/dist/components'
-import 'vue-material/dist/vue-material.min.css';
-
 import CAvailabilitySection from './CAvailabilitySection.vue';
 
 import utils from '../utils';
-
-Vue.use(MdCard);
-Vue.use(MdField);
-Vue.use(MdDatepicker);
-Vue.use(MdDialog);
-Vue.use(MdButton);
-Vue.use(MdDialogAlert);
 
 export default {
     name: "CHackathonForm",

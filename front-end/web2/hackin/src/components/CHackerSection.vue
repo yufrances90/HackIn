@@ -177,31 +177,7 @@
 
 <script>
 
-    import Vue from 'vue'
-    import { 
-        MdCard,
-        MdField,
-        MdDatepicker,
-        MdDialog,
-        MdButton,
-        MdCheckbox,
-        MdRadio,
-        MdMenu,
-        MdList
-    } from 'vue-material/dist/components'
-    import 'vue-material/dist/vue-material.min.css';
-
     import { userForm } from "./mixins/userForm";
-
-    Vue.use(MdCard);
-    Vue.use(MdField);
-    Vue.use(MdDatepicker);
-    Vue.use(MdDialog);
-    Vue.use(MdButton);
-    Vue.use(MdCheckbox);
-    Vue.use(MdRadio);
-    Vue.use(MdMenu);
-    Vue.use(MdList);
 
     export default {
         name: "CHackerSection",

@@ -15,18 +15,6 @@
 </template>
 
 <script>
-
-    import * as VueGoogleMaps from 'vue2-google-maps';
-    import Vue from 'vue';
-
-    import utils from "../utils";
-
-    Vue.use(VueGoogleMaps, {
-        load: {
-            key: utils.GoogleApiKey,
-        }
-    });
-
     export default {
         name: "CGoogleMap",
         props: ["coordinates"]

@@ -104,53 +104,34 @@
 
 <script>
 
-import Vue from 'vue';
-import { 
-    MdToolbar,
-    MdButton,
-    MdDrawer,
-    MdList,
-    MdSnackbar,
-    MdAvatar 
-} from 'vue-material/dist/components';
-import 'vue-material/dist/vue-material.min.css';
+    import utils from "../utils";
 
-import utils from "../utils";
+    export default {
+        name: 'CNavbar',
+        data: () => ({
+            title: "HackMMunity",
+            showNavigation: false
+        }),
+        computed: {
+            isLoggedIn() {
+                return this.$store.getters.isLoggedIn;
+            }
+        },
+        mounted() {
 
-Vue.use(MdToolbar);
-Vue.use(MdButton);
-Vue.use(MdDrawer);
-Vue.use(MdList);
-Vue.use(MdSnackbar);
-Vue.use(MdAvatar);
+            utils.EventBus.$on("login", () => {
+                this.$store.commit("loggedIn");
+            });
+        },
+        methods: {
+            logout() {
+                
+                this.$store.commit("loggedOut");
 
-export default {
-    name: 'CNavbar',
-    data: () => ({
-        title: "HackMMunity",
-        showNavigation: false
-    }),
-    computed: {
-        isLoggedIn() {
-            return this.$store.getters.isLoggedIn;
-        }
-    },
-    mounted() {
-
-        utils.EventBus.$on("login", () => {
-            this.$store.commit("loggedIn");
-        });
-    },
-    methods: {
-        logout() {
-            
-            this.$store.commit("loggedOut");
-
-            window.location = "/login";
-        }
-    },
-}
-
+                window.location = "/login";
+            }
+        },
+    }
 </script>
 
 <style lang="scss" scoped>

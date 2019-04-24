@@ -54,27 +54,7 @@
 
 <script>
 
-    import Vue from 'vue'
-    import { 
-        MdCard,
-        MdField,
-        MdDatepicker,
-        MdDialog,
-        MdButton,
-        MdCheckbox,
-        MdRadio
-    } from 'vue-material/dist/components'
-    import 'vue-material/dist/vue-material.min.css';
-
     import { userForm } from "./mixins/userForm";
-
-    Vue.use(MdCard);
-    Vue.use(MdField);
-    Vue.use(MdDatepicker);
-    Vue.use(MdDialog);
-    Vue.use(MdButton);
-    Vue.use(MdCheckbox);
-    Vue.use(MdRadio);
 
     export default {
         name: "CVolunteerSection",

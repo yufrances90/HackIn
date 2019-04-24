@@ -16,8 +16,6 @@
 
 <script>
 
-    import 'vue-material/dist/vue-material.min.css';
-
     import CHackathonForm from '../components/CHackathonForm.vue';
     import CUserForm from '../components/CUserForm.vue';
 
