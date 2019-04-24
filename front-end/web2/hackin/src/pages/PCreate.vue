@@ -8,6 +8,10 @@
                 :hackathonId="hackathonId" 
             />
             <CHackathonForm v-else />
+            <CSnackbar 
+                :showSnackbar="showSnackbar"
+                :message="message"
+            />
         </div>
         <div class="md-layout-item md-size-25">
         </div>
@@ -18,11 +22,15 @@
 
     import CHackathonForm from '../components/CHackathonForm.vue';
     import CUserForm from '../components/CUserForm.vue';
+    import CSnackbar from '../components/CSnackbar.vue';
 
     import utils from '../utils';
 
+    import { snackbar } from '../components/mixins/snackbar';
+
     export default {
         name: "PCreate",
+        mixins: [snackbar],
         data() {
             return {
                 isNewHackathonCreation: 
@@ -34,7 +42,8 @@
         },
         components: {
             CHackathonForm,
-            CUserForm
+            CUserForm,
+            CSnackbar
         },
         beforeCreate() {
 
@@ -64,7 +73,14 @@
                     .then(response => {
 
                         if (response.status === 204) {
-                            alert("Successfully created new hackathon!");
+
+                            setTimeout(() => {
+                                this.$router.push("/");
+                            }, 2500);
+
+                            const msg = "Successfully created new hackathon!";
+
+                            this.openSnackbar(msg);
                         }
                     })
             }

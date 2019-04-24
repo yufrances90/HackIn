@@ -23,7 +23,8 @@
 
             <MdCardMedia v-show="hackathonBgImgUrl">
                 <img 
-                    :src="hackathonBgImgUrl" 
+                    :src="hackathonBgImgUrl"
+                    class="bg-image" 
                 />
             </MdCardMedia>
 
@@ -149,5 +150,10 @@
 
     .card-content {
         margin: 3vh 4vw;
+    }
+
+    .bg-image {
+        max-height: 50vh;
+        background-size: 100%;
     }
 </style>

@@ -1,5 +1,5 @@
 <template>
-   <MdCard
+   <MdCard class="card"
    >
         <MdCardHeader>
             <MdAvatar v-show="hackathon.logoUrl">
@@ -21,6 +21,7 @@
             <img 
                 :src="hackathon.bgImgUrl" 
                 :alt="hackathon.name"
+                class="bg-image"
             >
         </MdCardMedia>
 
@@ -68,4 +69,13 @@
 </script>
 
 <style scoped>
+
+    .bg-image {
+        max-height: 150px;
+        background-size: 100%;
+    }
+    
+    .card {
+        margin: 2vh 0;
+    }
 </style>
