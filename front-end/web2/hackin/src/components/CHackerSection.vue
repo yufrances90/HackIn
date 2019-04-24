@@ -19,11 +19,11 @@
                 id="race"
             >
                 <MdOption 
-                    :value="item" 
+                    :value="item.key" 
                     v-for="item in raceList" 
-                    :key="item"
+                    :key="item.key"
                 >
-                    {{ item }}
+                    {{ item.value }}
                 </MdOption>
             </MdSelect>
         </MdField>
@@ -37,11 +37,11 @@
                 id="gender"
             >
                 <MdOption 
-                    :value="item" 
+                    :value="item.key" 
                     v-for="item in genderList" 
-                    :key="item"
+                    :key="item.key"
                 >
-                    {{ item }}
+                    {{ item.value }}
                 </MdOption>
             </MdSelect>
         </MdField>
@@ -211,19 +211,52 @@
         data() {
             return {
                 raceList: [
-                    "American Indian / Alaskan Native",
-                    "Asian / Pacific Islander",
-                    "Black / African American",
-                    "Hispanic",
-                    "White / Caucasian",
-                    "Multiple Ethnicity / Other (Please Specify)",
-                    "Prefer not to answer"
+                    {
+                        key: "aian",
+                        value: "American Indian / Alaskan Native"
+                    },
+                    {
+                        key: "api",
+                        value: "Asian / Pacific Islander"
+                    },
+                    {
+                        key: "baa",
+                        value: "Black / African American"
+                    },
+                    {
+                        key: "h",
+                        value: "Hispanic"
+                    },
+                    {
+                        key: "wc",
+                        value: "White / Caucasian"
+                    },
+                    {
+                        key: "meo",
+                        value: "Multiple Ethnicity / Other"
+                    },
+                    {
+                        key: "p",
+                        value: "Prefer not to answer"
+                    }
                 ],
                 genderList: [
-                    "Male",
-                    "Female",
-                    "Other",
-                    "Prefer not to answer"
+                    {
+                        key: "m",
+                        value: "Male"
+                    },
+                    {
+                        key: "f",
+                        value: "Female"
+                    },
+                    {
+                        key: "o",
+                        value: "Other"
+                    },
+                    {
+                        key: "p",
+                        value: "Prefer not to answer"
+                    }
                 ],
                 age: null,
                 race: null,
