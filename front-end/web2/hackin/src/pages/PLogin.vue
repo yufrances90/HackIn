@@ -52,7 +52,9 @@ export default {
                 isInfinity: false
             },
             newAccount: null,
-            account: null
+            account: null,
+            isNewHackathonCreation: null,
+            hackathonId: null
         }
     },
     components: {
@@ -61,7 +63,7 @@ export default {
     },
     mounted() {
 
-        const { params } = this.$route;
+        const { params, query } = this.$route;
 
         this.isSignUpOpt = (Object.keys(params).length > 0)? params.isSignUpOpt : this.isSignUpOpt;
 
@@ -69,6 +71,14 @@ export default {
             this.saveNewAccount();
         } else {
             this.userLogin();
+        }
+
+        if (Object.keys(query).length > 0) {
+
+            const { isNewHackathonCreation, hackathonId } = query;
+
+            this.hackathonId = hackathonId;
+            this.isNewHackathonCreation = isNewHackathonCreation;
         }
     },
     methods: {
@@ -81,6 +91,20 @@ export default {
             utils.EventBus.$on("userLogin", data => {
                 this.account = data;
             });
+        },
+        navigate() {
+
+            if(this.isNewHackathonCreation === null) {
+                this.$router.push("/");
+            } else {
+                this.$router.push({
+                    path: "/create",
+                    query: {
+                        isNewHackathonCreation: this.isNewHackathonCreation,
+                        hackathonId: this.hackathonId
+                    }
+                })
+            }
         }
     },
     watch: {
@@ -94,7 +118,7 @@ export default {
 
                         utils.EventBus.$emit("login");
 
-                        this.$router.push("/");
+                        this.navigate();
                     }, 2500);
 
                     this.msg = "Successfully created new account!";
@@ -120,7 +144,7 @@ export default {
 
                             utils.EventBus.$emit("login");
 
-                            this.$router.push("/");
+                            this.navigate();
                         }, 2500);
 
                         this.msg = "Login Successfully!";

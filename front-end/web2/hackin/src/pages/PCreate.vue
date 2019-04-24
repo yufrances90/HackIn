@@ -36,7 +36,15 @@
         },
         beforeCreate() {
             if (!this.$store.getters.isLoggedIn) {
-                this.$router.push("/login");
+
+                const { isNewHackathonCreation, hackathonId } = this.$route.query;
+                this.$router.push({
+                    path: "/login",
+                    query: {
+                        isNewHackathonCreation,
+                        hackathonId
+                    }
+                });
             }
         },
         mounted() {

@@ -74,6 +74,10 @@
             </MdCardContent>
 
             <MdDivider></MdDivider>
+
+            <CFloatBtns 
+                :hackathonId="hackathonId"
+            />
         </MdCard>
     </div>
 </template>
@@ -81,6 +85,7 @@
 <script>
 
     import CGoogleMap from "./CGoogleMap.vue";
+    import CFloatBtns from "./CFloatBtns.vue";
 
     import utils from "../utils";
 
@@ -88,7 +93,8 @@
         name: "CHackathon",
         props: [
             "hackathon", 
-            "coordinates"
+            "coordinates",
+            "hackathonId"
         ],
         computed: {
             hackathonName() {
@@ -128,7 +134,8 @@
             }
         },
         components: {
-            CGoogleMap
+            CGoogleMap,
+            CFloatBtns
         }
     }
 </script>

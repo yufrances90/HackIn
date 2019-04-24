@@ -11,7 +11,8 @@ const store = new Vuex.Store({
         isLoggedIn: false,
         hackathons: [],
         hackathon: null,
-        coordinates: null
+        coordinates: null,
+        hackathonId: null
     },
     mutations: {
         loggedIn(state) {
@@ -28,13 +29,17 @@ const store = new Vuex.Store({
         },
         setCoordiantes(state, coordinates) {
             state.coordinates = coordinates;
+        },
+        setHackathonId(state, hackathonId) {
+            state.hackathonId = hackathonId;
         }
     },
     getters: {
         isLoggedIn: state => state.isLoggedIn,
         hackathons: state => state.hackathons,
         hackathon: state => state.hackathon,
-        coordinates: state => state.coordinates
+        coordinates: state => state.coordinates,
+        hackathonId: state => state.hackathonId
     },
     actions: {
         async setHackathons(context) {
@@ -48,6 +53,7 @@ const store = new Vuex.Store({
             let { data } = await utils.Client.get(`/hackathonById/${hackathonId}`);
 
             context.commit("getHackathonById", data);
+            context.commit("setHackathonId", hackathonId);
         },
         async getCoordiantesByAddress(context, address) {
 
