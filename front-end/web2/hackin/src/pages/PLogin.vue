@@ -13,22 +13,10 @@
             </div>
         </div>
         
-        <MdSnackbar
-            :md-position="snackbar.position" 
-            :md-duration="snackbar.isInfinity ? Infinity : snackbar.duration" 
-            :md-active.sync="snackbar.showSnackbar" 
-            md-persistent
-        >
-            <span>
-                {{ msg }}
-            </span>
-            <MdButton 
-                class="md-primary" 
-                @click="snackbar.showSnackbar = false"
-            >
-                Close
-            </MdButton>
-        </MdSnackbar>
+        <CSnackbar 
+            :showSnackbar="showSnackbar"
+            :message="message"
+        />
     </div>
 </template>
 
@@ -36,21 +24,18 @@
 
 import CLoginForm from "../components/CLoginForm.vue";
 import CSignupForm from "../components/CSignupForm.vue";
+import CSnackbar from "../components/CSnackbar.vue";
 
-import utils from '../utils';
+import utils from "../utils";
+
+import { snackbar } from "../components/mixins/snackbar";
 
 export default {
     name: "PLogin",
+    mixins: [snackbar],
     data() {
         return {
             isSignUpOpt: false,
-            msg: "",
-            snackbar: {
-                showSnackbar: false,
-                position: 'center',
-                duration: 4000,
-                isInfinity: false
-            },
             newAccount: null,
             account: null,
             isNewHackathonCreation: null,
@@ -59,7 +44,8 @@ export default {
     },
     components: {
         CLoginForm,
-        CSignupForm
+        CSignupForm,
+        CSnackbar
     },
     mounted() {
 
@@ -121,9 +107,9 @@ export default {
                         this.navigate();
                     }, 2500);
 
-                    this.msg = "Successfully created new account!";
+                    const msg = "Successfully created new account!";
 
-                    this.snackbar.showSnackbar = true;
+                    this.openSnackbar(msg);
                 }
             });            
         },
@@ -147,26 +133,26 @@ export default {
                             this.navigate();
                         }, 2500);
 
-                        this.msg = "Login Successfully!";
+                        const msg = "Login Successfully!";
 
-                        this.snackbar.showSnackbar = true;
+                        this.openSnackbar(msg);
                     } else {
 
-                        this.msg = "Error: password is incorrect!";
+                        const msg = "Error: password is incorrect!";
 
-                        this.snackbar.showSnackbar = true;
+                        this.openSnackbar(msg);
                     }
                 } else {
 
-                    this.msg = response.data;
+                    const msg = response.data;
 
-                    this.snackbar.showSnackbar = true;
+                    this.openSnackbar(msg);
                 }
             } catch (error) {
 
-                this.msg = error;
+                const msg = error;
 
-                this.snackbar.showSnackbar = true;
+                this.openSnackbar(msg);
             }
         }
     },
