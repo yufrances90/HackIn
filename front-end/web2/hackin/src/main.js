@@ -17,6 +17,6 @@ Vue.config.errorHandler = err => {
 
 new Vue({
   router,
-  store: utils.store,
+  store: utils.Store,
   render: h => h(App),
 }).$mount('#app');

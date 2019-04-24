@@ -191,10 +191,7 @@
     } from 'vue-material/dist/components'
     import 'vue-material/dist/vue-material.min.css';
 
-    import CMentorSection from './CMentorSection.vue';
-    import CHackerSection from './CHackerSection.vue';
-
-    import utils from "../utils";
+    import { userForm } from "./mixins/userForm";
 
     Vue.use(MdCard);
     Vue.use(MdField);
@@ -208,6 +205,7 @@
 
     export default {
         name: "CHackerSection",
+        mixins: [userForm],
         data() {
             return {
                 raceList: [
@@ -275,22 +273,7 @@
                 mostProudPersonalProject: null,
                 confirmAdult: false
             }
-        },
-        created() {
-
-            const dataKeys = Object.keys(this.$data).filter(s => !s.includes("List"));
-
-            const vm = this;
-            
-            dataKeys.forEach(key => {
-
-                const value = vm[key];
-
-                this.$watch(key, (value) => {
-                    utils.EventBus.$emit("updateValueByKey", key, value);
-                });
-            });
-        },
+        }
     }
 </script>
 

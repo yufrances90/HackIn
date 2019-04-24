@@ -57,9 +57,6 @@
     } from 'vue-material/dist/components'
     import 'vue-material/dist/vue-material.min.css';
 
-    import CMentorSection from './CMentorSection.vue';
-    import CHackerSection from './CHackerSection.vue';
-
     Vue.use(MdCard);
     Vue.use(MdField);
     Vue.use(MdDatepicker);
