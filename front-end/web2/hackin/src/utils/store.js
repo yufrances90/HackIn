@@ -18,7 +18,7 @@ const store = new Vuex.Store({
         setHackathons(state, hackathons) {
             state.hackathons = hackathons;
         },
-        getHackathonById(state, hackathon) {
+        setHackathon(state, hackathon) {
             state.hackathon = hackathon;
         },
         setCoordiantes(state, coordinates) {
@@ -52,7 +52,7 @@ const store = new Vuex.Store({
 
             let { data } = await utils.Client.get(`/hackathonById/${hackathonId}`);
 
-            context.commit("getHackathonById", data);
+            context.commit("setHackathon", data);
             context.commit("setHackathonId", hackathonId);
         },
         async getCoordiantesByAddress(context, address) {
@@ -131,6 +131,24 @@ const store = new Vuex.Store({
                 console.error(err);
 
                 context.commit("setUsrname", "");
+            }
+        },
+        async addNewHackathon(context, newHackathon) {
+
+            if(!newHackathon) {
+                return;
+            }
+
+            try {
+
+                let { status } = await utils.Client.post("/hackathons", newHackathon);
+
+                if (status === 204) {
+                    context.commit("setHackathon", newHackathon);
+                }
+            } catch(err) {
+
+                console.error(err);
             }
         }
     }

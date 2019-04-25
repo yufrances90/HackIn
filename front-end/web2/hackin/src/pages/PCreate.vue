@@ -20,6 +20,8 @@
 
 <script>
 
+    import { mapGetters } from 'vuex';
+
     import CHackathonForm from '../components/CHackathonForm.vue';
     import CUserForm from '../components/CUserForm.vue';
     import CSnackbar from '../components/CSnackbar.vue';
@@ -36,7 +38,6 @@
                 isNewHackathonCreation: 
                     (Object.keys(this.$route.params).length > 0)? 
                     this.$route.params.isNewHackathonCreation : false,
-                newHackathon: null,
                 hackathonId: null
             }
         },
@@ -45,11 +46,14 @@
             CUserForm,
             CSnackbar
         },
-        beforeCreate() {
+        computed: {
+            ...mapGetters(["usrname", "hackathon"])
+        },
+        created() {
 
             const { isNewHackathonCreation, hackathonId } = this.$route.query;
 
-            if (!this.$store.getters.isLoggedIn) {
+            if (!this.usrname || this.usrname.length === 0) {
                 this.$router.push({
                     path: "/login",
                     query: {
@@ -61,28 +65,21 @@
         },
         mounted() {
             utils.EventBus.$on('addNewHackathon', data => {
-                this.newHackathon = data;
+                this.$store.dispatch("addNewHackathon", data);
             });
 
             this.setHackathonId();
         },
         watch: {
-            newHackathon() {
+            hackathon() {
 
-                utils.Client.post("/hackathons", this.newHackathon)
-                    .then(response => {
+                setTimeout(() => {
+                    this.$router.push("/");
+                }, 2500);
 
-                        if (response.status === 204) {
+                const msg = "Successfully created new hackathon!";
 
-                            setTimeout(() => {
-                                this.$router.push("/");
-                            }, 2500);
-
-                            const msg = "Successfully created new hackathon!";
-
-                            this.openSnackbar(msg);
-                        }
-                    })
+                this.openSnackbar(msg);
             }
         },
         methods: {
