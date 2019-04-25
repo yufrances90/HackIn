@@ -5,7 +5,8 @@
         <div class="md-layout-item">
             <CUserForm 
                 v-if="!isNewHackathonCreation"
-                :hackathonId="hackathonId" 
+                :hackathonId="hackathonId"
+                :usrname="usrname" 
             />
             <CHackathonForm 
                 v-else

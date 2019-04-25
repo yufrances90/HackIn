@@ -117,8 +117,17 @@
 
     export default {
         name: "CUserForm",
+        props: [
+            "usrname"
+        ],
         data() {
             return {
+                list: [
+                    "firstName",
+                    "lastName",
+                    "phoneNumber",
+                    "email"
+                ],
                 tshirtSizeList: [
                     "XS",
                     "S",
@@ -151,7 +160,22 @@
         },
         methods: {
             addUser() {
-                console.log(this.$data);
+                
+                // fetch user by usrname
+            },
+            constructUserByHackathon() {
+
+                const dataKeys = Object.keys(this.$data)
+                    .filter(key => !key.includes("List") && !key.includes("list"))
+                    .filter(key => !this.list.includes(key));
+
+                const userByHackathon = {};
+
+                dataKeys.forEach(key => {
+                    userByHackathon[key] = this[key];
+                });
+
+                console.log(userByHackathon);
             }
         },
     }
