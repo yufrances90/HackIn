@@ -76,9 +76,11 @@
 
             <MdDivider></MdDivider>
 
-            <CFloatBtns 
+            <CApplyBtn 
                 :hackathonId="hackathonId"
+                v-if="hackathonOwner != usrname"
             />
+            <CAdminBtn v-else />
         </MdCard>
     </div>
 </template>
@@ -86,7 +88,8 @@
 <script>
 
     import CGoogleMap from "./CGoogleMap.vue";
-    import CFloatBtns from "./CFloatBtns.vue";
+    import CApplyBtn from "./CApplyBtn.vue";
+    import CAdminBtn from "./CAdminBtn.vue";
 
     import utils from "../utils";
 
@@ -95,7 +98,8 @@
         props: [
             "hackathon", 
             "coordinates",
-            "hackathonId"
+            "hackathonId",
+            "usrname"
         ],
         computed: {
             hackathonName() {
@@ -132,11 +136,15 @@
             },
             hackathonDescription() {
                 return (!this.hackathon)?  "N/A" : this.hackathon.description;
+            },
+            hackathonOwner() {
+                return (!this.hackathon)? null : this.hackathon.usrname;
             }
         },
         components: {
             CGoogleMap,
-            CFloatBtns
+            CApplyBtn,
+            CAdminBtn
         }
     }
 </script>

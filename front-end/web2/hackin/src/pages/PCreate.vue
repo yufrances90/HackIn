@@ -7,7 +7,10 @@
                 v-if="!isNewHackathonCreation"
                 :hackathonId="hackathonId" 
             />
-            <CHackathonForm v-else />
+            <CHackathonForm 
+                v-else
+                :usrname="usrname" 
+            />
             <CSnackbar 
                 :showSnackbar="showSnackbar"
                 :message="message"

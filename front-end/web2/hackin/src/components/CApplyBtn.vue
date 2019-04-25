@@ -14,7 +14,7 @@
     import Fab from 'vue-fab';
 
     export default {
-        name: "CFloatBtns",
+        name: "CApplyBtn",
         components: {
             Fab
         },

@@ -87,6 +87,7 @@ import utils from '../utils';
 
 export default {
     name: "CHackathonForm",
+    props: ["usrname"],
     data() {
         return {
             hackathonName: "",
@@ -119,7 +120,8 @@ export default {
                 shifts: this.hackathonShifts,
                 logoUrl: this.hackathonLogoUrl,
                 bgImgUrl: this.hackathonBgImageUrl,
-                description: this.hackathonDescription
+                description: this.hackathonDescription,
+                usrname: this.usrname
             }
 
             utils.EventBus.$emit('addNewHackathon', newHackathon);

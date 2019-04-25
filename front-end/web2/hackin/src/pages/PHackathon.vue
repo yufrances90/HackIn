@@ -7,6 +7,7 @@
                 :hackathon="hackathon"
                 :coordinates="coordinates"
                 :hackathonId="hackathonId"
+                :usrname="usrname"
             />
         </div>
         <div class="md-layout-item md-size-15">
@@ -33,7 +34,12 @@
             this.onGetCoordinates();
         },
         computed: {
-            ...mapGetters(["hackathon", "coordinates", "hackathonId"])
+            ...mapGetters([
+                "hackathon", 
+                "coordinates", 
+                "hackathonId",
+                "usrname"
+            ])
         },
         components: {
             CHackathon
