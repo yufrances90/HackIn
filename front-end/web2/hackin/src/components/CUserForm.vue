@@ -171,9 +171,9 @@
 
                         const newUser = this.constructNewUser();
 
-                        newUser.hackathons.push(userByHackathon);
+                        newUser.hackathons[this.hackathonId] = userByHackathon;
 
-                        utils.EventBus.$emit("addNewUser", newUser);
+                        utils.EventBus.$emit("addNewUser", newUser, this.hackathonId);
                     }
                 }, 2500);
             },
@@ -201,7 +201,7 @@
                     newUser[key] = this[key];
                 });
 
-                newUser["hackathons"] = [];
+                newUser["hackathons"] = {};
 
                 newUser["createdAt"] = new Date();
 

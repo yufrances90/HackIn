@@ -2,8 +2,8 @@ const services = require("../services");
 
 class UserController {
 
-    async saveNewUser(newUser) {
-        return await services.UserService.saveNewUser(newUser);
+    async saveNewUser(data) {
+        return await services.UserService.saveNewUser(data);
     }
 
     async getUserByUsrname(usrname) {

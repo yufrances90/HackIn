@@ -106,8 +106,11 @@
                 });
             },
             onAddNewUser() {
-                utils.EventBus.$on('addNewUser', data => {
-                    this.$store.dispatch("addNewUser", data);
+                utils.EventBus.$on('addNewUser', (newUser, hackathonId) => {
+                    this.$store.dispatch("addNewUser", {
+                        newUser, 
+                        hackathonId
+                    });
                 })
             },
             setHackathonId() {

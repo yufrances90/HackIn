@@ -177,11 +177,11 @@ app.get("/userByUsrname", async (req, res) => {
 
 app.post("/users", async (req, res) => {
 
-    const newUser = req.body;
+    const data = req.body;
 
     try {
 
-        const response = await controllers.UserController.saveNewUser(newUser);
+        const response = await controllers.UserController.saveNewUser(data);
 
         res.status(204).send(JSON.stringify(response));
     } catch(err) {

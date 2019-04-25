@@ -170,13 +170,9 @@ const store = new Vuex.Store({
                 console.error(err);
             }
         },
-        addNewUser(context, newUser) {
-
-            if(!newUser) {
-                return;
-            }
-            
-            utils.Client.post("/users", newUser).then(response => {
+        addNewUser(context, data) {
+           
+            utils.Client.post("/users", data).then(response => {
                 
                 const { status } = response;
 
