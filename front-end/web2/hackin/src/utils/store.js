@@ -8,19 +8,13 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
-        isLoggedIn: false,
         hackathons: [],
         hackathon: null,
         coordinates: null,
-        hackathonId: null
+        hackathonId: null,
+        usrname: null
     },
     mutations: {
-        loggedIn(state) {
-            state.isLoggedIn = true;
-        },
-        loggedOut(state) {
-            state.isLoggedIn = false;
-        },
         setHackathons(state, hackathons) {
             state.hackathons = hackathons;
         },
@@ -32,14 +26,20 @@ const store = new Vuex.Store({
         },
         setHackathonId(state, hackathonId) {
             state.hackathonId = hackathonId;
+        },
+        setUsrname(state, usrname) {
+            state.usrname = usrname;
+        },
+        logout(state) {
+            state.usrname = null;
         }
     },
     getters: {
-        isLoggedIn: state => state.isLoggedIn,
         hackathons: state => state.hackathons,
         hackathon: state => state.hackathon,
         coordinates: state => state.coordinates,
-        hackathonId: state => state.hackathonId
+        hackathonId: state => state.hackathonId,
+        usrname: state => state.usrname
     },
     actions: {
         async setHackathons(context) {
@@ -82,13 +82,57 @@ const store = new Vuex.Store({
 
                         context.commit("setCoordiantes", coords);
                     }
-                }
-
-                
+                }    
             } catch(err) {
                 console.error(err)
             }
-        } 
+        },
+        async loginUser(context, account) {
+
+            if (!account) {
+                return;
+            }
+
+            try {
+
+                let { data } = await utils.Client.get(`/accountByUsrname?usrname=${account.usrname}`);
+
+                const { password, usrname } = data;
+
+                if(account.password === password) {
+                    context.commit("setUsrname", usrname);
+                } else {
+                    context.commit("setUsrname", "");
+                }
+            } catch(err) {
+
+                console.error(err);
+
+                context.commit("setUsrname", "");
+            }
+        },
+        async signupUser(context, newAccount) {
+
+            if(!newAccount) {
+                return;
+            }
+
+            try {
+
+                let { status }  = await utils.Client.post("/accounts", newAccount);
+
+                if (status === 204) {
+                    context.commit("setUsrname", newAccount.usrname);
+                } else {
+                    context.commit("setUsrname", "");
+                }
+            } catch(err) {
+
+                console.error(err);
+
+                context.commit("setUsrname", "");
+            }
+        }
     }
 })
 

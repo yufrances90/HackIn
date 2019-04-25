@@ -104,6 +104,8 @@
 
 <script>
 
+    import { mapGetters } from 'vuex';
+
     import utils from "../utils";
 
     export default {
@@ -113,20 +115,15 @@
             showNavigation: false
         }),
         computed: {
+            ...mapGetters(["usrname"]),
             isLoggedIn() {
-                return this.$store.getters.isLoggedIn;
+                return (this.usrname && this.usrname.length > 0);
             }
-        },
-        mounted() {
-
-            utils.EventBus.$on("login", () => {
-                this.$store.commit("loggedIn");
-            });
         },
         methods: {
             logout() {
                 
-                this.$store.commit("loggedOut");
+                this.$store.commit("logout");
 
                 window.location = "/login";
             }

@@ -3,7 +3,7 @@
         <MdSnackbar
             :md-position="position" 
             :md-duration="isInfinity ? Infinity : duration" 
-            :md-active.sync="showSnackbar" 
+            :md-active.sync="sSnackbar" 
             md-persistent
         >
             <span>
@@ -29,12 +29,18 @@
             return {
                 position: 'center',
                 duration: 4000,
-                isInfinity: false
+                isInfinity: false,
+                sSnackbar: false
             }
         },
         methods: {
             hideSnackbarBtnClick() {
                 utils.EventBus.$emit("hideSnackbar");
+            }
+        },
+        watch: {
+            showSnackbar() {
+                this.sSnackbar = this.showSnackbar;
             }
         },
     }

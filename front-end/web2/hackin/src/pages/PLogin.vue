@@ -22,141 +22,95 @@
 
 <script>
 
-import CLoginForm from "../components/CLoginForm.vue";
-import CSignupForm from "../components/CSignupForm.vue";
-import CSnackbar from "../components/CSnackbar.vue";
+    import { mapGetters } from 'vuex';
 
-import utils from "../utils";
+    import CLoginForm from "../components/CLoginForm.vue";
+    import CSignupForm from "../components/CSignupForm.vue";
+    import CSnackbar from "../components/CSnackbar.vue";
 
-import { snackbar } from "../components/mixins/snackbar";
+    import utils from "../utils";
 
-export default {
-    name: "PLogin",
-    mixins: [snackbar],
-    data() {
-        return {
-            isSignUpOpt: false,
-            newAccount: null,
-            account: null,
-            isNewHackathonCreation: null,
-            hackathonId: null
-        }
-    },
-    components: {
-        CLoginForm,
-        CSignupForm,
-        CSnackbar
-    },
-    mounted() {
+    import { snackbar } from "../components/mixins/snackbar";
 
-        const { params, query } = this.$route;
-
-        this.isSignUpOpt = (Object.keys(params).length > 0)? params.isSignUpOpt : this.isSignUpOpt;
-
-        if (this.isSignUpOpt) {
-            this.saveNewAccount();
-        } else {
-            this.userLogin();
-        }
-
-        if (Object.keys(query).length > 0) {
-
-            const { isNewHackathonCreation, hackathonId } = query;
-
-            this.hackathonId = hackathonId;
-            this.isNewHackathonCreation = isNewHackathonCreation;
-        }
-    },
-    methods: {
-        saveNewAccount() {
-            utils.EventBus.$on("addNewAccount", data => {
-                this.newAccount = data;
-            });
-        },
-        userLogin() {
-            utils.EventBus.$on("userLogin", data => {
-                this.account = data;
-            });
-        },
-        navigate() {
-
-            if(this.isNewHackathonCreation === null) {
-                this.$router.push("/");
-            } else {
-                this.$router.push({
-                    path: "/create",
-                    query: {
-                        isNewHackathonCreation: this.isNewHackathonCreation,
-                        hackathonId: this.hackathonId
-                    }
-                })
+    export default {
+        name: "PLogin",
+        mixins: [snackbar],
+        data() {
+            return {
+                isSignUpOpt: false,
+                isNewHackathonCreation: null,
+                hackathonId: null
             }
-        }
-    },
-    watch: {
-        newAccount() {
-
-            utils.Client.post("/accounts", this.newAccount).then(response => {
-
-                if (response.status === 204) {
-
-                    setTimeout(() => {
-
-                        utils.EventBus.$emit("login");
-
-                        this.navigate();
-                    }, 2500);
-
-                    const msg = "Successfully created new account!";
-
-                    this.openSnackbar(msg);
-                }
-            });            
         },
-        async account() {
+        computed: {
+            ...mapGetters(["usrname"])
+        },
+        components: {
+            CLoginForm,
+            CSignupForm,
+            CSnackbar
+        },
+        mounted() {
 
-            try {
+            const { params, query } = this.$route;
 
-                const response = 
-                    await utils.Client.get(`/accountByUsrname?usrname=${this.account.usrname}`);
+            this.isSignUpOpt = (Object.keys(params).length > 0)? params.isSignUpOpt : this.isSignUpOpt;
 
-                if (response.status === 200) {
+            if (this.isSignUpOpt) {
+                this.saveNewAccount();
+            } else {
+                this.loginUser();
+            }
 
-                    const usrAccount = response.data;
+            if (Object.keys(query).length > 0) {
 
-                    if (usrAccount.password === this.account.password) {
+                const { isNewHackathonCreation, hackathonId } = query;
 
-                        setTimeout(() => {
+                this.hackathonId = hackathonId;
+                this.isNewHackathonCreation = isNewHackathonCreation;
+            }
+        },
+        methods: {
+            saveNewAccount() {
+                utils.EventBus.$on("addNewAccount", data => {
+                    this.$store.dispatch("signupUser", data);
+                });
+            },
+            loginUser() {
+                utils.EventBus.$on("userLogin", data => {
+                    this.$store.dispatch("loginUser", data);
+                });
+            },
+            navigate() {
 
-                            utils.EventBus.$emit("login");
-
-                            this.navigate();
-                        }, 2500);
-
-                        const msg = "Login Successfully!";
-
-                        this.openSnackbar(msg);
-                    } else {
-
-                        const msg = "Error: password is incorrect!";
-
-                        this.openSnackbar(msg);
-                    }
+                if(this.isNewHackathonCreation === null) {
+                    this.$router.push("/");
                 } else {
-
-                    const msg = response.data;
-
-                    this.openSnackbar(msg);
+                    this.$router.push({
+                        path: "/create",
+                        query: {
+                            isNewHackathonCreation: this.isNewHackathonCreation,
+                            hackathonId: this.hackathonId
+                        }
+                    })
                 }
-            } catch (error) {
+            }
+        },
+        watch: {
+            usrname() {
 
-                const msg = error;
+                setTimeout(() => {
+                    this.navigate();
+                }, 2500);
+
+                const msg = (this.usrname.length === 0)? 
+                    "Error: Username or password is incorrect! Please try again later!" :
+                    "Login Successfully!";
 
                 this.openSnackbar(msg);
             }
-        }
-    },
-}
+        },
+    }
 </script>
 
 <style scoped>
@@ -164,4 +118,3 @@ export default {
         margin: 5vh 3vw;
     }
 </style>
-
