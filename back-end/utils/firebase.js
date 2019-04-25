@@ -89,6 +89,18 @@ const deleteAccount = async (accountId) => {
     return await deleteById(accountCollection, accountId);
 }
 
+const updateUserByUsrname = async (
+    usrname,
+    key,
+    newValue
+) => {
+    return await update(
+        userCollection, 
+        "usrname", "==", usrname,
+        key, newValue
+    );
+}
+
 /*
     Private methods
 */
@@ -134,6 +146,32 @@ const getById = async (collection, id) => {
     return (snapshot.exists)? snapshot.data() : null;
 }
 
+const update = async (
+        collection, 
+        attr,
+        op,
+        value,
+        key,
+        newValue
+) => {
+    
+    const ref = await collection.where(attr, op, value);
+
+    db.runTransaction(t => {
+        t.get(ref)
+        .then(doc => {
+            t.update(ref, {
+                [key]: newValue
+            });
+            return Promise.resolve(`${key} has updated to ${newValue}`);
+        }).then(result => {
+            console.log("Update success", result);
+        }).catch(err => {
+            console.log("Update failure", err);
+        });
+    });
+}
+
 module.exports = {
     testFirebaseDB,
     getAllUsers,
@@ -150,5 +188,6 @@ module.exports = {
     getAccountById,
     getAccounts,
     addAccount,
-    deleteAccount
+    deleteAccount,
+    updateUserByUsrname
 }

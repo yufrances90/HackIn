@@ -147,4 +147,52 @@ app.get("/googleApiKey", (req, res) => {
     res.status(200).send(controllers.UtilController.getGoogleMapApiKey());
 });
 
+app.get("/userByUsrname", async (req, res) => {
+
+    const { usrname } = req.query;
+
+    if(!usrname) {
+        res.status(400).send("No usrname is provided");
+    }
+
+    try {
+
+        const response = await controllers.UserController.getUserByUsrname(usrname);
+
+        if (response.length > 0) {
+            res.status(200).send(JSON.stringify(response));
+        } else {
+            res.status(404).send(`No user is found for username: ${usrname}`);
+        }
+    } catch(err) {
+
+        const error = {
+            message: err.message,
+            name: err.name
+        };
+
+        res.status(500).send(JSON.stringify(error));
+    }
+});
+
+app.post("/users", async (req, res) => {
+
+    const newUser = req.body;
+
+    try {
+
+        const response = await controllers.UserController.saveNewUser(newUser);
+
+        res.status(204).send(JSON.stringify(response));
+    } catch(err) {
+
+        const error = {
+            message: err.message,
+            name: err.name
+        };
+
+        res.status(500).send(JSON.stringify(error));
+    }
+});
+
 app.listen(port, () => console.log(`Listening on port ${port}!`));

@@ -117,16 +117,15 @@
 
     export default {
         name: "CUserForm",
-        props: [
-            "usrname"
-        ],
+        props: ["usrname", "user", "hackathonId"],
         data() {
             return {
                 list: [
                     "firstName",
                     "lastName",
                     "phoneNumber",
-                    "email"
+                    "email",
+                    "usrname"
                 ],
                 tshirtSizeList: [
                     "XS",
@@ -160,8 +159,23 @@
         },
         methods: {
             addUser() {
-                
-                // fetch user by usrname
+
+                const userByHackathon = this.constructUserByHackathon();
+
+                utils.EventBus.$emit("getUserByUsrname", this.usrname);
+
+                setTimeout(() => {
+
+                    if (this.user) {
+                    } else {
+
+                        const newUser = this.constructNewUser();
+
+                        newUser.hackathons.push(userByHackathon);
+
+                        utils.EventBus.$emit("addNewUser", newUser);
+                    }
+                }, 2500);
             },
             constructUserByHackathon() {
 
@@ -175,7 +189,23 @@
                     userByHackathon[key] = this[key];
                 });
 
-                console.log(userByHackathon);
+                userByHackathon.hackathonId = this.hackathonId;
+
+                return userByHackathon;
+            },
+            constructNewUser() {
+
+                const newUser = {};
+
+                this.list.forEach(key => {
+                    newUser[key] = this[key];
+                });
+
+                newUser["hackathons"] = [];
+
+                newUser["createdAt"] = new Date();
+
+                return newUser;
             }
         },
     }

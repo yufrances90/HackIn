@@ -7,6 +7,7 @@
                 v-if="!isNewHackathonCreation"
                 :hackathonId="hackathonId"
                 :usrname="usrname" 
+                :user="user"
             />
             <CHackathonForm 
                 v-else
@@ -51,7 +52,11 @@
             CSnackbar
         },
         computed: {
-            ...mapGetters(["usrname", "hackathon"])
+            ...mapGetters([
+                "usrname", 
+                "hackathon", 
+                "user"
+            ])
         },
         created() {
 
@@ -68,9 +73,12 @@
             }
         },
         mounted() {
-            utils.EventBus.$on('addNewHackathon', data => {
-                this.$store.dispatch("addNewHackathon", data);
-            });
+            
+            this.onAddNewHackathon();
+
+            this.onGetUserByUsrname();
+
+            this.onAddNewUser();
 
             this.setHackathonId();
         },
@@ -87,6 +95,21 @@
             }
         },
         methods: {
+            onAddNewHackathon() {
+                utils.EventBus.$on('addNewHackathon', data => {
+                    this.$store.dispatch("addNewHackathon", data);
+                });
+            },
+            onGetUserByUsrname() {
+                utils.EventBus.$on('getUserByUsrname', data => {
+                    this.$store.dispatch("getUserByUsrname", data);
+                });
+            },
+            onAddNewUser() {
+                utils.EventBus.$on('addNewUser', data => {
+                    this.$store.dispatch("addNewUser", data);
+                })
+            },
             setHackathonId() {
 
                 const { hackathonId } = this.$route.query;

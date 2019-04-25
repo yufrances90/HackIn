@@ -12,7 +12,8 @@ const store = new Vuex.Store({
         hackathon: null,
         coordinates: null,
         hackathonId: null,
-        usrname: null
+        usrname: null,
+        user: null
     },
     mutations: {
         setHackathons(state, hackathons) {
@@ -32,6 +33,9 @@ const store = new Vuex.Store({
         },
         logout(state) {
             state.usrname = null;
+        },
+        setUser(state, user) {
+            state.user = user;
         }
     },
     getters: {
@@ -39,7 +43,8 @@ const store = new Vuex.Store({
         hackathon: state => state.hackathon,
         coordinates: state => state.coordinates,
         hackathonId: state => state.hackathonId,
-        usrname: state => state.usrname
+        usrname: state => state.usrname,
+        user: state => state.user
     },
     actions: {
         async setHackathons(context) {
@@ -147,9 +152,41 @@ const store = new Vuex.Store({
                     context.commit("setHackathon", newHackathon);
                 }
             } catch(err) {
-
                 console.error(err);
             }
+        },
+        async getUserByUsrname(context, usrname) {
+
+            if(!usrname) {
+                return;
+            }
+
+            try {
+                
+                let { data } = await utils.Client.get(`/userByUsrname?usrname=${usrname}`);
+                
+                context.commit("setUser", data[0]);
+            } catch(err) {
+                console.error(err);
+            }
+        },
+        addNewUser(context, newUser) {
+
+            if(!newUser) {
+                return;
+            }
+            
+            utils.Client.post("/users", newUser).then(response => {
+                
+                const { status } = response;
+
+                if(status === 204) {
+
+                    console.log("Successfully created new user!");
+                    
+                    context.commit("setUser", newUser);
+                }
+            }).catch(err => console.error(err));
         }
     }
 })
