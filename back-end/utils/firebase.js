@@ -90,15 +90,16 @@ const deleteAccount = async (accountId) => {
 }
 
 const updateUserByUsrname = async (
-    usrname,
-    key,
-    newValue
+    userId,
+    userByHackathon, 
+    hackathonId
 ) => {
-    return await update(
-        userCollection, 
-        "usrname", "==", usrname,
-        key, newValue
-    );
+
+    const key = `hackathons.${hackathonId}`;
+
+    return await userCollection.doc(userId).update({
+        [key]: userByHackathon
+    });
 }
 
 /*
@@ -144,32 +145,6 @@ const getById = async (collection, id) => {
     const snapshot = await collection.doc(id).get();
 
     return (snapshot.exists)? snapshot.data() : null;
-}
-
-const update = async (
-        collection, 
-        attr,
-        op,
-        value,
-        key,
-        newValue
-) => {
-    
-    const ref = await collection.where(attr, op, value);
-
-    db.runTransaction(t => {
-        t.get(ref)
-        .then(doc => {
-            t.update(ref, {
-                [key]: newValue
-            });
-            return Promise.resolve(`${key} has updated to ${newValue}`);
-        }).then(result => {
-            console.log("Update success", result);
-        }).catch(err => {
-            console.log("Update failure", err);
-        });
-    });
 }
 
 module.exports = {

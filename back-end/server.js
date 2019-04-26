@@ -195,4 +195,33 @@ app.post("/users", async (req, res) => {
     }
 });
 
+app.put("/users/:userId", async (req, res) => {
+
+    const { userId } = req.params;
+
+    const { userByHackathon, hackathonId } = req.body;
+
+    try {
+
+        const response = await controllers.UserController.updateUserByUsrname(
+            userId,
+            userByHackathon,
+            hackathonId 
+        );
+
+        res.status(204).send(JSON.stringify(response));
+
+    } catch(err) {
+
+        const error = {
+            message: err.message,
+            name: err.name
+        };
+
+        console.error(error);
+
+        res.status(500).send(JSON.stringify(error));
+    }
+});
+
 app.listen(port, () => console.log(`Listening on port ${port}!`));

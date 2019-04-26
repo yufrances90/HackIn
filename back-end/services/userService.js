@@ -31,8 +31,12 @@ class UserService {
         return await repos.UserRepo.getUserByUsrname(usrname);
     }
 
-    async updateUserByUsrname(usrname, key, newValue) {
-        return await repos.UserRepo.updateUserByUsrname(usrname, key, newValue);
+    async updateUserByUsrname(userId, userByHackathon, hackathonId) {
+        return await repos.UserRepo.updateUserByUsrname(
+            userId, 
+            userByHackathon, 
+            hackathonId
+        );
     }
 }
 

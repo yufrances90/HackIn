@@ -183,6 +183,17 @@ const store = new Vuex.Store({
                     context.commit("setUser", newUser);
                 }
             }).catch(err => console.error(err));
+        },
+        updateUser(context, data) {
+
+            const { userId, userByHackathon, hackathonId } = data;
+
+            utils.Client.put(`/users/${userId}`, {
+                userByHackathon,
+                hackathonId
+            }).then(response => {
+                console.log(response);
+            })
         }
     }
 })

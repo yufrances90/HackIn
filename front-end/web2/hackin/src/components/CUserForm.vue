@@ -167,6 +167,11 @@
                 setTimeout(() => {
 
                     if (this.user) {
+                        utils.EventBus.$emit(
+                            "updateUser", 
+                            this.user, 
+                            userByHackathon,
+                            this.hackathonId);
                     } else {
 
                         const newUser = this.constructNewUser();

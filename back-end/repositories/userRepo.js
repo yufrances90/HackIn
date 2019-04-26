@@ -10,8 +10,12 @@ class UserRepo {
         return await utils.getUsers("usrname", "==", usrname);
     }
 
-    async updateUserByUsrname(usrname, key, newValue) {
-        return await utils.updateUserByUsrname(usrname, key, newValue);
+    async updateUserByUsrname(userId, userByHackathon, hackathonId) {
+        return await utils.updateUserByUsrname(
+            userId, 
+            userByHackathon, 
+            hackathonId
+        );
     }
 }
 

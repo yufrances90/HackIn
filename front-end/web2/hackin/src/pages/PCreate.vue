@@ -80,6 +80,8 @@
 
             this.onAddNewUser();
 
+            this.onUpdateUser();
+
             this.setHackathonId();
         },
         watch: {
@@ -109,6 +111,18 @@
                 utils.EventBus.$on('addNewUser', (newUser, hackathonId) => {
                     this.$store.dispatch("addNewUser", {
                         newUser, 
+                        hackathonId
+                    });
+                })
+            },
+            onUpdateUser() {
+                utils.EventBus.$on(
+                    'updateUser', 
+                    (user, userByHackathon, hackathonId) => {
+                    
+                    this.$store.dispatch("updateUser", {
+                        userId: user._id, 
+                        userByHackathon, 
                         hackathonId
                     });
                 })

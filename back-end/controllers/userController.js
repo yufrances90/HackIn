@@ -10,8 +10,12 @@ class UserController {
         return await services.UserService.getUserByUsrname(usrname);
     }
 
-    async updateUserByUsrname(usrname, key, newValue) {
-        return await services.UserService.updateUserByUsrname(usrname, key, newValue);
+    async updateUserByUsrname(userId, userByHackathon, hackathonId) {
+        return await services.UserService.updateUserByUsrname(
+            userId, 
+            userByHackathon, 
+            hackathonId
+        );
     }
 }
 
