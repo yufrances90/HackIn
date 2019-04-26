@@ -83,6 +83,10 @@
                         v-show="userType === 'volunteer'" 
                     />
                     
+                    <CUFCheckbox 
+                        v-show="userType === 'mentor' || userType === 'volunteer' || shifts.length === 0"
+                        :shifts="shifts"
+                    />
 
                     <div v-show="userType">
                         <div>
@@ -98,27 +102,30 @@
                         >
                             Submit 
                         </MdButton>
-                    </div>
-
-                    
-            </div>
-                
+                    </div> 
+                </div> 
             </MdCardContent>
         </MdCard>
     </form>
 </template>
-
+x
 <script>
 
     import CMentorSection from './CMentorSection.vue';
     import CHackerSection from './CHackerSection.vue';
     import CVolunteerSection from './CVolunteerSection.vue';
+    import CUFCheckbox from './CUFCheckbox.vue';
 
     import utils from "../utils";
 
     export default {
         name: "CUserForm",
-        props: ["usrname", "user", "hackathonId"],
+        props: [
+            "usrname", 
+            "user", 
+            "hackathonId",
+            "hackathon"
+        ],
         data() {
             return {
                 list: [
@@ -148,7 +155,8 @@
         components: {
             CMentorSection,
             CHackerSection,
-            CVolunteerSection
+            CVolunteerSection,
+            CUFCheckbox
         },
         created() {
 
@@ -212,6 +220,11 @@
                 newUser["createdAt"] = new Date();
 
                 return newUser;
+            }
+        },
+        computed: {
+            shifts() {
+                return (this.hackathon)? this.hackathon.shifts : [];
             }
         },
     }

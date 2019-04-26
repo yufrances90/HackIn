@@ -8,6 +8,7 @@
                 :hackathonId="hackathonId"
                 :usrname="usrname" 
                 :user="user"
+                :hackathon="hackathon"
             />
             <CHackathonForm 
                 v-else
