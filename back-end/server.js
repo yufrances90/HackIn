@@ -224,4 +224,34 @@ app.put("/users/:userId", async (req, res) => {
     }
 });
 
+app.get("/usersByHackathon", async (req, res) => {
+
+    const { hackathonId } = req.query;
+
+    if(!hackathonId) {
+        res.status(400).send("No hackathon id is provided");
+    }
+
+    try {
+
+        const response = await controllers.UserController.getUsersByHackathon(hackathonId);
+
+        if (response.length > 0) {
+            res.status(200).send(JSON.stringify(response));
+        } else {
+            res.status(404).send(`No user is found for hackathon id: ${hackathonId}`);
+        }
+    } catch(err) {
+
+        const error = {
+            message: err.message,
+            name: err.name
+        };
+
+        console.error(error);
+
+        res.status(500).send(JSON.stringify(error));
+    }
+})
+
 app.listen(port, () => console.log(`Listening on port ${port}!`));

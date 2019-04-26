@@ -192,7 +192,7 @@ const store = new Vuex.Store({
 
                     console.log("Successfully created new user!");
                     
-                    context.commit("setUser", newUser);
+                    context.commit("setUser", data.newUser);
                 }
             }).catch(err => console.error(err));
         },

@@ -38,6 +38,10 @@ class UserService {
             hackathonId
         );
     }
+
+    async getUsersByHackathon(hackathonId) {
+        return await repos.UserRepo.getUsersByHackathon(hackathonId);
+    }
 }
 
 const userService = new UserService();

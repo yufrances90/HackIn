@@ -17,6 +17,10 @@ class UserController {
             hackathonId
         );
     }
+
+    async getUsersByHackathon(hackathonId) {
+        return await services.UserService.getUsersByHackathon(hackathonId);
+    }
 }
 
 const userController = new UserController();

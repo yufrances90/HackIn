@@ -102,6 +102,14 @@ const updateUserByUsrname = async (
     });
 }
 
+const getUsersByHackathonId = async (hackathonId) => {
+
+    const key = `hackathons.${hackathonId}.hackathonId`;
+
+    return await getUsers(key, "==", hackathonId);
+}
+
+
 /*
     Private methods
 */
@@ -164,5 +172,6 @@ module.exports = {
     getAccounts,
     addAccount,
     deleteAccount,
-    updateUserByUsrname
+    updateUserByUsrname,
+    getUsersByHackathonId
 }
