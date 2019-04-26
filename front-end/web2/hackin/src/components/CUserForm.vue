@@ -84,7 +84,7 @@
                     />
                     
                     <CUFCheckbox 
-                        v-show="userType === 'mentor' || userType === 'volunteer' || shifts.length === 0"
+                        v-show="userType === 'mentor' || userType === 'volunteer' || shifts.length !== 0"
                         :shifts="shifts"
                     />
 
