@@ -125,7 +125,7 @@
                 
                 this.$store.commit("logout");
 
-                window.location = "/login";
+                window.location = "/";
             }
         },
     }
