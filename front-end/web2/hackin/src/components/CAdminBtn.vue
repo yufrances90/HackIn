@@ -2,9 +2,10 @@
     <div>
         <Fab
             main-icon="person_outline"
-            main-tooltip="Click to Access Admin Panel"
+            main-tooltip="Click to Manage This Hackathon"
             :actions="fabActions"
-            @admin="admin"
+            @editHackathon="editHackathon"
+            @viewApplications="viewApplications"
         />
     </div>
 </template>
@@ -22,16 +23,24 @@
             return {
                 fabActions: [
                     {
-                        name: "admin",
-                        icon: "dashboard",
-                        tooltip: "Click to Access Admin Panel"
+                        name: "editHackathon",
+                        icon: "edit",
+                        tooltip: "Edit Hackathon Details"
+                    },
+                    {
+                        name: "viewApplications",
+                        icon: "people",
+                        tooltip: "View Applications"
                     }
                 ]
             }
         },
         methods: {
-            admin() {
-                console.log("Hello World!");
+            editHackathon() {
+                console.log("Hello");
+            },
+            viewApplications() {
+                console.log("world");
             }
         },
     }
