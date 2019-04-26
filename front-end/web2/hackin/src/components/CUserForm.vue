@@ -84,8 +84,9 @@
                     />
                     
                     <CUFCheckbox 
-                        v-show="userType === 'mentor' || userType === 'volunteer' || shifts.length !== 0"
+                        v-show="(userType === 'mentor' || userType === 'volunteer') && shifts.length > 0"
                         :shifts="shifts"
+                        :userType="userType"
                     />
 
                     <div v-show="userType">
@@ -160,10 +161,8 @@ x
         },
         created() {
 
-            const vm = this;
-
             utils.EventBus.$on("updateValueByKey", (key, value) => {
-                vm.$data[key] = value;
+                this.$data[key] = value;
             });
         },
         methods: {
@@ -200,7 +199,7 @@ x
                 const userByHackathon = {};
 
                 dataKeys.forEach(key => {
-                    userByHackathon[key] = this[key];
+                    userByHackathon[key] = this.$data[key];
                 });
 
                 userByHackathon.hackathonId = this.hackathonId;

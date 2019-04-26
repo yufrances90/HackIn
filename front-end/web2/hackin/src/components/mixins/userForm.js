@@ -8,9 +8,10 @@ export const userForm = {
         
         dataKeys.forEach(key => {
 
-            const value = vm[key];
+            this.$watch(key, () => {
 
-            this.$watch(key, (value) => {
+                const value = this[key];
+
                 utils.EventBus.$emit("updateValueByKey", key, value);
             });
         });

@@ -177,6 +177,8 @@
 
 <script>
 
+    import uniqid from 'uniqid';
+
     import utils from '../utils';
 
     export default {
@@ -221,6 +223,7 @@
             addNewShift() {
 
                 const newShift = {
+                    id: uniqid(),
                     name: this.shiftName,
                     startDatetime: this.startDatetime,
                     endDatetime: this.endDatetime,
