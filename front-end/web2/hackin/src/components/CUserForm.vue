@@ -94,8 +94,9 @@
                         <MdButton 
                             class="submit-btn"
                             @click="addUser"
+                            :disabled="!confirmReadMlhConduct"
                         >
-                            Submit
+                            Submit 
                         </MdButton>
                     </div>
 

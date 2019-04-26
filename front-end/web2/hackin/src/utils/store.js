@@ -192,8 +192,13 @@ const store = new Vuex.Store({
                 userByHackathon,
                 hackathonId
             }).then(response => {
-                console.log(response);
-            })
+            
+                const { status } = response;
+
+                if(status === 204) {
+                    console.log("Successfully submitted application");
+                }
+            }).catch(err => console.error(err));
         }
     }
 })
