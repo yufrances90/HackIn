@@ -80,7 +80,10 @@
                 :hackathonId="hackathonId"
                 v-if="hackathonOwner != usrname"
             />
-            <CAdminBtn v-else />
+            <CAdminBtn 
+                v-else 
+                :hackathonId="hackathonId"
+            />
         </MdCard>
     </div>
 </template>

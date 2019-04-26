@@ -16,6 +16,7 @@
 
     export default {
         name: "CAdminBtn",
+        props: ["hackathonId"],
         components: {
             Fab
         },
@@ -37,10 +38,10 @@
         },
         methods: {
             editHackathon() {
-                console.log("Hello");
+                this.$router.push(`/organizers/hackathon/${this.hackathonId}/edit`);
             },
             viewApplications() {
-                console.log("world");
+                this.$router.push(`/organizers/hackathon/${this.hackathonId}/manage`);
             }
         },
     }

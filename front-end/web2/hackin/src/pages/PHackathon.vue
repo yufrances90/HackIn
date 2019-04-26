@@ -25,7 +25,7 @@
 
     export default {
         name: "PHackathon",
-        mounted() {
+        created() {
 
             const hackathonId = this.$route.params.id;
 

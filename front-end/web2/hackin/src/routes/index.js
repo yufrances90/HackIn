@@ -6,6 +6,9 @@ import PHome from '../pages/PHome.vue';
 import PLogin from '../pages/PLogin.vue';
 import PHackathon from '../pages/PHackathon.vue';
 
+import POHackathon from '../pages/organizers/POHackathon.vue';
+import POApplication from '../pages/organizers/POApplication.vue';
+
 Vue.use(Router);
 
 const router = new Router({
@@ -30,6 +33,16 @@ const router = new Router({
             path: "/hackathon/:id",
             name: "PHackathon",
             component: PHackathon
+        },
+        {
+            path: "/organizers/hackathon/:id/edit",
+            name: "POHackathon",
+            component: POHackathon
+        },
+        {
+            path: "/organizers/hackathon/:id/manage",
+            name: "POApplication",
+            component: POApplication
         }
     ]
 });

@@ -1,6 +1,6 @@
 <template>
     <div class="page-container">
-        <MdToolbar class="md-primary md-medium">
+        <MdToolbar class="md-primary md-medium navbar">
             <MdButton 
                 class="md-icon-button"
                 :disabled="!isLoggedIn"
@@ -125,7 +125,7 @@
                 
                 this.$store.commit("logout");
 
-                window.location = "/";
+                this.$router.push("/");
             }
         },
     }
@@ -153,6 +153,10 @@
 
     .nav-link:hover {
         text-decoration: none;
+    }
+
+    .navbar {
+        background-color: black !important;
     }
 </style>
 

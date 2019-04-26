@@ -1,6 +1,11 @@
 import Vue from 'vue';
 
 import Vuex from 'vuex';
+import createLogger from 'vuex/dist/logger';
+
+const debug = true;
+
+const plugins = debug ? [createLogger({})] : [];
 
 import utils from '../utils';
 
@@ -13,7 +18,8 @@ const store = new Vuex.Store({
         coordinates: null,
         hackathonId: null,
         usrname: null,
-        user: null
+        user: null,
+        isOrganizer: false
     },
     mutations: {
         setHackathons(state, hackathons) {
@@ -36,7 +42,10 @@ const store = new Vuex.Store({
         },
         setUser(state, user) {
             state.user = user;
-        }
+        },
+        setIsOrganizer(state, isOrganizer) {
+            state.isOrganizer = isOrganizer;
+        }   
     },
     getters: {
         hackathons: state => state.hackathons,
@@ -44,7 +53,8 @@ const store = new Vuex.Store({
         coordinates: state => state.coordinates,
         hackathonId: state => state.hackathonId,
         usrname: state => state.usrname,
-        user: state => state.user
+        user: state => state.user,
+        isOrganizer: state => state.isOrganizer
     },
     actions: {
         async setHackathons(context) {
@@ -59,6 +69,8 @@ const store = new Vuex.Store({
 
             context.commit("setHackathon", data);
             context.commit("setHackathonId", hackathonId);
+
+            context.commit("setIsOrganizer", data.usrname === context.getters.usrname);
         },
         async getCoordiantesByAddress(context, address) {
 
@@ -199,8 +211,13 @@ const store = new Vuex.Store({
                     console.log("Successfully submitted application");
                 }
             }).catch(err => console.error(err));
+        },
+
+        setIsOrganizer(context, isOrganizer) {
+            context.commit("setIsOrganizer", isOrganizer);
         }
-    }
+    },
+    plugins
 })
 
 export default store;
