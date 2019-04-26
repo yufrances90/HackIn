@@ -32,9 +32,20 @@ class UserService {
     }
 
     async updateUserByUsrname(userId, userByHackathon, hackathonId) {
+
+        const { userType } = userByHackathon;
+
+        const updatedUserByHackathon = {
+            ...userByHackathon,
+            isHacker: (userType === "hacker")? true : false,
+            isMentor: (userType === "mentor")? true : false,
+            isVolunteer: (userType === "volunteer")? true : false,
+            isAdmitted: false
+        };
+
         return await repos.UserRepo.updateUserByUsrname(
             userId, 
-            userByHackathon, 
+            updatedUserByHackathon, 
             hackathonId
         );
     }

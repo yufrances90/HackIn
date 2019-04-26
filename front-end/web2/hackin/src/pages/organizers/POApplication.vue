@@ -1,6 +1,9 @@
 <template>
     <div>
-        Hello from POApplication
+        <COUserList 
+            :users="users"
+            :hackathonId="hackathonId"
+        />
     </div>
 </template>
 
@@ -9,19 +12,24 @@
     import { mapGetters } from 'vuex';
 
     import CAdminBtn from '../../components/CAdminBtn.vue';
+    import COUserList from '../../components/organizers/COUserList.vue';
 
     export default {
         name: "POApplication",
         computed: {
-            ...mapGetters(["isOrganizer"])
+            ...mapGetters(["isOrganizer", "hackathonId", "users"])
         },
         components: {
-            CAdminBtn
+            CAdminBtn,
+            COUserList
         },
         beforeMount() {
+
             if(!this.isOrganizer) {
                 this.$router.push("/");
             }
+
+            this.$store.dispatch("getUsersByHackathon", this.hackathonId);
         }
     }
 </script>

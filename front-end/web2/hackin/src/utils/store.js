@@ -3,7 +3,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import createLogger from 'vuex/dist/logger';
 
-const debug = true;
+const debug = process.env.DEBUG || false;
 
 const plugins = debug ? [createLogger({})] : [];
 
@@ -19,7 +19,8 @@ const store = new Vuex.Store({
         hackathonId: null,
         usrname: null,
         user: null,
-        isOrganizer: false
+        isOrganizer: false,
+        users: []
     },
     mutations: {
         setHackathons(state, hackathons) {
@@ -45,7 +46,10 @@ const store = new Vuex.Store({
         },
         setIsOrganizer(state, isOrganizer) {
             state.isOrganizer = isOrganizer;
-        }   
+        },
+        setUsers(state, users) {
+            state.users = users;
+        } 
     },
     getters: {
         hackathons: state => state.hackathons,
@@ -54,7 +58,8 @@ const store = new Vuex.Store({
         hackathonId: state => state.hackathonId,
         usrname: state => state.usrname,
         user: state => state.user,
-        isOrganizer: state => state.isOrganizer
+        isOrganizer: state => state.isOrganizer,
+        users: state => state.users
     },
     actions: {
         async setHackathons(context) {
@@ -212,9 +217,16 @@ const store = new Vuex.Store({
                 }
             }).catch(err => console.error(err));
         },
+        async getUsersByHackathon(context, hackathonId) {
 
-        setIsOrganizer(context, isOrganizer) {
-            context.commit("setIsOrganizer", isOrganizer);
+            try {
+
+                let { data }  = await utils.Client.get(`/usersByHackathon?hackathonId=${hackathonId}`);
+
+                context.commit("setUsers", data);
+            } catch(err) {
+                console.error(err);
+            }
         }
     },
     plugins

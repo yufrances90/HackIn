@@ -236,11 +236,7 @@ app.get("/usersByHackathon", async (req, res) => {
 
         const response = await controllers.UserController.getUsersByHackathon(hackathonId);
 
-        if (response.length > 0) {
-            res.status(200).send(JSON.stringify(response));
-        } else {
-            res.status(404).send(`No user is found for hackathon id: ${hackathonId}`);
-        }
+        res.status(200).send(JSON.stringify(response));
     } catch(err) {
 
         const error = {
