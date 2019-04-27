@@ -2,7 +2,7 @@
     <div class="md-layout">
         <div class="md-layout-item md-size-20"></div>
         <div class="md-layout-item">
-             <COUserList 
+             <COUserSection 
                 :users="users"
                 :hackathonId="hackathonId"
             />
@@ -13,13 +13,13 @@
 
 <script>
 
-    import COUserList from "./COUserList.vue";
+    import COUserSection from "./COUserSection.vue";
 
     export default {
         name: "COApplication",
         props: ["users", "hackathonId"],
         components: {
-            COUserList
+            COUserSection
         }
     }
 </script>

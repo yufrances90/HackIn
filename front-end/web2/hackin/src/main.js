@@ -20,7 +20,8 @@ import {
     MdDrawer,
     MdSnackbar,
     MdAvatar,
-    MdChips
+    MdChips,
+    MdProgress
 } from 'vue-material/dist/components';
 import 'vue-material/dist/vue-material.min.css';
 
@@ -56,6 +57,7 @@ Vue.use(MdDrawer);
 Vue.use(MdSnackbar);
 Vue.use(MdAvatar);
 Vue.use(MdChips);
+Vue.use(MdProgress);
 
 Vue.use(ElementUI, { locale });
 
