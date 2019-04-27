@@ -10,7 +10,13 @@
         props: ["user"],
         data() {
             return {
-                requiredField: []
+                requiredField: [
+                     "_id",
+                    "firstName",
+                    "lastName",
+                    "reasonForVolunteer",
+                    "faculty"
+                ]
             }
         }
     }

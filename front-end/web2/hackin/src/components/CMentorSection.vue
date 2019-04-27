@@ -46,10 +46,6 @@
                 {{ item.value }}
             </MdCheckbox>
         </div>
-
-        <!-- 
-            TODO: What is availability?
-        -->
     </div>
 </template>
 

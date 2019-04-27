@@ -45,10 +45,6 @@
                 Please provide a brief description
             </span>
         </MdField>
-
-        <!-- 
-            TODO: What is availability?
-        -->
     </div>
 </template>
 

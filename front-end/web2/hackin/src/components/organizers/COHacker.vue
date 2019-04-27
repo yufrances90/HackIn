@@ -10,7 +10,16 @@
         props: ["user", "hackathonId"],
         data() {
             return {
-                requiredField: []
+                requiredField: [
+                    "_id",
+                    "firstName",
+                    "lastName",
+                    "age",
+                    "gender",
+                    "github",
+                    "linkedin",
+                    "personalWebsite"
+                ]
             }
         }
     }
