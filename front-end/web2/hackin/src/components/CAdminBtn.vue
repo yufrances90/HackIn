@@ -6,6 +6,8 @@
             :actions="fabActions"
             @editHackathon="editHackathon"
             @viewApplications="viewApplications"
+            @return="goToHackathonDetails"
+            @home="goToHome"
         />
     </div>
 </template>
@@ -32,6 +34,16 @@
                         name: "viewApplications",
                         icon: "people",
                         tooltip: "View Applications"
+                    },
+                    {
+                        name: "return",
+                        icon: "replay",
+                        tooltip: "Return to Hackathon Details"
+                    },
+                    {
+                        name: "home",
+                        icon: "home",
+                        tooltip: "Go to Home"
                     }
                 ]
             }
@@ -42,6 +54,12 @@
             },
             viewApplications() {
                 this.$router.push(`/organizers/hackathon/${this.hackathonId}/manage`);
+            },
+            goToHackathonDetails() {
+                this.$router.push(`/hackathon/${this.hackathonId}`);
+            },
+            goToHome() {
+                this.$router.push("/");
             }
         },
     }

@@ -1,7 +1,10 @@
 <template>
     <div>
-        <COUserList 
+        <COApplication 
             :users="users"
+            :hackathonId="hackathonId"
+        />
+        <CAdminBtn 
             :hackathonId="hackathonId"
         />
     </div>
@@ -12,7 +15,7 @@
     import { mapGetters } from 'vuex';
 
     import CAdminBtn from '../../components/CAdminBtn.vue';
-    import COUserList from '../../components/organizers/COUserList.vue';
+    import COApplication from '../../components/organizers/COApplication.vue';
 
     export default {
         name: "POApplication",
@@ -21,7 +24,7 @@
         },
         components: {
             CAdminBtn,
-            COUserList
+            COApplication
         },
         beforeMount() {
 
