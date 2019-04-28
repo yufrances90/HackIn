@@ -21,7 +21,10 @@ import {
     MdSnackbar,
     MdAvatar,
     MdChips,
-    MdProgress
+    MdTable,
+    MdContent,
+    MdEmptyState,
+    MdRipple
 } from 'vue-material/dist/components';
 import 'vue-material/dist/vue-material.min.css';
 
@@ -29,6 +32,13 @@ import ElementUI from 'element-ui';
 import locale from 'element-ui/lib/locale/lang/en';
 
 import * as VueGoogleMaps from 'vue2-google-maps';
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { 
+    faEllipsisV,
+    faLink } from '@fortawesome/free-solid-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import App from './App.vue';
 
@@ -57,7 +67,10 @@ Vue.use(MdDrawer);
 Vue.use(MdSnackbar);
 Vue.use(MdAvatar);
 Vue.use(MdChips);
-Vue.use(MdProgress);
+Vue.use(MdTable);
+Vue.use(MdContent);
+Vue.use(MdEmptyState);
+Vue.use(MdRipple);
 
 Vue.use(ElementUI, { locale });
 
@@ -66,6 +79,10 @@ Vue.use(VueGoogleMaps, {
         key: utils.GoogleApiKey,
     }
 });
+
+library.add(faEllipsisV, faLink);
+library.add(fab);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.config.errorHandler = err => {
     console.log('Exception: ', err)

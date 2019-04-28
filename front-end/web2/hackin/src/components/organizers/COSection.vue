@@ -1,27 +1,24 @@
 <template>
     <div class="section">
 
-        <div v-if="!showPagination">
-            No matched record is found!
-        </div>
+        <COUserTable 
+            :filteredUsers="filteredUsers"
+            :userType="userType"
+            :hackathonId="hackathonId" 
+        />
 
-        <div v-else>
-
-            <COUserList 
-                :filteredUsers="filteredUsers"
-                :userType="userType"
-                :hackathonId="hackathonId" 
-            />
-
-            <COPagination :users="users" />
-        </div>
+        <COPagination 
+            :users="users"
+            v-show="showPagination" 
+        />
+        
     </div>
 </template>
 
 <script>
 
     import COPagination from "./COPagination.vue";
-    import COUserList from "./COUserList.vue";
+    import COUserTable from "./COUserTable.vue";
 
     import { pagination } from "../mixins/pagination";
 
@@ -31,7 +28,7 @@
         props: ["userType", "hackathonId"],
         components: {
             COPagination,
-            COUserList
+            COUserTable
         }
     }
 </script>
