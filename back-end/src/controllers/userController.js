@@ -36,7 +36,9 @@ class UserController {
 
             const { name } = await services.HackathonService.getHackathonById(hackathonId);
 
-            const filepath = await services.UtilService.generateBarcodePNG(hackathonId);
+            const barcodeText = `${hackathonId}-${userId}`;
+            
+            const filepath = await services.UtilService.generateBarcodePNG(barcodeText);
 
             const file = fs.readFileSync(filepath);
 
