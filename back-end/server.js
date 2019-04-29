@@ -254,12 +254,14 @@ app.put("/admitUser", async (req, res) => {
 
     const { userId, hackathonId, acceptedStatus } = req.query;
 
+    const isAccepted = acceptedStatus === "true";
+
     try {
 
         const response = 
-            await controllers.UserController.admitUser(userId, hackathonId, acceptedStatus);
+            await controllers.UserController.admitUser(userId, hackathonId, isAccepted);
 
-        res.status(200).send(JSON.stringify(response));
+        res.status(204).send(JSON.stringify(response));
     } catch(err) {
 
         const error = {

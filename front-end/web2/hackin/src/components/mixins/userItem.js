@@ -42,7 +42,7 @@ export const userItem = {
         openLink(link) {
             window.open(link);
         },
-        admitUser() {
+        admitUser(userId) {
 
             this.$confirm(
                 "Accepting user application... " + 
@@ -53,11 +53,7 @@ export const userItem = {
                 cancelButtonText: 'Cancel',
                 type: 'warning'
             }).then(() => {
-                this.$message({
-                    type: 'success',
-                    message: 'Admittance completed',
-                    showClose: true
-                });
+                utils.EventBus.$emit("admitUser", userId, this.hackathonId);
             }).catch(() => {
                 this.$message({
                     type: 'info',

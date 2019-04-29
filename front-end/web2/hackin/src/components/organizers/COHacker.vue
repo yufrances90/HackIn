@@ -5,7 +5,7 @@
         <MdTableCell>
             <MdButton 
                 class="md-icon-button"
-                @click="admitUser"
+                @click="admitUser(user._id)"
                 :id="user._id"
             >
                 <font-awesome-icon :icon="['fas', 'users-cog']" />
@@ -64,8 +64,8 @@
                     <font-awesome-icon :icon="['fas', determineIfAdmitted? 'user-check' : 'user-times']" />
                 </MdButton>
                 <MdTooltip md-direction="left">
-                        {{ determineIfAdmitted? "Application accepted" : "Application not yet accepted"}}
-                    </MdTooltip>
+                    {{ determineIfAdmitted? "Application accepted" : "Application not yet accepted"}}
+                </MdTooltip>
             </span>
 
             <p v-else>
@@ -106,14 +106,6 @@
                     "personalWebsite",
                     "isAdmitted"
                 ]
-            }
-        },
-        watch: {
-            updatedUser() {
-                console.log(this.updatedUser);
-            },
-            user() {
-                console.log(this.user);
             }
         },
         computed: {

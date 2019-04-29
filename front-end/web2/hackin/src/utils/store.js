@@ -20,7 +20,8 @@ const store = new Vuex.Store({
         usrname: null,
         user: null,
         isOrganizer: false,
-        users: []
+        users: [],
+        isAdmitted: false,
     },
     mutations: {
         setHackathons(state, hackathons) {
@@ -49,6 +50,9 @@ const store = new Vuex.Store({
         },
         setUsers(state, users) {
             state.users = users;
+        },
+        setIsAdmitted(state, isAdmitted) {
+            state.isAdmitted = isAdmitted;
         } 
     },
     getters: {
@@ -59,7 +63,8 @@ const store = new Vuex.Store({
         usrname: state => state.usrname,
         user: state => state.user,
         isOrganizer: state => state.isOrganizer,
-        users: state => state.users
+        users: state => state.users,
+        isAdmitted: state => state.isAdmitted
     },
     actions: {
         async setHackathons(context) {
@@ -221,12 +226,33 @@ const store = new Vuex.Store({
 
             try {
 
-                let { data }  = await utils.Client.get(`/usersByHackathon?hackathonId=${hackathonId}`);
+                let { data }  = 
+                    await utils.Client.get(`/usersByHackathon?hackathonId=${hackathonId}`);
 
                 context.commit("setUsers", data);
             } catch(err) {
                 console.error(err);
             }
+        },
+        async admitUser(context, data) {
+
+            const { userId, hackathonId } = data;
+
+            try {
+
+                let { status } = await utils.Client.put(
+                    `/admitUser?userId=${userId}&hackathonId=${hackathonId}&acceptedStatus=${true}`
+                    );
+
+                if (status === 204) {
+                    context.commit("setIsAdmitted", true);
+                }
+            } catch(err) {
+                console.error(err);
+            }
+        },
+        resetIsAdmitted(context) {
+            context.commit("setIsAdmitted", false);
         }
     },
     plugins
