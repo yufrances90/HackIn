@@ -20,7 +20,7 @@ export const userItem = {
 
                 const value = this.user["hackathons"][this.hackathonId][field];
 
-                if (value) {
+                if (value != null) {
                     user[field] = value;
                 }
             });
@@ -44,8 +44,12 @@ export const userItem = {
         },
         admitUser() {
 
-            this.$confirm('Admitting user. Continue?', 'Warning', {
-                confirmButtonText: 'OK',
+            this.$confirm(
+                "Accepting user application... " + 
+                "Once accepted, you need to open user's profile to decline " + 
+                "his application.  Continue?", 
+                'Warning', {
+                confirmButtonText: 'Proceed',
                 cancelButtonText: 'Cancel',
                 type: 'warning'
             }).then(() => {

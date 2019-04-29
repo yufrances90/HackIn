@@ -109,7 +109,7 @@ const getUsersByHackathonId = async (hackathonId) => {
     return await getUsers(key, "==", hackathonId);
 }
 
-const admitUser = async (userId, hackathonId) => {
+const admitUser = async (userId, hackathonId, acceptedStatus) => {
 
     const snapshot = await userCollection.doc(userId).get();
 
@@ -125,7 +125,7 @@ const admitUser = async (userId, hackathonId) => {
         ...hackathons,
         [hackathonId]: {
             ...hackathons[hackathonId],
-            isAdmitted: true
+            isAdmitted: acceptedStatus
         }
     };
 

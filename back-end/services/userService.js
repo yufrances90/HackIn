@@ -54,8 +54,12 @@ class UserService {
         return await repos.UserRepo.getUsersByHackathon(hackathonId);
     }
 
-    async admitUser(userId, hackathonId) {
-        return await repos.UserRepo.admitUser(userId, hackathonId);
+    async admitUser(userId, hackathonId, acceptedStatus) {
+        return await repos.UserRepo.admitUser(
+            userId, 
+            hackathonId, 
+            acceptedStatus
+        );
     }
 }
 

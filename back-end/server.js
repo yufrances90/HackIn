@@ -252,11 +252,12 @@ app.get("/usersByHackathon", async (req, res) => {
 
 app.put("/admitUser", async (req, res) => {
 
-    const { userId, hackathonId } = req.query;
+    const { userId, hackathonId, acceptedStatus } = req.query;
 
     try {
 
-        const response = await controllers.UserController.admitUser(userId, hackathonId);
+        const response = 
+            await controllers.UserController.admitUser(userId, hackathonId, acceptedStatus);
 
         res.status(200).send(JSON.stringify(response));
     } catch(err) {

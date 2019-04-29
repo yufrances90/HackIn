@@ -22,8 +22,8 @@ class UserRepo {
         return await utils.getUsersByHackathonId(hackathonId);
     }
 
-    async admitUser(userId, hackathonId) {
-        return await utils.admitUser(userId, hackathonId);
+    async admitUser(userId, hackathonId, acceptedStatus) {
+        return await utils.admitUser(userId, hackathonId, acceptedStatus);
     }
 }
 

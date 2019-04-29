@@ -37,7 +37,9 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { 
     faEllipsisV,
     faLink,
-    faUserCheck 
+    faUserCheck,
+    faUserTimes,
+    faUsersCog
 } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -85,7 +87,9 @@ Vue.use(VueGoogleMaps, {
 library.add(
     faEllipsisV, 
     faLink,
-    faUserCheck
+    faUserCheck,
+    faUserTimes,
+    faUsersCog
 );
 library.add(fab);
 Vue.component('font-awesome-icon', FontAwesomeIcon);

@@ -22,8 +22,12 @@ class UserController {
         return await services.UserService.getUsersByHackathon(hackathonId);
     }
 
-    async admitUser(userId, hackathonId) {
-        return await services.UserService.admitUser(userId, hackathonId);
+    async admitUser(userId, hackathonId, acceptedStatus) {
+        return await services.UserService.admitUser(
+            userId, 
+            hackathonId, 
+            acceptedStatus
+        );
     }
 }
 

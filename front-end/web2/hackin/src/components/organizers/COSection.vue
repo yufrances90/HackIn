@@ -11,11 +11,6 @@
             :users="users"
             v-show="showPagination" 
         />
-
-        <COConfirmDialog 
-            :showConfirmDialog="showConfirmDialog"
-            :userId="userId"
-        />
         
     </div>
 </template>

@@ -8,7 +8,7 @@
                 @click="admitUser"
                 :id="user._id"
             >
-                <font-awesome-icon :icon="['fas', 'user-check']" />
+                <font-awesome-icon :icon="['fas', 'users-cog']" />
                 <MdTooltip md-direction="right">
                     Admit User
                 </MdTooltip>
@@ -59,6 +59,15 @@
             <span v-else-if="key === '_id'">
             </span>
 
+            <span v-else-if="key === 'isAdmitted'">
+                <MdButton class="md-icon-button" :disabled="true">
+                    <font-awesome-icon :icon="['fas', determineIfAdmitted? 'user-check' : 'user-times']" />
+                </MdButton>
+                <MdTooltip md-direction="left">
+                        {{ determineIfAdmitted? "Application accepted" : "Application not yet accepted"}}
+                    </MdTooltip>
+            </span>
+
             <p v-else>
                 {{ updatedUser[key] }}
             </p>
@@ -94,10 +103,24 @@
                 requiredFields: [
                     "github",
                     "linkedin",
-                    "personalWebsite"
+                    "personalWebsite",
+                    "isAdmitted"
                 ]
             }
-        }
+        },
+        watch: {
+            updatedUser() {
+                console.log(this.updatedUser);
+            },
+            user() {
+                console.log(this.user);
+            }
+        },
+        computed: {
+            determineIfAdmitted() {
+                return this.updatedUser.isAdmitted;
+            }
+        },
     }
 </script>
 

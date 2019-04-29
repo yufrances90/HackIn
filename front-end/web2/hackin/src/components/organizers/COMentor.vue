@@ -16,7 +16,8 @@
                     "lastName",
                     "areas",
                     "github",
-                    "linkedin"
+                    "linkedin",
+                    "isAdmitted"
                 ]
             }
         }

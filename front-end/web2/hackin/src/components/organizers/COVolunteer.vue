@@ -15,7 +15,8 @@
                     "firstName",
                     "lastName",
                     "reasonForVolunteer",
-                    "faculty"
+                    "faculty",
+                    "isAdmitted"
                 ]
             }
         }
