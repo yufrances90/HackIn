@@ -85,17 +85,17 @@
         computed: {
             mentors() {
                 return this.users.filter(user => {
-                    return user.hackathons[this.hackathonId].isMentor;
+                    return this.getUserByHackathon(user).isMentor;
                 });
             },
             volunteers() {
                 return this.users.filter(user => {
-                    return user.hackathons[this.hackathonId].isVolunteer;
+                    return this.getUserByHackathon(user).isVolunteer;
                 });
             },
             hackers() {
                 return this.users.filter(user => {
-                    return user.hackathons[this.hackathonId].isHacker;
+                    return this.getUserByHackathon(user).isHacker;
                 });
             }
         },
@@ -103,19 +103,18 @@
             COSection
         },
         methods: {
+            getUserByHackathon(user) {
+                return user.hackathons[this.hackathonId];
+            },
             existsNonAdmitted(users) {
                 return users.length > 0 && users.some(user => {
-                    return !user.hackathons[this.hackathonId].isAdmitted;
+                    return !this.getUserByHackathon(user).isAdmitted;
                 });
             },
             numNonadmittedUsers(users) {
                 return users.filter(
-                    user => {
-
-                        const userByHackathon = user.hackathons[this.hackathonId];
-
-                        return (!userByHackathon.isAdmitted && userByHackathon.isHacker)
-                }).length;
+                    user => !this.getUserByHackathon(user).isAdmitted
+                ).length;
             }
         },
     }
