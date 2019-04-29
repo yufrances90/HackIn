@@ -110,13 +110,17 @@
             },
             onAddNewUser() {
                 utils.EventBus.$on('addNewUser', (newUser, hackathonId) => {
+
                     this.$store.dispatch("addNewUser", {
                         newUser, 
                         hackathonId
                     });
-                })
+
+                    this.displaySnackbarAfterSubmitted();
+                });
             },
             onUpdateUser() {
+                
                 utils.EventBus.$on(
                     'updateUser', 
                     (user, userByHackathon, hackathonId) => {
@@ -126,13 +130,25 @@
                         userByHackathon, 
                         hackathonId
                     });
-                })
+
+                    this.displaySnackbarAfterSubmitted();
+                });
             },
             setHackathonId() {
 
                 const { hackathonId } = this.$route.query;
 
                 this.hackathonId = hackathonId;
+            },
+            displaySnackbarAfterSubmitted() {
+
+                setTimeout(() => {
+                    this.$router.go(-1);
+                }, 2500);
+
+                const msg = "Successfully submitted application!";
+
+                this.openSnackbar(msg);
             }
         },
     }
