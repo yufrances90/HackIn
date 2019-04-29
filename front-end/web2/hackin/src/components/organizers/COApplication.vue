@@ -1,7 +1,7 @@
 <template>
     <div class="md-layout">
         <div class="md-layout-item md-size-20"></div>
-        <div class="md-layout-item">
+        <div class="md-layout-item section">
              <COUserSection 
                 :users="users"
                 :hackathonId="hackathonId"
@@ -25,4 +25,7 @@
 </script>
 
 <style scoped>
+    .section {
+        max-width: 60%;
+    }
 </style>

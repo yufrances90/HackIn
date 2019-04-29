@@ -12,8 +12,6 @@
                 :hackathonId="hackathonId"
             />
         </div>
-
-        
     </MdTable>
 </template>
 
@@ -23,9 +21,15 @@
     import COMentor from "./COMentor.vue";
     import COVolunteer from "./COVolunteer.vue";
 
+    import utils from "../../utils";
+
     export default {
         name: "COUserTable",
-        props: ["filteredUsers", "userType", "hackathonId"],
+        props: [
+            "filteredUsers", 
+            "userType", 
+            "hackathonId"
+        ],
         components: {
             COHacker,
             COMentor,

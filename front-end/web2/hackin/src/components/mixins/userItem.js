@@ -1,3 +1,5 @@
+import utils from "../../utils";
+
 export const userItem = {
     data() {
         return {
@@ -36,6 +38,29 @@ export const userItem = {
             });
 
             return user;
-        }
-    },
+        },
+        openLink(link) {
+            window.open(link);
+        },
+        admitUser() {
+
+            this.$confirm('Admitting user. Continue?', 'Warning', {
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Cancel',
+                type: 'warning'
+            }).then(() => {
+                this.$message({
+                    type: 'success',
+                    message: 'Admittance completed',
+                    showClose: true
+                });
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: 'Admittance canceled',
+                    showClose: true
+                });          
+            });
+        }      
+    }
 }

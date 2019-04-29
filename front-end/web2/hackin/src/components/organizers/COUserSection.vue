@@ -11,8 +11,10 @@
                     Hackers
                 </span>
 
-                <MdChip class="md-primary">
-                    {{ hackers.length }}
+                <MdChip 
+                    :class="existsNonAdmitted? 'md-accent' : ' md-primary'"
+                >
+                    {{ numNonadmittedUsers(hackers) }}
                 </MdChip>
 
                 <MdList slot="md-expand">
@@ -32,8 +34,10 @@
                     Mentors
                 </span>
 
-                <MdChip class="md-primary">
-                    {{ mentors.length }}
+                <MdChip 
+                    :class="existsNonAdmitted? 'md-accent' : ' md-primary'"
+                >
+                    {{ numNonadmittedUsers(mentors) }}
                 </MdChip>
 
                 <MdList slot="md-expand">
@@ -53,8 +57,10 @@
                     Volunteers
                 </span>
 
-                <MdChip class="md-primary">
-                    {{ volunteers.length }}
+                <MdChip 
+                    :class="existsNonAdmitted? 'md-accent' : ' md-primary'"
+                >
+                    {{ numNonadmittedUsers(volunteers) }}
                 </MdChip>
 
                 <MdList slot="md-expand">
@@ -79,23 +85,39 @@
         computed: {
             mentors() {
                 return this.users.filter(user => {
-                    return user.hackathons[this.hackathonId].isMentor === true
+                    return user.hackathons[this.hackathonId].isMentor;
                 });
             },
             volunteers() {
                 return this.users.filter(user => {
-                    return user.hackathons[this.hackathonId].isVolunteer === true
+                    return user.hackathons[this.hackathonId].isVolunteer;
                 });
             },
             hackers() {
                 return this.users.filter(user => {
-                    return user.hackathons[this.hackathonId].isHacker === true
+                    return user.hackathons[this.hackathonId].isHacker;
+                });
+            },
+            existsNonAdmitted() {
+                return this.users.some(user => {
+                    return !user.hackathons[this.hackathonId].isAdmitted;
                 });
             }
         },
         components: {
             COSection
-        }
+        },
+        methods: {
+            numNonadmittedUsers(users) {
+                return users.filter(
+                    user => {
+
+                        const userByHackathon = user.hackathons[this.hackathonId];
+
+                        return (!userByHackathon.isAdmitted && userByHackathon.isHacker)
+                }).length;
+            }
+        },
     }
 </script>
 

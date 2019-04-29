@@ -8,6 +8,7 @@ import PHackathon from '../pages/PHackathon.vue';
 
 import POHackathon from '../pages/organizers/POHackathon.vue';
 import POApplication from '../pages/organizers/POApplication.vue';
+import POProfile from '../pages/organizers/POProfile.vue';
 
 Vue.use(Router);
 
@@ -43,6 +44,11 @@ const router = new Router({
             path: "/organizers/hackathon/:id/manage",
             name: "POApplication",
             component: POApplication
+        },
+        {
+            path: "/organizers/hackathon/:hackathonId/manage/user/:id",
+            name: "POProfile",
+            component: POProfile
         }
     ]
 });

@@ -4,12 +4,17 @@
         <COUserTable 
             :filteredUsers="filteredUsers"
             :userType="userType"
-            :hackathonId="hackathonId" 
+            :hackathonId="hackathonId"
         />
 
         <COPagination 
             :users="users"
             v-show="showPagination" 
+        />
+
+        <COConfirmDialog 
+            :showConfirmDialog="showConfirmDialog"
+            :userId="userId"
         />
         
     </div>
@@ -21,6 +26,8 @@
     import COUserTable from "./COUserTable.vue";
 
     import { pagination } from "../mixins/pagination";
+
+    import utils from "../../utils";
 
     export default {
         name: "COSection",

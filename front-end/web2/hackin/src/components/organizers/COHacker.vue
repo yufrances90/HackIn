@@ -1,26 +1,58 @@
 <template>
     
     <MdTableRow>
+
+        <MdTableCell>
+            <MdButton 
+                class="md-icon-button"
+                @click="admitUser"
+                :id="user._id"
+            >
+                <font-awesome-icon :icon="['fas', 'user-check']" />
+                <MdTooltip md-direction="right">
+                    Admit User
+                </MdTooltip>
+            </MdButton>
+        </MdTableCell>
+
         <MdTableCell
             v-for="key in Object.keys(updatedUser)"
             :key="key"
         >
 
             <span v-if="key === 'github'">
-                <MdButton class="md-icon-button">
+                <MdButton 
+                    class="md-icon-button"
+                    @click="openLink(updatedUser[key])"
+                >
                     <font-awesome-icon :icon="['fab', 'github']" />
+                    <MdTooltip md-direction="right">
+                        Open GitHub Profile
+                    </MdTooltip>
                 </MdButton>
             </span>
 
             <span v-else-if="key === 'linkedin'">
-                <MdButton class="md-icon-button">
+                <MdButton 
+                    class="md-icon-button md-primary"
+                    @click="openLink(updatedUser[key])"
+                >
                     <font-awesome-icon :icon="['fab', 'linkedin']" />
+                    <MdTooltip md-direction="right">
+                        Open LinkedIn Profile
+                    </MdTooltip>
                 </MdButton>
             </span>
 
             <span v-else-if="key === 'personalWebsite'">
-                <MdButton class="md-icon-button">
+                <MdButton 
+                    class="md-icon-button"
+                    @click="openLink(updatedUser[key])"
+                >
                     <font-awesome-icon :icon="['fas', 'link']" />
+                    <MdTooltip md-direction="left">
+                        Open Personal Website
+                    </MdTooltip>
                 </MdButton>
             </span>
 
@@ -33,11 +65,17 @@
         </MdTableCell>
 
         <MdTableCell>
-            <span>
-                <MdButton class="md-icon-button">
+            <MdButton class="md-icon-button">
+                <router-link
+                    class="nav-link"
+                    :to="`/organizers/hackathon/${hackathonId}/user/${user._id}`"
+                >
                     <font-awesome-icon :icon="['fas', 'ellipsis-v']" />
-                </MdButton>
-            </span>
+                </router-link>
+                <MdTooltip md-direction="left">
+                    View User
+                </MdTooltip>
+            </MdButton>
         </MdTableCell>
     </MdTableRow>
 </template>
@@ -45,6 +83,8 @@
 <script>
 
     import { userItem } from "../mixins/userItem";
+    
+    import utils from '../../utils';
 
     export default {
         name: "COHacker",
@@ -65,5 +105,10 @@
 
     .card {
         width: inherit;
+    }
+
+    .nav-link {
+        text-decoration: none !important;
+        color: black !important;
     }
 </style>
