@@ -85,17 +85,26 @@
         computed: {
             mentors() {
                 return this.users.filter(user => {
-                    return this.getUserByHackathon(user).isMentor;
+                    
+                    const userByHackathon = this.getUserByHackathon(user);
+
+                    return (userByHackathon)? userByHackathon.isMentor : false;
                 });
             },
             volunteers() {
                 return this.users.filter(user => {
-                    return this.getUserByHackathon(user).isVolunteer;
+                    
+                    const userByHackathon = this.getUserByHackathon(user);
+
+                    return (userByHackathon)? userByHackathon.isVolunteer : false;
                 });
             },
             hackers() {
                 return this.users.filter(user => {
-                    return this.getUserByHackathon(user).isHacker;
+
+                    const userByHackathon = this.getUserByHackathon(user);
+
+                    return (userByHackathon)? userByHackathon.isHacker : false;
                 });
             }
         },

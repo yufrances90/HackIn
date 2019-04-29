@@ -12,6 +12,16 @@
                 :hackathonId="hackathonId"
             />
         </div>
+
+        <div v-if="userType === 'mentor'">
+
+            <COMentor 
+                v-for="user in filteredUsers"
+                :key="user._id"
+                :user="user"
+                :hackathonId="hackathonId"
+            />
+        </div>
     </MdTable>
 </template>
 
