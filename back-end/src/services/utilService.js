@@ -27,8 +27,20 @@ class UtilService {
         }
     }
 
-    async sendEmail(text, fromEmail, toEmail, subject) {
-        return await utils.sendEmail(text, fromEmail, toEmail, subject);
+    async sendEmail(
+        text, 
+        fromEmail, 
+        toEmail, 
+        subject,
+        attachments) {
+
+        return await utils.sendEmail(
+            text, 
+            fromEmail, 
+            toEmail, 
+            subject, 
+            attachments
+        );
     }
 
     async generateBarcodePNG(text) {

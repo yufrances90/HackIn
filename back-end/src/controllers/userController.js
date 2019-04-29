@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 const services = require("../services");
 
 class UserController {
@@ -34,11 +36,20 @@ class UserController {
 
             const { name } = await services.HackathonService.getHackathonById(hackathonId);
 
+            const filepath = await services.UtilService.generateBarcodePNG(hackathonId);
+
+            const file = fs.readFileSync(filepath);
+
             services.UtilService.sendEmail(
                 `Congratulation! you have been accepted to ${name}!`,
                 "test@gmail.com",
                 email,
-                `Acceptance to ${name}`
+                `Acceptance to ${name}`,
+                [{
+                    filename: `${hackathonId}_${userId}.png`,
+                    content: file,
+                    path: filepath
+                }]
             );
 
             return response;

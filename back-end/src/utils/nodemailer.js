@@ -1,6 +1,8 @@
 const { emailConfig } = require('../config');
 
-const sendEmail = (text, fromEmail, toEmail, subject) => {
+const sendEmail = (
+    text, fromEmail, toEmail, subject, attachments
+) => {
 
     return new Promise((resolve, reject) => {
 
@@ -8,7 +10,8 @@ const sendEmail = (text, fromEmail, toEmail, subject) => {
             from: fromEmail,
             to: toEmail,
             subject,
-            text
+            text,
+            attachments
         }, (err, info) => {
     
             if(err) {
