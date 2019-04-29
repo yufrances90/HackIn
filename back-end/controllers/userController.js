@@ -23,11 +23,28 @@ class UserController {
     }
 
     async admitUser(userId, hackathonId, acceptedStatus) {
-        return await services.UserService.admitUser(
-            userId, 
-            hackathonId, 
-            acceptedStatus
-        );
+
+        try {
+
+            const { response, email } = await services.UserService.admitUser(
+                userId, 
+                hackathonId, 
+                acceptedStatus
+            );
+
+            const { name } = await services.HackathonService.getHackathonById(hackathonId);
+
+            services.UtilService.sendEmail(
+                `Congratulation! you have been accepted to ${name}!`,
+                "test@gmail.com",
+                email,
+                `Acceptance to ${name}`
+            );
+
+            return response;
+        } catch(err) {
+            console.error(err);
+        }
     }
 }
 

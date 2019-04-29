@@ -119,7 +119,7 @@ const admitUser = async (userId, hackathonId, acceptedStatus) => {
 
     const user = snapshot.data();
 
-    const { hackathons } = user;
+    const { hackathons, email } = user;
 
     const updatedHackathons = {
         ...hackathons,
@@ -129,9 +129,14 @@ const admitUser = async (userId, hackathonId, acceptedStatus) => {
         }
     };
 
-    return await userCollection.doc(userId).update({
+    const response = await userCollection.doc(userId).update({
         hackathons: updatedHackathons
     });
+
+    return {
+        response,
+        email
+    };
 }
 
 
