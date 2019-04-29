@@ -116,7 +116,7 @@
                         hackathonId
                     });
 
-                    this.displaySnackbarAfterSubmitted();
+                    this.displaySnackbarAfterSubmitted(hackathonId);
                 });
             },
             onUpdateUser() {
@@ -131,7 +131,7 @@
                         hackathonId
                     });
 
-                    this.displaySnackbarAfterSubmitted();
+                    this.displaySnackbarAfterSubmitted(hackathonId);
                 });
             },
             setHackathonId() {
@@ -140,10 +140,10 @@
 
                 this.hackathonId = hackathonId;
             },
-            displaySnackbarAfterSubmitted() {
+            displaySnackbarAfterSubmitted(hackathonId) {
 
                 setTimeout(() => {
-                    this.$router.go(-1);
+                    this.$router.push(`/hackathon/${hackathonId}`);
                 }, 2500);
 
                 const msg = "Successfully submitted application!";
