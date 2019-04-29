@@ -248,6 +248,28 @@ app.get("/usersByHackathon", async (req, res) => {
 
         res.status(500).send(JSON.stringify(error));
     }
-})
+});
+
+app.put("/admitUser", async (req, res) => {
+
+    const { userId, hackathonId } = req.query;
+
+    try {
+
+        const response = await controllers.UserController.admitUser(userId, hackathonId);
+
+        res.status(200).send(JSON.stringify(response));
+    } catch(err) {
+
+        const error = {
+            message: err.message,
+            name: err.name
+        };
+
+        console.error(error);
+
+        res.status(500).send(JSON.stringify(error));
+    }
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));

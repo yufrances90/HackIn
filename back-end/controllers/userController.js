@@ -21,6 +21,10 @@ class UserController {
     async getUsersByHackathon(hackathonId) {
         return await services.UserService.getUsersByHackathon(hackathonId);
     }
+
+    async admitUser(userId, hackathonId) {
+        return await services.UserService.admitUser(userId, hackathonId);
+    }
 }
 
 const userController = new UserController();

@@ -53,6 +53,10 @@ class UserService {
     async getUsersByHackathon(hackathonId) {
         return await repos.UserRepo.getUsersByHackathon(hackathonId);
     }
+
+    async admitUser(userId, hackathonId) {
+        return await repos.UserRepo.admitUser(userId, hackathonId);
+    }
 }
 
 const userService = new UserService();

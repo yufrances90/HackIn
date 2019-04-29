@@ -109,6 +109,31 @@ const getUsersByHackathonId = async (hackathonId) => {
     return await getUsers(key, "==", hackathonId);
 }
 
+const admitUser = async (userId, hackathonId) => {
+
+    const snapshot = await userCollection.doc(userId).get();
+
+    if (!snapshot.exists) {
+        return null;
+    }
+
+    const user = snapshot.data();
+
+    const { hackathons } = user;
+
+    const updatedHackathons = {
+        ...hackathons,
+        [hackathonId]: {
+            ...hackathons[hackathonId],
+            isAdmitted: true
+        }
+    };
+
+    return await userCollection.doc(userId).update({
+        hackathons: updatedHackathons
+    });
+}
+
 
 /*
     Private methods
@@ -173,5 +198,6 @@ module.exports = {
     addAccount,
     deleteAccount,
     updateUserByUsrname,
-    getUsersByHackathonId
+    getUsersByHackathonId,
+    admitUser
 }
