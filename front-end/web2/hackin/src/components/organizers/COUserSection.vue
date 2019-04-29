@@ -12,7 +12,7 @@
                 </span>
 
                 <MdChip 
-                    :class="existsNonAdmitted? 'md-accent' : ' md-primary'"
+                    :class="existsNonAdmitted(hackers)? 'md-accent' : ' md-primary'"
                 >
                     {{ numNonadmittedUsers(hackers) }}
                 </MdChip>
@@ -35,7 +35,7 @@
                 </span>
 
                 <MdChip 
-                    :class="existsNonAdmitted? 'md-accent' : ' md-primary'"
+                    :class="existsNonAdmitted(mentors)? 'md-accent' : ' md-primary'"
                 >
                     {{ numNonadmittedUsers(mentors) }}
                 </MdChip>
@@ -58,7 +58,7 @@
                 </span>
 
                 <MdChip 
-                    :class="existsNonAdmitted? 'md-accent' : ' md-primary'"
+                    :class="existsNonAdmitted(volunteers)? 'md-accent' : ' md-primary'"
                 >
                     {{ numNonadmittedUsers(volunteers) }}
                 </MdChip>
@@ -97,17 +97,17 @@
                 return this.users.filter(user => {
                     return user.hackathons[this.hackathonId].isHacker;
                 });
-            },
-            existsNonAdmitted() {
-                return this.users.some(user => {
-                    return !user.hackathons[this.hackathonId].isAdmitted;
-                });
             }
         },
         components: {
             COSection
         },
         methods: {
+            existsNonAdmitted(users) {
+                return users.length > 0 && users.some(user => {
+                    return !user.hackathons[this.hackathonId].isAdmitted;
+                });
+            },
             numNonadmittedUsers(users) {
                 return users.filter(
                     user => {
