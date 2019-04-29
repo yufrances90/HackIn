@@ -21,6 +21,10 @@ class UtilController {
     async sendEmail(text, fromEmail, toEmail, subject) {
         return await services.UtilService.sendEmail(text, fromEmail, toEmail, subject);
     }
+
+    async generateBarcodePNG(text) {
+        return await services.UtilService.generateBarcodePNG(text);
+    }
 }
 
 const utilController = new UtilController();

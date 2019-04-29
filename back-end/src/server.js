@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
+const fs = require('fs');
+
 const app = express();
 
 app.use(cors());
@@ -275,35 +277,25 @@ app.put("/admitUser", async (req, res) => {
     }
 });
 
-app.post("/testingEmail", async(req, res) => {
+app.get("/testingBarcode", async(req, res) => {
 
     const text = "Hello";
 
-    const fromEmail = "francesyu90@gmail.com";
+    const response = await controllers.UtilController.generateBarcodePNG(text);  
 
-    const toEmail = "francesyu90@yahoo.com";
+    const stream = fs.createReadStream(response);
 
-    const subject = "Hello World";
+    stream.on('open', () => {
+        res.setHeader("Content-Type", "image/png");
+        stream.pipe(res);
+    });
 
-    try {
+    stream.on('error', () => {
+        res.setHeader("Content-Type", "text/html");
+        res.status(404).end("Not found!");
+    });
 
-        const response = await controllers.UtilController.sendEmail(text, fromEmail, toEmail, subject);
-
-        console.log(response);
-
-        res.status(200).send(JSON.stringify(response));
-        
-    } catch(err) {
-
-        const error = {
-            message: err.message,
-            name: err.name
-        };
-
-        console.error(error);
-
-        res.status(500).send(JSON.stringify(error));
-    }
-})
+//    res.send(JSON.stringify(response));
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));

@@ -30,6 +30,10 @@ class UtilService {
     async sendEmail(text, fromEmail, toEmail, subject) {
         return await utils.sendEmail(text, fromEmail, toEmail, subject);
     }
+
+    async generateBarcodePNG(text) {
+        return await utils.generateBarcodePNG(text);
+    }
 }
 
 const utilService = new UtilService();

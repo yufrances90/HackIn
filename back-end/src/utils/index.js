@@ -26,6 +26,8 @@ const {
 
 const { sendEmail } = require('./nodemailer');
 
+const { generateBarcodePNG } = require('./barcode');
+
 module.exports = {
     testFirebaseDB,
     getAllUsers,
@@ -47,7 +49,6 @@ module.exports = {
     updateUserByUsrname,
     getUsersByHackathonId,
     admitUser,
-
-    // To be tested...
-    sendEmail
+    sendEmail,
+    generateBarcodePNG
 };
