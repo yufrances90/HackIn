@@ -26,6 +26,10 @@ class UtilService {
             throw err;
         }
     }
+
+    async sendEmail(text, fromEmail, toEmail, subject) {
+        return await utils.sendEmail(text, fromEmail, toEmail, subject);
+    }
 }
 
 const utilService = new UtilService();

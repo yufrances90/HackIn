@@ -24,6 +24,8 @@ const {
     getApiKey
 } = require('./googleMap');
 
+const { sendEmail } = require('./nodemailer');
+
 module.exports = {
     testFirebaseDB,
     getAllUsers,
@@ -44,5 +46,8 @@ module.exports = {
     getApiKey,
     updateUserByUsrname,
     getUsersByHackathonId,
-    admitUser
+    admitUser,
+
+    // To be tested...
+    sendEmail
 };

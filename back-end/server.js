@@ -275,4 +275,35 @@ app.put("/admitUser", async (req, res) => {
     }
 });
 
+app.post("/testingEmail", async(req, res) => {
+
+    const text = "Hello";
+
+    const fromEmail = "francesyu90@gmail.com";
+
+    const toEmail = "francesyu90@yahoo.com";
+
+    const subject = "Hello World";
+
+    try {
+
+        const response = await controllers.UtilController.sendEmail(text, fromEmail, toEmail, subject);
+
+        console.log(response);
+
+        res.status(200).send(JSON.stringify(response));
+        
+    } catch(err) {
+
+        const error = {
+            message: err.message,
+            name: err.name
+        };
+
+        console.error(error);
+
+        res.status(500).send(JSON.stringify(error));
+    }
+})
+
 app.listen(port, () => console.log(`Listening on port ${port}!`));

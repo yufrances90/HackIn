@@ -17,6 +17,10 @@ class UtilController {
             throw err;
         }
     }
+
+    async sendEmail(text, fromEmail, toEmail, subject) {
+        return await services.UtilService.sendEmail(text, fromEmail, toEmail, subject);
+    }
 }
 
 const utilController = new UtilController();
