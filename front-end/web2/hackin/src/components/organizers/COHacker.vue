@@ -107,20 +107,11 @@
                     "isAdmitted"
                 ]
             }
-        },
-        computed: {
-            determineIfAdmitted() {
-                return this.updatedUser.isAdmitted;
-            }
-        },
+        }
     }
 </script>
 
 <style scoped>
-
-    .card {
-        width: inherit;
-    }
 
     .nav-link {
         text-decoration: none !important;

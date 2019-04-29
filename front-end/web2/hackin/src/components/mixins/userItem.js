@@ -26,6 +26,9 @@ export const userItem = {
             });
 
             return user;
+        },
+        determineIfAdmitted() {
+            return this.updatedUser.isAdmitted;
         }
     },
     methods: {
