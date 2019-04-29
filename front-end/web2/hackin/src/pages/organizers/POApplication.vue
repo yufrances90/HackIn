@@ -48,8 +48,8 @@
 
                     if (this.isAdmitted) {
 
-                        this.$message({
-                            type: 'success',
+                        this.$notify.success({
+                            title: 'Success',
                             message: 'Successfully accepted application!'
                         });
 
