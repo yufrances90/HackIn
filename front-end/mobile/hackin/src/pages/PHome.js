@@ -2,37 +2,37 @@ import React, { Component } from 'react';
 
 import {
     View,
-    Text
+    StyleSheet
 } from 'react-native';
 
-import * as utils from '../utils';
+import CHome from '../components/CHome';
 
 class PHome extends Component {
 
-    state = {
-        msg: ''
-    }
-
-    async componentDidMount() {
-
-        const apiClient = utils.getClient();
+    componentDidMount() {
         
-        const response = await apiClient.get("/");
+        const that = this;
 
-        this.setState({
-            msg: response.data
-        });
+        setTimeout(() => {
+            that.props.navigation.navigate('Camera');
+        }, 2500);
     }
 
     render() {
         return (
-            <View>
-                <Text>
-                    Hello from PHome
-                </Text>
+            <View style={styleSheet.appContainer}>
+                <CHome />
             </View>
-        )
+        );
     }
 }
+
+const styleSheet = StyleSheet.create({
+    appContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
+});
 
 export default PHome;

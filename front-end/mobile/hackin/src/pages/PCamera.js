@@ -11,9 +11,9 @@ class PCamera extends Component {
     render() {
         return (
             <View>
-                <Text>
+                
                     <CBarcodeScanner />
-                </Text>
+                
             </View>
         );
     }
