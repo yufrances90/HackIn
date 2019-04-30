@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import {
     View,
-    Vibration
+    Vibration,
+    StyleSheet
 } from 'react-native';
 
 import {
