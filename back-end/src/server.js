@@ -24,9 +24,9 @@ app.post('/accounts', async (req, res) => {
 
     try {
         
-        const response = await controllers.AccountController.saveNewAccount(newAccount);
+        await controllers.AccountController.saveNewAccount(newAccount);
 
-        res.status(204).send(JSON.stringify(response));
+        res.sendStatus(204);
     } catch(err) {
         
         const error = {
@@ -73,9 +73,9 @@ app.post('/hackathons', async (req, res) => {
 
     try {
 
-        const response = await controllers.HackathonController.saveNewHackathon(newHackathon);
+        await controllers.HackathonController.saveNewHackathon(newHackathon);
 
-        res.status(204).send(JSON.stringify(response));
+        res.sendStatus(204);
     } catch(err) {
         
         const error = {
@@ -183,9 +183,9 @@ app.post("/users", async (req, res) => {
 
     try {
 
-        const response = await controllers.UserController.saveNewUser(data);
+        await controllers.UserController.saveNewUser(data);
 
-        res.status(204).send(JSON.stringify(response));
+        res.sendStatus(204);
     } catch(err) {
 
         const error = {
@@ -205,13 +205,13 @@ app.put("/users/:userId", async (req, res) => {
 
     try {
 
-        const response = await controllers.UserController.updateUserByUsrname(
+        await controllers.UserController.updateUserByUsrname(
             userId,
             userByHackathon,
             hackathonId 
         );
 
-        res.status(204).send(JSON.stringify(response));
+        res.sendStatus(204);
 
     } catch(err) {
 
@@ -260,10 +260,9 @@ app.put("/admitUser", async (req, res) => {
 
     try {
 
-        const response = 
-            await controllers.UserController.admitUser(userId, hackathonId, isAccepted);
+        await controllers.UserController.admitUser(userId, hackathonId, isAccepted);
 
-        res.status(204).send(JSON.stringify(response));
+        res.sendStatus(204);
     } catch(err) {
 
         const error = {
@@ -285,7 +284,7 @@ app.put("/checkInHacker", async (req, res) => {
 
         await controllers.UserController.checkInHacker(userId, hackathonId);
 
-        res.send(204);
+        res.sendStatus(204);
     } catch(err) {
 
         const error = {
