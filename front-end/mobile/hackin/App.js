@@ -5,6 +5,8 @@ import {
     View 
 } from 'react-native';
 
+import CBarcodeScanner from '././src/components/CBarcodeScanner';
+
 import * as utils from './src/utils';
 
 export default class App extends React.Component {
@@ -29,9 +31,7 @@ export default class App extends React.Component {
 
         return (
             <View style={styles.container}>
-                <Text>
-                    { msg}
-                </Text>
+                <CBarcodeScanner />
             </View>
         );
     }
