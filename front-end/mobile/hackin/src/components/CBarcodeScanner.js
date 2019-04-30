@@ -2,16 +2,32 @@ import React, { Component } from 'react';
 
 import {
     View,
-    Vibration
+    Vibration,
+    StyleSheet,
+    Text
 } from 'react-native';
 
 import {
-    BarCodeScanner
+    BarCodeScanner,
+    Permissions
 } from 'expo';
 
 import * as utils from '../utils';
 
 class CBarcodeScanner extends Component {
+
+    state = {
+        hasCameraPermission: null
+    }
+
+    async componentDidMount() {
+
+        const { status } = await Permissions.askAsync(Permissions.CAMERA);
+
+        this.setState({
+            hasCameraPermission: status === 'granted'
+        })
+    }
 
     async onBarcodeScanned({ type, data }) {
 
@@ -33,6 +49,24 @@ class CBarcodeScanner extends Component {
     }
 
     render() {
+
+        const { hasCameraPermission } = this.state;
+
+        if (hasCameraPermission === null) {
+            return (
+                <Text>
+                    Requesting for camera permission.
+                </Text>
+            );
+        }
+
+        if (hasCameraPermission === false) {
+            return (
+                <Text>
+                    No access to camera.
+                </Text>
+            );
+        }
 
         return (
             <View>
