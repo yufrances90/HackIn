@@ -17,7 +17,8 @@ const {
     deleteAccount,
     updateUserByUsrname,
     getUsersByHackathonId,
-    admitUser
+    admitUser,
+    checkInHacker
 } = require('./firebase');
 
 const {
@@ -45,10 +46,14 @@ module.exports = {
     getAccountById,
     addAccount,
     deleteAccount,
-    getApiKey,
     updateUserByUsrname,
     getUsersByHackathonId,
     admitUser,
-    sendEmail,
-    generateBarcodePNG
+    checkInHacker,
+
+    getApiKey,
+
+    generateBarcodePNG,
+
+    sendEmail
 };

@@ -277,25 +277,26 @@ app.put("/admitUser", async (req, res) => {
     }
 });
 
-app.get("/testingBarcode", async(req, res) => {
+app.put("/checkInHacker", async (req, res) => {
 
-    const text = "Hello";
+    const { userId, hackathonId } = req.query;
 
-    const response = await controllers.UtilController.generateBarcodePNG(text);  
+    try {
 
-    const stream = fs.createReadStream(response);
+        await controllers.UserController.checkInHacker(userId, hackathonId);
 
-    stream.on('open', () => {
-        res.setHeader("Content-Type", "image/png");
-        stream.pipe(res);
-    });
+        res.send(204);
+    } catch(err) {
 
-    stream.on('error', () => {
-        res.setHeader("Content-Type", "text/html");
-        res.status(404).end("Not found!");
-    });
+        const error = {
+            message: err.message,
+            name: err.name
+        };
 
-//    res.send(JSON.stringify(response));
+        console.error(error);
+
+        res.status(500).send(JSON.stringify(error));
+    }
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));

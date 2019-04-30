@@ -61,6 +61,10 @@ class UserService {
             acceptedStatus
         );
     }
+
+    async checkInHacker(userId, hackathonId) {
+        return await repos.UserRepo.checkInHacker(userId, hackathonId);
+    }
 }
 
 const userService = new UserService();

@@ -139,6 +139,31 @@ const admitUser = async (userId, hackathonId, acceptedStatus) => {
     };
 }
 
+const checkInHacker = async (userId, hackathonId) => {
+
+    const snapshot = await userCollection.doc(userId).get();
+
+    if(!snapshot.exists) {
+        return null;
+    }
+
+    const user = snapshot.data();
+
+    const { hackathons } = user;
+
+    const updatedHackathons = {
+        ...hackathons,
+        [hackathonId]: {
+            ...hackathons[hackathonId],
+            checkInTs: new Date()
+        }
+    };
+
+    return await userCollection.doc(userId).update({
+        hackathons: updatedHackathons
+    });
+}
+
 
 /*
     Private methods
@@ -204,5 +229,6 @@ module.exports = {
     deleteAccount,
     updateUserByUsrname,
     getUsersByHackathonId,
-    admitUser
+    admitUser,
+    checkInHacker
 }

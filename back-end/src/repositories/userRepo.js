@@ -25,6 +25,10 @@ class UserRepo {
     async admitUser(userId, hackathonId, acceptedStatus) {
         return await utils.admitUser(userId, hackathonId, acceptedStatus);
     }
+
+    async checkInHacker(userId, hackathonId) {
+        return await utils.checkInHacker(userId, hackathonId);
+    }
 }
 
 const userRepo = new UserRepo();

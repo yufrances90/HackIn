@@ -59,6 +59,10 @@ class UserController {
             console.error(err);
         }
     }
+
+    async checkInHacker(userId, hackathonId) {
+        return await services.UserService.checkInHacker(userId, hackathonId);
+    }
 }
 
 const userController = new UserController();
