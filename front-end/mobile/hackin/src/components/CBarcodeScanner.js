@@ -2,15 +2,11 @@ import React, { Component } from 'react';
 
 import {
     View,
-    Text, 
-    StyleSheet,
     Vibration
 } from 'react-native';
 
 import {
-    Camera,
-    BarCodeScanner,
-    Permissions
+    BarCodeScanner
 } from 'expo';
 
 class CBarcodeScanner extends Component {
