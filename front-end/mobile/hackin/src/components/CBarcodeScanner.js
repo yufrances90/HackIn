@@ -2,19 +2,16 @@ import React, { Component } from 'react';
 
 import {
     View,
-    Vibration,
-    StyleSheet
+    Vibration
 } from 'react-native';
 
 import {
     BarCodeScanner
 } from 'expo';
 
-class CBarcodeScanner extends Component {
+import * as utils from '../utils';
 
-    state = {
-        data: null
-    }
+class CBarcodeScanner extends Component {
 
     async onBarcodeScanned({ type, data }) {
 
@@ -24,15 +21,16 @@ class CBarcodeScanner extends Component {
 
         Vibration.vibrate();
 
-        alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+        const [hackathonId, userId] = data.split("-");
 
-        await this.setState({
-            data
-        });
+        const { status } = await utils.getClient().put(
+            `/checkInHacker?userId=${userId}&hackathonId=${hackathonId}`
+        );
 
-        alert(data);
+        if (status === 204) {
+            alert("Successfully checked in!");
+        }
     }
-
 
     render() {
 
