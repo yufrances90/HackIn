@@ -22,6 +22,16 @@
                 :hackathonId="hackathonId"
             />
         </div>
+
+        <div v-if="userType === 'volunteer'">
+
+            <COVolunteer 
+                v-for="user in filteredUsers"
+                :key="user._id"
+                :user="user"
+                :hackathonId="hackathonId"
+            />
+        </div>
     </MdTable>
 </template>
 

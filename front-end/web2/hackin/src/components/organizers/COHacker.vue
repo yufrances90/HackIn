@@ -92,8 +92,6 @@
 <script>
 
     import { userItem } from "../mixins/userItem";
-    
-    import utils from '../../utils';
 
     export default {
         name: "COHacker",
